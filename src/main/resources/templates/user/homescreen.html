@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Movie Reservations</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/ui-darkness/jquery-ui.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../static/css/site.css"/>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                <img src="images/movie-projector-icon.png" style="display:inline-block" height="30px" width="30px" />
+                <span style="font-family:cursive;display:inline-block;color:yellow">Pozoriste</span>
+            </a>
+        </div>
+        <ul class="nav navbar-nav">
+<!--            <li><a href="/movies">Movies</a></li>-->
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item" sec:authorize="isAnonymous()">
+                <a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="row" style="margin-top: 60px;">
+        <div class="col-xs-3">
+            <h3><label for="category">Kategorije</label></h3>
+            <div class="list-group" id="category">
+                <a th:href="@{/bookshelf(category='all')}" th:classappend="${activeAll}? 'active'" class="list-group-item">Sve</a>
+                <a th:href="@{/searchByCategory(category='Management')}" th:classappend="${activeManagement}? 'active'" class="list-group-item">Menadžment</a>
+                <a th:href="@{/searchByCategory(category='Fiction')}" th:classappend="${activeFiction}? 'active'" class="list-group-item">Fikcija</a>
+                <a th:href="@{/searchByCategory(category='Engineering')}" th:classappend="${activeEngineering}? 'active'" class="list-group-item">Inženjerstvo</a>
+                <a th:href="@{/searchByCategory(category='Programming')}" th:classappend="${activeProgramming}? 'active'" class="list-group-item">Programiranje</a>
+                <a th:href="@{/searchByCategory(category='Arts &amp; Literature')}" th:classappend="${activeArtsLiterature}? 'active'" class="list-group-item">Umetnost</a>
+            </div>
+        </div>
+
+        <div class="col-xs-9">
+            <div th:if="${emptyList}">
+                <h5 style="font-style: italic;">Nema rezultata pretrage. Pokušajte sa nekim drugim terminom ili pokušajte ponovo malo kasnije.</h5>
+            </div>
+
+            <table border="0" id="bookList">
+                <thead>
+                <tr>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="book-item" data-th-each="book : ${bookList}" >
+                    <td>
+                        <div th:if="${book != null}">
+                            <div class="row" style="margin-bottom: 50px;">
+                                <div class="col-xs-3">
+                                    <a th:href="@{/bookDetail?id=}+${book.id}"><img
+                                            class="img-responsive shelf-book"
+                                            th:src="#{adminPath}+@{/image/book/}+${book.id}+'.png'" /></a>
+                                </div>
+                                <div class="col-xs-9" >
+                                    <a th:href="@{/bookDetail?id=}+${book.id}"><h4
+                                            th:text="${book.title}"></h4></a> <span
+                                        th:text="${book.publicationDate}"></span>
+                                    <p th:text="${book.author}"></p>
+                                    <a th:href="@{/bookDetail?id=}+${book.id}"><span
+                                            th:text="${#strings.capitalize(book.format)}"></span></a> <span
+                                        th:text="${book.numberOfPages}"><span> stranice</span></span><br />
+
+                                    <a th:href="@{/bookDetail?id=}+${book.id}"><span
+                                            style="font-size: x-large; color: #db3208;">$<span
+                                            th:text="${#numbers.formatDecimal(book.ourPrice, 0 , 'COMMA', 2, 'POINT')}"></span></span></a>
+
+                                    <span style="text-decoration: line-through;">$<span
+                                            th:text="${#numbers.formatDecimal(book.listPrice, 0 , 'COMMA', 2, 'POINT')}"></span></span>
+
+                                    <p th:utext="${#strings.abbreviate(book.description, 1000)}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<footer class="footer navbar-inverse navbar-fixed-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4"><p class="text-muted">@Copyright 2018 Vaibhav Sood</p></div>
+        </div>
+    </div>
+</footer>
+
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>
