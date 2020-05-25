@@ -62,13 +62,13 @@
                                     th:selected="(${play.category}=='Drama')">Drama
                             </option>
                             <option value="Fikcija"
-                                    th:selected="(${play.category}=='Fikcija')">Komedija
+                                    th:selected="(${play.category}=='Komedija')">Komedija
                             </option>
                             <option value="Inženjerstvo"
-                                    th:selected="(${book.category}=='Inženjerstvo')">Mjuzikl
+                                    th:selected="(${play.category}=='Mjuzikl')">Mjuzikl
                             </option>
                             <option value="Programiranje"
-                                    th:selected="(${book.category}=='Programiranje')">Decija predstava
+                                    th:selected="(${play.category}=='Decija predstava')">Decija predstava
                             </option>
                         </select>
                     </div>
@@ -91,7 +91,7 @@
                     <label class="col-md-2 control-label" for="description">Opis</label>
                     <div class="col-md-8">
 							<textarea name="description" rows="5" class="form-control"
-                                      id="description" th:value="${book.description}"
+                                      id="description" th:value="${play.description}"
                                       placeholder="Opis"></textarea>
                         <span class="help-block">Opis knjige</span>
                     </div>
@@ -104,7 +104,7 @@
                     </div>
                     <div class="col-md-8">
                         <input id="bookImage" type="file" name="bookImage"
-                               th:value="${book.bookImage}"/>
+                               th:value="${play.bookImage}"/>
                     </div>
                 </div>
 
