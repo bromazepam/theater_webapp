@@ -20,7 +20,6 @@ public class Play {
 
     @Column(columnDefinition="text")
     private String description;
-    private int inStockNumber;
 
     @Transient
     private MultipartFile playImage;
@@ -83,14 +82,6 @@ public class Play {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getInStockNumber() {
-        return inStockNumber;
-    }
-
-    public void setInStockNumber(int inStockNumber) {
-        this.inStockNumber = inStockNumber;
     }
 
     public MultipartFile getPlayImage() {

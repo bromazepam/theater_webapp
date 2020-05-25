@@ -28,6 +28,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/image/**",
 			"/newUser",
 			"/adminHome",
+			"/play/add",
+			"/play/playList",
+			"/play/playInfo",
 			"/login",
 			"/fonts/**"
 	};
@@ -36,8 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests().
-			antMatchers("/**").
-//			antMatchers(PUBLIC_MATCHERS).
+		/*	antMatchers("/**").*/
+			antMatchers(PUBLIC_MATCHERS).
 			permitAll().anyRequest().authenticated();
 
 //		http
