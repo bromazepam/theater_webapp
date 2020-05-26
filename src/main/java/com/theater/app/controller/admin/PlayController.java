@@ -2,13 +2,11 @@ package com.theater.app.controller.admin;
 
 import com.theater.app.domain.Play;
 import com.theater.app.service.PlayService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +18,8 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Controller
-@RequestMapping("/play")
 public class PlayController {
 
     @Autowired
@@ -54,12 +52,14 @@ public class PlayController {
         return "redirect:playList";
     }
 
-    @RequestMapping("/playInfo")
-    public String playInfo(@RequestParam("id") Long id, Model model) {
-        Optional<Play> play = playService.findOne(id);
+    @RequestMapping("/playInfo/{id}")
+    public String playInfo(@PathVariable String id, Model model) {
+        log.debug(id);
+        Optional<Play> play = playService.findOne(Long.valueOf(id));
         model.addAttribute("play", play);
 
         return "admin/playInfo";
+
     }
 
     @RequestMapping("/playList")
@@ -99,7 +99,7 @@ public class PlayController {
             }
         }
 
-        return "redirect:/play/playInfo?id="+play.getId();
+        return "redirect:/playInfo?id="+play.getId();
     }
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
@@ -108,6 +108,6 @@ public class PlayController {
         List<Play> playList = playService.findAll();
         model.addAttribute("playList", playList);
 
-        return "redirect:admin/play/playList";
+        return "redirect:admin/playList";
     }
 }

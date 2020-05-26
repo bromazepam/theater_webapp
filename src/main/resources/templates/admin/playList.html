@@ -24,7 +24,7 @@
                     <input hidden="hidden" name="id" th:values="${play.id}"/>
                     <input th:id="'selected'+${play.id}" class="checkboxPlay" type="checkbox"/>
                 </td>
-                <td><a th:href="@{/play/playInfo(id=${play.id})}"><span th:text="${play.title}"></span></a></td>
+                <td><a th:href="@{'/playInfo/' + ${play.id}}"><span th:text="${play.title}"></span></a></td>
                 <td th:text="${play.author}"></td>
                 <td th:text="${play.category}"></td>
                 <td th:text="${play.active}"></td>

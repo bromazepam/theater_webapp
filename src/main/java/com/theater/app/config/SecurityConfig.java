@@ -28,9 +28,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/image/**",
 			"/newUser",
 			"/adminHome",
-			"/play/add",
-			"/play/playList",
-			"/play/playInfo",
+			"/add",
+			"/playList",
+			"/playInfo/7",
 			"/login",
 			"/remove",
 			"/fonts/**"
