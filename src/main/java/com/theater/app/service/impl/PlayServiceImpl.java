@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PlayServiceImpl implements PlayService {
@@ -23,13 +24,13 @@ public class PlayServiceImpl implements PlayService {
     }
 
     @Override
-    public Play findOne(Long id) {
-        return null;
+    public Optional<Play> findOne(Long id) {
+        return playRepository.findById(id);
     }
 
     @Override
     public void removeOne(Long id) {
-
+        playRepository.deleteById(id);
     }
 
 }

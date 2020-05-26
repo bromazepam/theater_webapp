@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/play")
@@ -55,7 +56,7 @@ public class PlayController {
 
     @RequestMapping("/playInfo")
     public String playInfo(@RequestParam("id") Long id, Model model) {
-        Play play = playService.findOne(id);
+        Optional<Play> play = playService.findOne(id);
         model.addAttribute("play", play);
 
         return "admin/playInfo";
@@ -70,7 +71,7 @@ public class PlayController {
 
     @RequestMapping("/updatePlay")
     public String updatePlay(@RequestParam("id") Long id, Model model) {
-        Play play = playService.findOne(id);
+        Optional<Play> play = playService.findOne(id);
         model.addAttribute("play", play);
 
         return "admin/updatePlay";
@@ -107,6 +108,6 @@ public class PlayController {
         List<Play> playList = playService.findAll();
         model.addAttribute("playList", playList);
 
-        return "redirect:/play/playList";
+        return "redirect:admin/play/playList";
     }
 }

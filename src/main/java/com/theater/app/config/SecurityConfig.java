@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/play/playList",
 			"/play/playInfo",
 			"/login",
+			"/remove",
 			"/fonts/**"
 	};
 
