@@ -100,4 +100,13 @@ public class PlayController {
 
         return "redirect:/play/playInfo?id="+play.getId();
     }
+
+    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    public String remove(@ModelAttribute("id") String id, Model model){
+        playService.removeOne(Long.parseLong(id.substring(8)));
+        List<Play> playList = playService.findAll();
+        model.addAttribute("playList", playList);
+
+        return "redirect:/play/playList";
+    }
 }

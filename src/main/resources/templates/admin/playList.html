@@ -22,7 +22,7 @@
             <tr data-th-each="play : ${playList}">
                 <td>
                     <input hidden="hidden" name="id" th:values="${play.id}"/>
-                    <input th:id="'selected'+${play.id}" class="checkboxBook" type="checkbox"/>
+                    <input th:id="'selected'+${play.id}" class="checkboxPlay" type="checkbox"/>
                 </td>
                 <td><a th:href="@{/play/playInfo(id=${play.id})}"><span th:text="${play.title}"></span></a></td>
                 <td th:text="${play.author}"></td>
@@ -30,7 +30,7 @@
                 <td th:text="${play.active}"></td>
                 <td>
                     <input hidden="hidden" name="id" th:values="${play.id}"/>
-                    <button th:id="'onePlay-'+${play.id}" class="btn btn-danger btn-xs delete-book" type="submit" value="delete">
+                    <button th:id="'onePlay-'+${play.id}" class="btn btn-danger btn-xs delete-play" type="submit" value="delete">
                         <span class="fa fa-times">Izbriši</span>
                     </button>
                 </td>
@@ -46,12 +46,12 @@
 
 <script>
     $(document).ready(function() {
-        $("#playListTable").DataTable({
-            "lengthMenu": [[5,10,15,20,-1],[5,10,15,20,"All"]],
+        $('#playListTable').DataTable( {
+            "pagingType": "full_numbers",
             "ordering": false,
             stateSave: true
-        });
-    });
+        } );
+    } );
     $.extend(true, $.fn.dataTable.defaults, {
         "language": {
             "url": "https://cdn.datatables.net/plug-ins/1.10.16/i18n/Serbian.json"
