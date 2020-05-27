@@ -52,11 +52,10 @@ public class PlayController {
         return "redirect:playList";
     }
 
-    @RequestMapping("/playInfo/{id}")
+    @RequestMapping("/playInfo/{id}/")
     public String playInfo(@PathVariable String id, Model model) {
-        log.debug(id);
-        Optional<Play> play = playService.findOne(Long.valueOf(id));
-        model.addAttribute("play", play);
+
+        model.addAttribute("play", playService.findById(Long.valueOf(id)));
 
         return "admin/playInfo";
 
@@ -69,15 +68,15 @@ public class PlayController {
         return "admin/playList";
     }
 
-    @RequestMapping("/updatePlay")
-    public String updatePlay(@RequestParam("id") Long id, Model model) {
-        Optional<Play> play = playService.findOne(id);
-        model.addAttribute("play", play);
+    @RequestMapping("/updatePlay/{id}/")
+    public String updatePlay(@PathVariable String id, Model model) {
+
+        model.addAttribute("play",  playService.findById(Long.valueOf(id)));
 
         return "admin/updatePlay";
     }
 
-    @RequestMapping(value="/updatePlay", method=RequestMethod.POST)
+    @RequestMapping(value="/updatePlay/{id}/", method=RequestMethod.POST)
     public String updateBookPost(@ModelAttribute("play") Play play, HttpServletRequest request) {
         playService.save(play);
 

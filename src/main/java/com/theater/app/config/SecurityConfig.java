@@ -30,7 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/adminHome",
 			"/add",
 			"/playList",
-			"/playInfo/7",
+			"/playInfo/**",
+			"/updatePlay/**",
 			"/login",
 			"/remove",
 			"/fonts/**"

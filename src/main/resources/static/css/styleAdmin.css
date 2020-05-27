@@ -56,8 +56,8 @@ hr {
 }
 /**/
 .navbar-default {
-    background-color: #a32222 !important;
-    border-color: #293872 !important;
+    background-color: #5684D7 !important;
+    border-color: #39538D !important;
 }
 
 .navbar-default .navbar-brand {
@@ -86,23 +86,23 @@ hr {
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
     color: #f8f9f8;
-    background-color: #293872;
+    background-color: #39538D;
 }
 
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
     color: #f8f9f8;
-    background-color: #293872;
+    background-color: #39538D;
 }
 
 .navbar-default .navbar-toggle {
-    border-color: #293872;
+    border-color: #39538D;
 }
 
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-    background-color: #293872;
+    background-color: #39538D;
 }
 
 .navbar-default .navbar-toggle .icon-bar {
@@ -136,6 +136,6 @@ hr {
     .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
     .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
         color: #f8f9f8;
-        background-color: #293872;
+        background-color: #39538D;
     }
 }

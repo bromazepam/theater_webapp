@@ -37,12 +37,12 @@
                     </div>
                 </div>
 
-                <!-- publisher -->
+                <!-- director -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="publisher">Reziser</label>
+                    <label class="col-md-2 control-label" for="director">Reziser</label>
                     <div class="col-md-8">
-                        <input type="text" name="publisher" class="form-control"
-                               id="publisher" th:value="${play.director}"
+                        <input type="text" name="director" class="form-control"
+                               id="director" th:value="${play.director}"
                                placeholder="Izdavač"/> <span class="help-block">reziser
 								</span>
                     </div>
@@ -100,10 +100,10 @@
                 <!-- upload image -->
                 <div class="form-group">
                     <div class="col-md-2">
-                        <label for="bookImage">Otpremi poster</label>
+                        <label for="playImage">Otpremi poster</label>
                     </div>
                     <div class="col-md-8">
-                        <input id="bookImage" type="file" name="bookImage"
+                        <input id="playImage" type="file" name="playImage"
                                th:value="${play.playImage}"/>
                     </div>
                 </div>
