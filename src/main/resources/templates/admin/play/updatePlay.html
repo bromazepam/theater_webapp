@@ -116,7 +116,7 @@
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
                         <button type="submit" class="btn btn-success">Ažuriraj predstavu</button>
-                        <a class="btn btn-danger" th:href="@{/play/playInfo(id=${play.id})}">Otkaži</a>
+                        <a class="btn btn-danger" th:href="@{'/playInfo/' + ${play.id} + '/'}">Otkaži</a>
                     </div>
                 </div>
             </fieldset>

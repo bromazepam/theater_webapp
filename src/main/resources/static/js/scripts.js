@@ -1,7 +1,6 @@
 /**
- *
+ * brisanje predstave
  */
-
 $(document).ready(function () {
     $('.delete-play').on('click', function () {
         /*<![CDATA[*/
@@ -84,4 +83,36 @@ $(document).ready(function () {
             $(".checkboxPlay").prop("checked", false);
         }
     })
+});
+
+/**
+ * brisanje scene
+ */
+$(document).ready(function () {
+    $('.delete-stage').on('click', function () {
+        /*<![CDATA[*/
+        var path = /*[[@{/}]]*/'removeStage';
+        /*]]>*/
+
+        var id = $(this).attr('id');
+
+        bootbox.confirm({
+            message: "Da li ste sigurni da želite da izbrišete ovu scenu? Ova akcija se ne može poništiti.",
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> Otkaži'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> Potvrdi'
+                }
+            },
+            callback: function (confirmed) {
+                if (confirmed) {
+                    $.post(path, {'id': id}, function (res) {
+                        location.reload();
+                    });
+                }
+            }
+        });
+    });
 });

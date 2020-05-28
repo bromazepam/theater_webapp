@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/header :: common-header"/>
+
+<body>
+<div th:replace="admin/fragments/header :: navbar"/>
+
+<div class="container">
+    <div class="row">
+        <form class="form-horizontal" th:action="@{'/addStage'}" method="post">
+            <fieldset>
+                <legend class="center-block">
+                    Informacije o novoj sceni<span style="font-size: small"> * je obavezno polje</span>
+                </legend>
+
+
+                <!-- name -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="name">* Naziv</label>
+
+                    <div class="col-md-8">
+                        <!--/*@thymesVar id="stage" type="com.theater.app.domain.Stage"*/-->
+                        <input type="text" name="name" class="form-control" id="name"
+                               th:value="${stage.name}" required="required" placeholder="Naslov"/>
+                        <span class="help-block">Naslov predstave</span>
+                    </div>
+                </div>
+
+                <!-- capacity -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="capacity">Broj strana</label>
+
+                    <div class="col-md-8">
+                        <!--/*@thymesVar id="stage" type="com.theater.app.domain.Stage"*/-->
+                        <input type="number" name="capacity" class="form-control"
+                               id="capacity" th:value="${stage.capacity}"
+                               placeholder="Broj sedista"/> <span class="help-block">Broj sedista
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <button type="submit" class="btn btn-success">Dodaj predstavu</button>
+                        <a class="btn btn-danger" th:href="@{/static}">Otkaži</a>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+
+<div th:replace="admin/fragments/header :: body-bottom-scripts"/>
+</body>
+</html>

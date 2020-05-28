@@ -21,10 +21,13 @@ import java.util.List;
 @Controller
 public class PlayController {
 
-    @Autowired
     private PlayService playService;
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public PlayController(PlayService playService) {
+        this.playService = playService;
+    }
+
+    @GetMapping("/add")
     public String addPlay(Model model) {
         Play play = new Play();
         model.addAttribute("play", play);
@@ -67,7 +70,7 @@ public class PlayController {
         return "admin/play/playList";
     }
 
-    @RequestMapping("/updatePlay/{id}/")
+    @GetMapping("/updatePlay/{id}/")
     public String updatePlay(@PathVariable String id, Model model) {
 
         model.addAttribute("play", playService.findById(Long.valueOf(id)));
@@ -75,8 +78,8 @@ public class PlayController {
         return "admin/play/updatePlay";
     }
 
-    @RequestMapping(value = "/updatePlay/{id}/", method = RequestMethod.POST)
-    public String updateBookPost(@ModelAttribute("play") Play play, HttpServletRequest request) {
+    @PostMapping("/updatePlay/{id}/")
+    public String updatePlayPost(@ModelAttribute("play") Play play) {
         playService.save(play);
 
         MultipartFile playImage = play.getPlayImage();
@@ -97,10 +100,10 @@ public class PlayController {
             }
         }
 
-        return "redirect:/playInfo?id=" + play.getId();
+        return "redirect:playInfo/{id}/" + play.getId();
     }
 
-    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    @PostMapping("/remove")
     public String remove(@ModelAttribute("id") String id, Model model) {
         playService.removeOne(Long.parseLong(id.substring(8)));
         List<Play> playList = playService.findAll();

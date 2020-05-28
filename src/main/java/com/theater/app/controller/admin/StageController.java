@@ -4,10 +4,7 @@ import com.theater.app.domain.Stage;
 import com.theater.app.service.StageService;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Component
 public class StageController {
@@ -18,10 +15,10 @@ public class StageController {
         this.stageService = stageService;
     }
 
-    @RequestMapping("/addStage")
+    @GetMapping("/addStage")
     public String addStage(Model model){
         model.addAttribute("stage", new Stage());
-        return "admin/addStage";
+        return "admin/stage/addStage";
     }
 
     @PostMapping("/addStage")
@@ -33,13 +30,13 @@ public class StageController {
     @RequestMapping("/stageList")
     public String allStages(Model model) {
         model.addAttribute("stageList", stageService.findAll());
-        return "admin/stageList";
+        return "admin/stage/stageList";
     }
 
     @RequestMapping("/updateStage/{id}/")
     public String updateStage(@PathVariable String id, Model model) {
         model.addAttribute("stage",  stageService.findById(Long.valueOf(id)));
-        return "admin/updateStage";
+        return "admin/stage/updateStage";
     }
 
     @PostMapping("/updateStage/{id}/")
@@ -51,7 +48,7 @@ public class StageController {
     @PostMapping("/removeStage")
     public String remove(@ModelAttribute("id") String id, Model model){
         stageService.remove(Long.parseLong(id.substring(8)));
-        model.addAttribute("playList", stageService.findAll());
-        return "redirect:admin/stageList";
+        model.addAttribute("stageList", stageService.findAll());
+        return "redirect:admin/stage/stageList";
     }
 }
