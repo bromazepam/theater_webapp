@@ -16,7 +16,6 @@ import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -29,7 +28,7 @@ public class PlayController {
     public String addPlay(Model model) {
         Play play = new Play();
         model.addAttribute("play", play);
-        return "admin/addPlay";
+        return "admin/play/addPlay";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -57,7 +56,7 @@ public class PlayController {
 
         model.addAttribute("play", playService.findById(Long.valueOf(id)));
 
-        return "admin/playInfo";
+        return "admin/play/playInfo";
 
     }
 
@@ -65,29 +64,29 @@ public class PlayController {
     public String allPlays(Model model) {
         List<Play> playList = playService.findAll();
         model.addAttribute("playList", playList);
-        return "admin/playList";
+        return "admin/play/playList";
     }
 
     @RequestMapping("/updatePlay/{id}/")
     public String updatePlay(@PathVariable String id, Model model) {
 
-        model.addAttribute("play",  playService.findById(Long.valueOf(id)));
+        model.addAttribute("play", playService.findById(Long.valueOf(id)));
 
-        return "admin/updatePlay";
+        return "admin/play/updatePlay";
     }
 
-    @RequestMapping(value="/updatePlay/{id}/", method=RequestMethod.POST)
+    @RequestMapping(value = "/updatePlay/{id}/", method = RequestMethod.POST)
     public String updateBookPost(@ModelAttribute("play") Play play, HttpServletRequest request) {
         playService.save(play);
 
         MultipartFile playImage = play.getPlayImage();
 
-        if(!playImage.isEmpty()) {
+        if (!playImage.isEmpty()) {
             try {
                 byte[] bytes = playImage.getBytes();
                 String name = play.getId() + ".png";
 
-                Files.delete(Paths.get("src/main/resources/static/image/"+name));
+                Files.delete(Paths.get("src/main/resources/static/image/" + name));
 
                 BufferedOutputStream stream = new BufferedOutputStream(
                         new FileOutputStream(new File("src/main/resources/static/image/" + name)));
@@ -98,15 +97,15 @@ public class PlayController {
             }
         }
 
-        return "redirect:/playInfo?id="+play.getId();
+        return "redirect:/playInfo?id=" + play.getId();
     }
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
-    public String remove(@ModelAttribute("id") String id, Model model){
+    public String remove(@ModelAttribute("id") String id, Model model) {
         playService.removeOne(Long.parseLong(id.substring(8)));
         List<Play> playList = playService.findAll();
         model.addAttribute("playList", playList);
 
-        return "redirect:admin/playList";
+        return "redirect:admin/play/playList";
     }
 }
