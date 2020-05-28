@@ -45,19 +45,26 @@
                                             data-toggle="dropdown" role="button" aria-haspopup="true"
                                             aria-expanded="false">Predstava <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a th:href="@{/add}">Dodaj novu predstavu</a></li>
-                            <li><a th:href="@{/playList}">Pregled svih predstava</a></li>
+                            <li><a th:href="@{'/add'}">Dodaj novu predstavu</a></li>
+                            <li><a th:href="@{'/playList'}">Pregled svih predstava</a></li>
                         </ul>
                     </li>
                     <li><a href="/movies">Repertoar</a></li>
                     <li><a href="/movies">Reservacije</a></li>
-                    <li><a href="/movies">Sale</a></li>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle"
+                                            data-toggle="dropdown" role="button" aria-haspopup="true"
+                                            aria-expanded="false">Scena<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{'/addStage'}">Dodaj novu scenu</a></li>
+                            <li><a th:href="@{'/stageList'}">Prikaz scena</a></li>
+                        </ul>
+                    </li>
                     <li><a href="/movies">izvestaji</a></li>
 
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a th:href="@{/logout}">Odjava</a></li>
+                    <li><a th:href="@{'/logout'}">Odjava</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
