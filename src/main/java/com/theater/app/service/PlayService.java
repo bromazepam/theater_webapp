@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PlayService {
-    Play save(Play book);
+    Play save(Play play);
 
     List<Play> findAll();
 
