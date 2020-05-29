@@ -5,7 +5,10 @@ import com.theater.app.service.StageService;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 public class StageController {
@@ -41,15 +44,22 @@ public class StageController {
     }
 
     @PostMapping("/updateStage/{id}/")
-    public String updateStagePost(@ModelAttribute("stage") Stage stage) {
-        stageService.save(stage);
-        return "redirect:/stageList";
+    public String updateStagePost(@PathVariable("id") String id, @Valid Stage stage, BindingResult result) {
+            if (result.hasErrors()) {
+                stage.setId(Long.valueOf(id));
+                return "admin/stage/stageList";
+            }
+
+            stageService.save(stage);
+//            model.addAttribute("users", stageService.findAll());
+            return "redirect:stageList";
     }
 
-    @PostMapping("/removeStage")
-    public String remove(@ModelAttribute("id") String id, Model model){
-        stageService.remove(Long.parseLong(id.substring(8)));
-        model.addAttribute("stageList", stageService.findAll());
-        return "redirect:admin/stage/stageList";
+    @GetMapping("/removeStage/{id}/")
+    public String remove(@PathVariable("id") String id, Model model){
+//        Stage stage = stageService.findById(Long.valueOf(id));
+        stageService.remove(Long.valueOf(id));
+//        model.addAttribute("stageList", stageService.findAll());
+        return "admin/stage/stageList";
     }
 }
