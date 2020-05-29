@@ -4,7 +4,8 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 
-    <title>Svet knjiga</title>
+    <title>Pozoriste</title>
+    <link rel="icon" href="https://img.icons8.com/ultraviolet/80/000000/theatre-mask.png"/>" type="image/x-icon">
 
     <!-- Bootstrap core CSS -->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
@@ -49,7 +50,14 @@
                             <li><a th:href="@{'/playList'}">Pregled svih predstava</a></li>
                         </ul>
                     </li>
-                    <li><a href="/movies">Repertoar</a></li>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle"
+                                            data-toggle="dropdown" role="button" aria-haspopup="true"
+                                            aria-expanded="false">Repertoar<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{'/addRepertoire'}">Dodaj u repertoar</a></li>
+                            <li><a th:href="@{'/repertoire'}">Pregled repertoara</a></li>
+                        </ul>
+                    </li>
                     <li><a href="/movies">Reservacije</a></li>
                     <li class="dropdown"><a href="#" class="dropdown-toggle"
                                             data-toggle="dropdown" role="button" aria-haspopup="true"

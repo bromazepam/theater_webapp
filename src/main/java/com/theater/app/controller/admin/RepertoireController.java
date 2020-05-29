@@ -1,27 +1,38 @@
 package com.theater.app.controller.admin;
 
+import com.theater.app.domain.Play;
 import com.theater.app.domain.Repertoire;
+import com.theater.app.service.PlayService;
 import com.theater.app.service.RepertoireService;
+import com.theater.app.service.StageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class RepertoireController {
     private RepertoireService repertoireService;
+    private PlayService playService;
+    private StageService stageService;
 
-    public RepertoireController(RepertoireService repertoireService) {
+    public RepertoireController(RepertoireService repertoireService, PlayService playService, StageService stageService) {
         this.repertoireService = repertoireService;
+        this.playService = playService;
+        this.stageService = stageService;
     }
 
     @GetMapping("/addRepertoire")
-    public String addRepertoire(Model model){
-        model.addAttribute("stage", new Repertoire());
+    public String addRepertoire(Model model) {
+        model.addAttribute("repertoire", new Repertoire());
+        model.addAttribute("plays", playService.findAll());
+        model.addAttribute("stageList", stageService.findAll());
         return "admin/repertoire/addRepertoire";
     }
 
     @PostMapping("/addRepertoire")
-    public String addStagePost(@ModelAttribute("repertoire") Repertoire repertoire){
+    public String addStagePost(@ModelAttribute("repertoire") Repertoire repertoire) {
         repertoireService.save(repertoire);
         return "redirect:repertoire";
     }
@@ -34,7 +45,7 @@ public class RepertoireController {
 
     @RequestMapping("/updateRepertoire/{id}/")
     public String updateRepertoire(@PathVariable String id, Model model) {
-        model.addAttribute("repertoire",  repertoireService.findById(Long.valueOf(id)));
+        model.addAttribute("repertoire", repertoireService.findById(Long.valueOf(id)));
         return "admin/repertoire/updateRepertoire";
     }
 
@@ -46,7 +57,7 @@ public class RepertoireController {
     }
 
     @GetMapping("/removeRepertoire/{id}/")
-    public String remove(@PathVariable("id") String id, Model model){
+    public String remove(@PathVariable("id") String id, Model model) {
         repertoireService.deleteById(Long.valueOf(id));
         return "admin/repertoire/repertoire";
     }

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/header :: common-header"/>
+
+<body>
+<div th:replace="admin/fragments/header :: navbar"/>
+
+<div class="container">
+    <div class="row">
+        <form class="form-horizontal" th:action="@{/addRepertoire}" method="post"
+              enctype="multipart/form-data">
+            <fieldset>
+                <legend class="center-block">
+                    Repertoar<span style="font-size: small"> * je obavezno polje</span>
+                </legend>
+
+
+                <!-- stage -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="stage">*
+                        Scena</label>
+                    <div class="col-md-8">
+                        <select th:value="${repertoire.stage}" id="stage" name="stage"
+                                class="form-control">
+                            <option value="" selected="selected" disabled="disabled">Molim vas
+                                odaberite scenu...
+                            </option>
+                            <option th:each="stage : ${stageList}" th:value="${stage.id}" th:text="${stage.name}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- play -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="play">*
+                        Predstava</label>
+                    <div class="col-md-8">
+                        <select th:value="${repertoire.play}" id="play" name="play"
+                                class="form-control">
+                            <option value="" selected="selected" disabled="disabled">Molim vas
+                                odaberite predstavu...
+                            </option>
+                            <option th:each="play : ${plays}" th:value="${play.id}" th:text="${play.title}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- date -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="projection_date">Datum prikazivanja
+                    </label>
+                    <div class="col-md-8">
+                        <input type="date" class="form-control" id="projection_date"
+                               name="projection_date" th:value="${repertoire.projection_date}"
+                               placeholder="Datum prikazivanja"/> <span class="help-block">Datum prikazivanja</span>
+                    </div>
+                </div>
+
+                <!-- time -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="projection_time">Vreme prikazivanja
+                    </label>
+                    <div class="col-md-8">
+                        <input type="time" class="form-control" id="projection_time"
+                               name="projection_time" th:value="${repertoire.projection_time}"
+                               placeholder="Vreme prikazivanja"/> <span class="help-block">Vreme prikazivanja</span>
+                    </div>
+                </div>
+
+                <!-- status of projection -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="status">Status</label>
+                    <div class="col-md-8">
+                        <label><input value="true" type="radio" name="active" id="status"
+                                      checked="checked"/> Aktivna </label> <label><input
+                            value="false" type="radio" name="active"/>
+                        Neaktivna </label> <span class="help-block">U zavisnosti
+						da li je projekcija aktivna ili ne</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <button type="submit" class="btn btn-success">Dodaj u repertoar</button>
+                        <a class="btn btn-danger" th:href="@{/static}">Otkaži</a>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+
+<div th:replace="admin/fragments/header :: body-bottom-scripts"/>
+</body>
+</html>
