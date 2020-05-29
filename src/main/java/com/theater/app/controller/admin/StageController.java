@@ -2,13 +2,9 @@ package com.theater.app.controller.admin;
 
 import com.theater.app.domain.Stage;
 import com.theater.app.service.StageService;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @Controller
 public class StageController {
