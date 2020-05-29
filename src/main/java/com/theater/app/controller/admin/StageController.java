@@ -3,10 +3,11 @@ package com.theater.app.controller.admin;
 import com.theater.app.domain.Stage;
 import com.theater.app.service.StageService;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@Component
+@Controller
 public class StageController {
 
     private StageService stageService;

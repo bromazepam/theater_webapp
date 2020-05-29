@@ -16,7 +16,6 @@
             </tr>
             </thead>
             <tbody>
-            <!--/*@thymesVar id="stage" type="com.theater.app.domain.Stage"*/-->
             <tr data-th-each="stage : ${stageList}">
                 <td th:text="${stage.id}"></td>
                 <td th:text="${stage.name}"></td>
@@ -29,7 +28,7 @@
                     </button>
                 </td>
                 <td>
-                    <button><a th:href="@{'/stageUpdate/' + ${stage.id} + '/' }"><span class="fa fa-times">Izmeni</span></a>
+                    <button><a th:href="@{'/updateStage/' + ${stage.id} + '/' }"><span class="fa fa-times">Izmeni</span></a>
                     </button>
                 </td>
             </tr>
