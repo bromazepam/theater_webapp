@@ -43,12 +43,13 @@ public class StageController {
         return "admin/stage/updateStage";
     }
 
-    @PostMapping("/updateStage/{id}/")
-    public String updateStagePost(@PathVariable("id") String id, @Valid Stage stage, BindingResult result) {
-            if (result.hasErrors()) {
-                stage.setId(Long.valueOf(id));
-                return "admin/stage/stageList";
-            }
+
+    @PostMapping("/updateStage")
+    public String updateStagePost(@ModelAttribute("stage") Stage stage) {
+//            if (result.hasErrors()) {
+//                stage.setId(Long.valueOf(id));
+//                return "admin/stage/stageList";
+//            }
 
             stageService.save(stage);
 //            model.addAttribute("users", stageService.findAll());

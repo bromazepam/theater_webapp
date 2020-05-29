@@ -25,7 +25,7 @@
                     <div class="col-md-8">
                         <input type="text" name="name" class="form-control" id="name"
                                th:value="${stage.name}" required="required" placeholder="Naslov"/>
-                        <span class="help-block">Naslov predstave</span>
+                        <span class="help-block">naziv scene</span>
                     </div>
                 </div>
 
@@ -44,7 +44,7 @@
                 <div class="form-group">
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
-                        <button type="submit" class="btn btn-success">Ažuriraj predstavu</button>
+                        <button type="submit" class="btn btn-success">Sacuvaj izmene</button>
                         <a class="btn btn-danger" th:href="@{'/stageList'}">Otkaži</a>
                     </div>
                 </div>
