@@ -1,6 +1,9 @@
 package com.theater.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,6 +17,10 @@ public class Stage {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "stage")
     private List<Seat> seats;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stage")
+    private List<Repertoire> repertoires = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -45,5 +52,13 @@ public class Stage {
 
     public void setSeats(List<Seat> seats) {
         this.seats = seats;
+    }
+
+    public List<Repertoire> getRepertoires() {
+        return repertoires;
+    }
+
+    public void setRepertoires(List<Repertoire> repertoires) {
+        this.repertoires = repertoires;
     }
 }

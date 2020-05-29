@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,6 +18,10 @@ public class Play {
     private String director;
     private String category;
     private boolean active=true;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "play")
+    private List<Repertoire> repertoires = new ArrayList<>();
 
     @Column(columnDefinition="text")
     private String description;
@@ -99,4 +104,12 @@ public class Play {
 //    public void setBookToCartItemList(List<BookToCartItem> bookToCartItemList) {
 //        this.bookToCartItemList = bookToCartItemList;
 //    }
+
+    public List<Repertoire> getRepertoires() {
+        return repertoires;
+    }
+
+    public void setRepertoires(List<Repertoire> repertoires) {
+        this.repertoires = repertoires;
+    }
 }
