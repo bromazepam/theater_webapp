@@ -5,19 +5,21 @@ import com.theater.app.domain.Repertoire;
 import com.theater.app.service.PlayService;
 import com.theater.app.service.RepertoireService;
 import com.theater.app.service.StageService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+//TODO circle dependency
 @Controller
 public class RepertoireController {
-    private RepertoireService repertoireService;
-    private PlayService playService;
-    private StageService stageService;
 
-    public RepertoireController(RepertoireService repertoireService, PlayService playService, StageService stageService) {
+    private final RepertoireService repertoireService;
+    private final PlayService playService;
+    private final StageService stageService;
+
+    public RepertoireController(RepertoireService repertoireService,@Lazy PlayService playService,@Lazy StageService stageService) {
         this.repertoireService = repertoireService;
         this.playService = playService;
         this.stageService = stageService;
@@ -40,12 +42,16 @@ public class RepertoireController {
     @RequestMapping("/repertoire")
     public String repertoireList(Model model) {
         model.addAttribute("repertoireList", repertoireService.findAll());
+        model.addAttribute("plays", playService.findAll());
+        model.addAttribute("stageList", stageService.findAll());
         return "admin/repertoire/repertoire";
     }
 
     @RequestMapping("/updateRepertoire/{id}/")
     public String updateRepertoire(@PathVariable String id, Model model) {
         model.addAttribute("repertoire", repertoireService.findById(Long.valueOf(id)));
+        model.addAttribute("plays", playService.findAll());
+        model.addAttribute("stageList", stageService.findAll());
         return "admin/repertoire/updateRepertoire";
     }
 
