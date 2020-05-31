@@ -19,7 +19,7 @@ public class RepertoireController {
     private final PlayService playService;
     private final StageService stageService;
 
-    public RepertoireController(RepertoireService repertoireService,@Lazy PlayService playService,@Lazy StageService stageService) {
+    public RepertoireController(RepertoireService repertoireService, PlayService playService, StageService stageService) {
         this.repertoireService = repertoireService;
         this.playService = playService;
         this.stageService = stageService;
@@ -42,8 +42,6 @@ public class RepertoireController {
     @RequestMapping("/repertoire")
     public String repertoireList(Model model) {
         model.addAttribute("repertoireList", repertoireService.findAll());
-        model.addAttribute("plays", playService.findAll());
-        model.addAttribute("stageList", stageService.findAll());
         return "admin/repertoire/repertoire";
     }
 
