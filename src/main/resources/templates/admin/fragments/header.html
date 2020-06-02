@@ -20,7 +20,11 @@
     <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
 
     <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-    <script>tinymce.init({selector: 'textarea'});</script>
+    <script>tinymce.init({mode : "textarea",
+        theme : "advanced",
+        force_br_newlines : false,
+        force_p_newlines : false,
+        forced_root_block : ''});</script>
 </head>
 
 <body>
