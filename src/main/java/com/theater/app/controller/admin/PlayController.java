@@ -43,7 +43,7 @@ public class PlayController {
     public String addPlayPost(@ModelAttribute("play") Play play, @RequestParam("imagefile") MultipartFile file) {
         playService.save(play);
         imageService.saveImageFile(playService.findById(play.getId()).getId(),file);
-        
+
         return "redirect:playList";
     }
 
