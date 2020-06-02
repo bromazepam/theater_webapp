@@ -1,10 +1,12 @@
 package com.theater.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.lang.Nullable;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @Entity
@@ -26,8 +28,8 @@ public class Play {
     @Column(columnDefinition="text")
     private String description;
 
-    @Transient
-    private MultipartFile playImage;
+    @Lob
+    private byte[] playImage;
 
 //    @OneToMany(mappedBy = "book")
 //    @JsonIgnore
@@ -89,15 +91,23 @@ public class Play {
         this.description = description;
     }
 
-    public MultipartFile getPlayImage() {
-        return playImage;
+    public String getPlayImage() {
+        return convertBinImageToString(playImage);
     }
 
-    public void setPlayImage(MultipartFile playImage) {
+    public void setPlayImage(byte[] playImage) {
         this.playImage = playImage;
     }
 
-//    public List<BookToCartItem> getBookToCartItemList() {
+    public static String convertBinImageToString(byte[] binImage) {
+        if(binImage!=null && binImage.length>0) {
+            return Base64.getEncoder().encodeToString(binImage);
+        }
+        else
+            return "";
+    }
+
+    //    public List<BookToCartItem> getBookToCartItemList() {
 //        return bookToCartItemList;
 //    }
 //

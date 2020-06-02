@@ -24,7 +24,7 @@ public class ImageServiceImpl implements ImageService {
         try {
             Play play = playRepository.findById(id).get();
 
-            Byte[] byteObjects = new Byte[file.getBytes().length];
+            byte[] byteObjects = new byte[file.getBytes().length];
 
             int i = 0;
 
