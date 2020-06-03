@@ -20,4 +20,9 @@ public class HomeController {
     public String login(){
         return "user/login";
     }
+
+    @RequestMapping("/reports")
+    public String reports(){
+        return "admin/reports";
+    }
 }
