@@ -1,5 +1,7 @@
 package com.theater.app.domain;
 
+import jdk.nashorn.internal.objects.annotations.Constructor;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,12 +10,15 @@ public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int row;
     private String name;
+    private boolean reserved = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stage_id")
     private Stage stage;
+
+    public Seat() {
+    }
 
     public Long getId() {
         return id;
@@ -21,14 +26,6 @@ public class Seat {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public void setRow(int row) {
-        this.row = row;
     }
 
     public String getName() {
@@ -45,5 +42,13 @@ public class Seat {
 
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    public boolean isReserved() {
+        return reserved;
+    }
+
+    public void setReserved(boolean reserved) {
+        this.reserved = reserved;
     }
 }
