@@ -74,26 +74,9 @@ public class PlayController {
     }
 
     @PostMapping("/updatePlay/{id}/")
-    public String updatePlayPost(@ModelAttribute("play") Play play) {
-//        playService.save(play);
-//
-//        MultipartFile playImage = play.getPlayImage();
-//
-//        if (!playImage.isEmpty()) {
-//            try {
-//                byte[] bytes = playImage.getBytes();
-//                String name = play.getId() + ".png";
-//
-//                Files.delete(Paths.get("src/main/resources/static/image/" + name));
-//
-//                BufferedOutputStream stream = new BufferedOutputStream(
-//                        new FileOutputStream(new File("src/main/resources/static/image/" + name)));
-//                stream.write(bytes);
-//                stream.close();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
+    public String updatePlayPost(@ModelAttribute("play") Play play, @RequestParam("imagefile") MultipartFile file) {
+        playService.save(play);
+        imageService.saveImageFile(play.getId(),file);
 
         return "redirect:playInfo/{id}/" + play.getId();
     }
