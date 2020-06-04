@@ -46,18 +46,14 @@ public class StageController {
 
     @PostMapping("/updateStage")
     public String updateStagePost(@ModelAttribute("stage") Stage stage) {
-//            if (result.hasErrors()) {
-//                stage.setId(Long.valueOf(id));
-//                return "admin/stage/stageList";
-//            }
-//        seatService.save(stage, stage.getCapacity());
+
         stageService.save(stage);
         return "redirect:stageList";
     }
 
     @GetMapping("/removeStage/{id}/")
     public String remove(@PathVariable("id") String id, Model model) {
-        seatService.remove(id);
+        seatService.remove(Long.valueOf(id));
         stageService.remove(Long.valueOf(id));
         model.addAttribute("stageList", stageService.findAll());
         return "admin/stage/stageList";
