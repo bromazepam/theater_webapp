@@ -4,18 +4,22 @@ import com.theater.app.domain.Seat;
 import com.theater.app.domain.Stage;
 import com.theater.app.repository.SeatRepository;
 import com.theater.app.service.SeatService;
+import com.theater.app.service.StageService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SeatServiceImpl implements SeatService {
     private SeatRepository seatRepository;
+    private StageService stageService;
 
-    public SeatServiceImpl(SeatRepository seatRepository) {
+    public SeatServiceImpl(SeatRepository seatRepository, StageService stageService) {
         this.seatRepository = seatRepository;
+        this.stageService = stageService;
     }
 
     @Transactional
@@ -29,5 +33,15 @@ public class SeatServiceImpl implements SeatService {
             list.add(seat);
         }
         return seatRepository.saveAll(list);
+    }
+
+    @Override
+    public void remove(String stageId){
+        Stage stage = stageService.findById(Long.valueOf(stageId));
+        List<Seat> seats = (List<Seat>) seatRepository.findAll();
+        List<Seat> result = seats.stream()
+                .filter(seat -> seat.getStage().equals(stage))
+                .collect(Collectors.toList());
+        seatRepository.deleteAll(result);
     }
 }

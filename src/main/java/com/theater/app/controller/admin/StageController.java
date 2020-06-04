@@ -52,12 +52,12 @@ public class StageController {
 //            }
 //        seatService.save(stage, stage.getCapacity());
         stageService.save(stage);
-//            model.addAttribute("users", stageService.findAll());
         return "redirect:stageList";
     }
 
     @GetMapping("/removeStage/{id}/")
     public String remove(@PathVariable("id") String id, Model model) {
+        seatService.remove(id);
         stageService.remove(Long.valueOf(id));
         model.addAttribute("stageList", stageService.findAll());
         return "admin/stage/stageList";
