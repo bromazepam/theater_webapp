@@ -3,10 +3,12 @@ package com.theater.app.controller.admin;
 import com.theater.app.domain.Stage;
 import com.theater.app.service.SeatService;
 import com.theater.app.service.StageService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @Controller
 public class StageController {
 
@@ -27,7 +29,7 @@ public class StageController {
     @PostMapping("/addStage")
     public String addStagePost(@ModelAttribute("stage") Stage stage) {
         stageService.save(stage);
-        seatService.saveAll(stage, stage.getCapacity());
+        seatService.save(stage, stage.getCapacity());
         return "redirect:stageList";
     }
 
@@ -46,14 +48,15 @@ public class StageController {
 
     @PostMapping("/updateStage")
     public String updateStagePost(@ModelAttribute("stage") Stage stage) {
-
         stageService.save(stage);
+        log.debug("ajde breee" + stage.getCapacity());
+        seatService.update(stage,stage.getCapacity());
         return "redirect:stageList";
     }
 
     @GetMapping("/removeStage/{id}/")
     public String remove(@PathVariable("id") String id, Model model) {
-        seatService.remove(Long.valueOf(id));
+        seatService.remove(Long.parseLong(id));
         stageService.remove(Long.valueOf(id));
         model.addAttribute("stageList", stageService.findAll());
         return "admin/stage/stageList";
