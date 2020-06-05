@@ -49,8 +49,7 @@ public class StageController {
     @PostMapping("/updateStage")
     public String updateStagePost(@ModelAttribute("stage") Stage stage) {
         stageService.save(stage);
-        log.debug("ajde breee" + stage.getCapacity());
-        seatService.update(stage,stage.getCapacity());
+        seatService.update(stage.getId(),stage.getCapacity());
         return "redirect:stageList";
     }
 

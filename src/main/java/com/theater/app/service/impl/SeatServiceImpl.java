@@ -24,7 +24,7 @@ public class SeatServiceImpl implements SeatService {
 
     @Transactional
     @Override
-    public Iterable<Seat> saveAll(Stage stage, int seatNum) {
+    public Iterable<Seat> save(Stage stage, int seatNum) {
         List<Seat> list = new ArrayList<>();
         for(int i = 0; i< seatNum;i++){
             Seat seat = new Seat();
@@ -37,11 +37,39 @@ public class SeatServiceImpl implements SeatService {
 
     @Override
     public void remove(long stageId){
-        Stage stage = stageService.findById(Long.valueOf(stageId));
+        Stage stage = stageService.findById(stageId);
         List<Seat> seats = (List<Seat>) seatRepository.findAll();
         List<Seat> result = seats.stream()
                 .filter(seat -> seat.getStage().equals(stage))
                 .collect(Collectors.toList());
         seatRepository.deleteAll(result);
+    }
+
+    @Override
+    public void update(long stageId, int newSeatNum) {
+        Stage stage = stageService.findById(stageId);
+        List<Seat> list = new ArrayList<>();
+        List<Seat> seats = (List<Seat>) seatRepository.findAll();
+        List<Seat> result = seats
+                .stream()
+                .filter(seat -> seat.getStage().equals(stage))
+                .collect(Collectors.toList());
+        int n = result.size();
+        if(n<newSeatNum){
+            for(int i = n+1; i<=newSeatNum;i++){
+                Seat seat = new Seat();
+                seat.setName(Integer.toString(i));
+                seat.setStage(stage);
+                list.add(seat);
+            }
+            seatRepository.saveAll(list);
+        }
+        if(n>newSeatNum){
+            List<Seat> collect = seats.stream()
+                    .skip(newSeatNum)
+                    .filter(seat -> seat.getStage().equals(stage))
+                    .collect(Collectors.toList());
+            seatRepository.deleteAll(collect);
+        }
     }
 }

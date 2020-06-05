@@ -6,5 +6,5 @@ import com.theater.app.domain.Stage;
 public interface SeatService {
     Iterable<Seat> save(Stage stage, int seatNum);
     void remove(long stageId);
-    void update(Stage stage, int newSeatNum);
+    void update(long stageId, int newSeatNum);
 }
