@@ -1,3 +1,5 @@
 .panel-style{
     padding-top: 20%;
+    margin: 0 auto;
+    float: inherit;
 }

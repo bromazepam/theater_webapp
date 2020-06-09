@@ -7,11 +7,13 @@
     <title>Pozoriste</title>
     <link rel="icon" href="https://img.icons8.com/officel/80/000000/theatre-mask.png">
 
-    <!-- Bootstrap core CSS -->
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
 
-    <!-- Custom styles for this template -->
-    <!--    <link th:href="@{/css/styleAdmin.css}" rel="stylesheet"/>-->
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <link href="/css/my-login.css" rel="stylesheet"/>
+
+    <link href="/css/non-responsive.css" rel="stylesheet"/>
 
     <!-- data table -->
     <link th:href="@{/css/jquery.dataTables.min.css}" rel="stylesheet"/>
@@ -19,115 +21,61 @@
 
     <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
 
+    <!-- Custom styles for this template -->
+    <link href="/css/style.css" rel="stylesheet"/>
+
 </head>
 
 <body>
 <!--Navbar -->
 <div th:fragment="navbar">
-    <nav class="mb-1 navbar navbar-expand-lg navbar-dark default-color">
-        <a class="navbar-brand" href="#">odje ce logo</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
-                aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Pocetna
-                        <span class="sr-only">(current)</span>
-                    </a>
+    <nav class="navbar navbar-inverse navbar-fixed-top navbar-collapse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Pozoriste</a>
+            </div>
+            <ul class="nav navbar-nav navbar-collapse">
+                <li class="active"><a href="#">Repertoar</a></li>
+                <li><a href="#">Predstave</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Pozoriste <span
+                        class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Istorijat</a></li>
+                        <li><a href="#">Uprava</a></li>
+                        <li><a href="#">Foto galerija</a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Repertoar</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Predstave</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">Pozoriste
-                    </a>
-                    <div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
-                        <a class="dropdown-item" href="#">Istorijat</a>
-                        <a class="dropdown-item" href="#">Uprava</a>
-                        <a class="dropdown-item" href="#">Foto galerija</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Vesti</a>
-                </li>
+                <li><a href="#">Vesti</a></li>
+                <li><a href="#">Kontakt</a></li>
             </ul>
-            <ul class="navbar-nav ml-auto nav-flex-icons">
-                <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light">
-                        <i class="fab fa-shopping-cart"></i>
-                    </a>
-                </li>
-                <!--                <li><a sec:authorize="isAnonymous()" th:href="@{/login}">Prijava</a></li>-->
-                <!--                <li><a sec:authorize="isAuthenticated()" th:href="@{/myProfile}">MOJ NALOG</a></li>-->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-default"
-                         aria-labelledby="navbarDropdownMenuLink-333">
-                        <a class="dropdown-item" href="#">Profil</a>
-                        <a class="dropdown-item" href="#">Kupovine</a>
-                        <a class="dropdown-item" href="#">Odjava</a>
-                    </div>
-                </li>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Korpa</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             </ul>
         </div>
     </nav>
 </div>
-<!--/.Navbar -->
-
-<!-- Footer -->
+<!--footer -->
 <div th:fragment="footer">
-    <footer class="page-footer font-small special-color-dark pt-4">
-
-        <!-- Footer Elements -->
+    <footer class="footer navbar-inverse navbar-fixed-bottom">
         <div class="container">
-
-            <!-- Social buttons -->
-            <ul class="list-unstyled list-inline text-center">
-                <li class="list-inline-item">
-                    <a class="btn-floating btn-fb mx-1">
-                        <i class="fab fa-facebook-f"> </i>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a class="btn-floating btn-tw mx-1">
-                        <i class="fab fa-twitter"> </i>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a class="btn-floating btn-gplus mx-1">
-                        <i class="fab fa-google-plus-g"> </i>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a class="btn-floating btn-li mx-1">
-                        <i class="fab fa-instagram"> </i>
-                    </a>
-                </li>
-            </ul>
-            <!-- Social buttons -->
-
+            <div class="row text-center">
+                <div>
+                    <a href="#"><i class="fa fa-instagram fa-icon fa-3x"></i></a>
+                    <a href="#"><i class="fa fa-twitter-square fa-icon fa-3x"></i></a>
+                    <a href="#"><i class="fa fa-linkedin-square fa-icon fa-3x"></i></a>
+                    <a href="#"><i class="fa fa-facebook-square fa-icon fa-3x"></i></a>
+                </div>
+            </div>
+            <div class="copyright">
+                <div class="row text-center">
+                    <p class="text-primary">Copyright &copy;2020 Bromazepam</p>
+                </div>
+            </div>
         </div>
-        <!-- Footer Elements -->
-
-        <!-- Copyright -->
-        <div class="footer-copyright text-center py-3">© 2020 Copyright:
-            <a href="https://mdbootstrap.com/"> Bromazepam</a>
-        </div>
-        <!-- Copyright -->
-
     </footer>
 </div>
-<!-- Footer -->
-
+<!--bottom scripts -->
 <div th:fragment="body-bottom-scripts">
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
