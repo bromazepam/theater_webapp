@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="user/fragments/header :: common-header"/>
+<body>
+<div th:replace="user/fragments/header :: navbar"/>
+<div class="container">
+    <h3>Predstave</h3>
+    <div class="row" style="margin-top: 60px;">
+        <div class="col-xs-3">
+            <h3><label for="category">Kategorije</label></h3>
+            <div class="list-group" id="category">
+                <a th:href="@{/bookshelf(category='all')}" th:classappend="${activeAll}? 'active'" class="list-group-item">Sve</a>
+                <a th:href="@{/searchByCategory(category='Drama')}" th:classappend="${activeDrama}? 'active'" class="list-group-item">Drama</a>
+                <a th:href="@{/searchByCategory(category='Komedija')}" th:classappend="${activeComedy}? 'active'" class="list-group-item">Komedija</a>
+                <a th:href="@{/searchByCategory(category='Mjuzikl')}" th:classappend="${activeMusical}? 'active'" class="list-group-item">Mjuzikl</a>
+                <a th:href="@{/searchByCategory(category='Opera')}" th:classappend="${activeOpera}? 'active'" class="list-group-item">Opera</a>
+                <a th:href="@{/searchByCategory(category='Balet')}" th:classappend="${activeBalet}? 'active'" class="list-group-item">Balet</a>
+                <a th:href="@{/searchByCategory(category='Decija predstava')}" th:classappend="${activeKidsPlay}? 'active'" class="list-group-item">Decija predstava</a>
+            </div>
+        </div>
+
+        <div class="col-xs-9">
+<!--            <div th:if="${emptyList}">-->
+<!--                <h5 style="font-style: italic;">Nema rezultata pretrage. Pokušajte sa nekim drugim nazivom.</h5>-->
+<!--            </div>-->
+
+            <table border="0" id="playList">
+                <thead>
+                <tr>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="play-item" data-th-each="play : ${playList}" >
+                    <td>
+                        <div th:if="${play != null}">
+                            <div class="row" style="margin-bottom: 50px;">
+                                <div class="col-xs-3">
+                                    <a>
+                                        <img th:src="@{'data:image/png;base64,' + ${play.playImage}}" class="img-responsive center-block" /></a>
+                                </div>
+                                <div class="col-xs-9" >
+                                    <a><h4
+                                            th:text="${play.title}"></h4></a>
+                                    <p th:text="${play.author}"></p>
+                                    <p th:text="${play.director}"></p>
+                                    <p th:text="${play.category}"></p>
+                                    <br/>
+                                    <p th:utext="${#strings.abbreviate(play.description, 1000)}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div th:replace="user/fragments/header :: footer"/>
+
+<div th:replace="user/fragments/header :: body-bottom-scripts"/>
+</body>
+</html>
