@@ -6,6 +6,7 @@ import com.theater.app.service.PlayService;
 import com.theater.app.exceptions.NotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,4 +43,16 @@ public class PlayServiceImpl implements PlayService {
         playRepository.deleteById(id);
     }
 
+    @Override
+    public List<Play> findByCategory(String category) {
+        List<Play> playList = playRepository.findByCategory(category);
+        List<Play> activePlayList = new ArrayList<>();
+
+        for(Play play: playList){
+            if(play.isActive()){
+                activePlayList.add(play);
+            }
+        }
+        return activePlayList;
+    }
 }

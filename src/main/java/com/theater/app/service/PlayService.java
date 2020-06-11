@@ -12,4 +12,6 @@ public interface PlayService {
     Play findById(Long id);
 
     void removeOne(Long id);
+
+    List<Play> findByCategory(String category);
 }
