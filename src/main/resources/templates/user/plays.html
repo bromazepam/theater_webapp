@@ -6,7 +6,7 @@
 <div class="container">
     <h3>Predstave</h3>
     <div class="row" style="margin-top: 60px;">
-        <div class="col-xs-3">
+        <div class="col-xs-4">
             <h3><label for="category">Kategorije</label></h3>
             <div class="list-group" id="category">
                 <a th:href="@{/bookshelf(category='all')}" th:classappend="${activeAll}? 'active'" class="list-group-item">Sve</a>
@@ -40,8 +40,7 @@
                                         <img th:src="@{'data:image/png;base64,' + ${play.playImage}}" class="img-responsive center-block" /></a>
                                 </div>
                                 <div class="col-xs-9" >
-                                    <a><h4
-                                            th:text="${play.title}"></h4></a>
+                                    <a><h4 th:text="${play.title}"></h4></a>
                                     <p th:text="${play.author}"></p>
                                     <p th:text="${play.director}"></p>
                                     <p th:text="${play.category}"></p>
