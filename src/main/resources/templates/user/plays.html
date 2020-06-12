@@ -6,16 +6,16 @@
 <div class="container">
     <h3>Predstave</h3>
     <div class="row" style="margin-top: 60px;">
-        <div class="col-xs-4">
+        <div class="col-xs-3">
             <h3><label for="category">Kategorije</label></h3>
             <div class="list-group" id="category">
-                <a th:href="@{/bookshelf(category='all')}" th:classappend="${activeAll} ? 'active'" class="list-group-item">Sve</a>
+                <a th:href="@{/plays(category='all')}" th:classappend="${activeAll} ? 'active'" class="list-group-item">Sve</a>
                 <a th:href="@{/searchByCategory(category='Drama')}" th:classappend="${activeDrama} ? 'active'" class="list-group-item">Drama</a>
-                <a th:href="@{/searchByCategory(category='Komedija')}" th:classappend="${activeComedy} ? 'active'" class="list-group-item">Komedija</a>
-                <a th:href="@{/searchByCategory(category='Mjuzikl')}" th:classappend="${activeMusical} ? 'active'" class="list-group-item">Mjuzikl</a>
+                <a th:href="@{/searchByCategory(category='Komedija')}" th:classappend="${activeKomedija} ? 'active'" class="list-group-item">Komedija</a>
+                <a th:href="@{/searchByCategory(category='Mjuzikl')}" th:classappend="${activeMjuzikl} ? 'active'" class="list-group-item">Mjuzikl</a>
                 <a th:href="@{/searchByCategory(category='Opera')}" th:classappend="${activeOpera} ? 'active'" class="list-group-item">Opera</a>
                 <a th:href="@{/searchByCategory(category='Balet')}" th:classappend="${activeBalet} ? 'active'" class="list-group-item">Balet</a>
-                <a th:href="@{/searchByCategory(category='Decija predstava')}" th:classappend="${activeKidsPlay}? 'active'" class="list-group-item">Decija predstava</a>
+                <a th:href="@{/searchByCategory(category='Decija predstava')}" th:classappend="${activeDecijapredstava}? 'active'" class="list-group-item">Decija predstava</a>
             </div>
         </div>
 
