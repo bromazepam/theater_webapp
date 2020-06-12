@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-//TODO circle dependency
 @Controller
 public class RepertoireController {
 

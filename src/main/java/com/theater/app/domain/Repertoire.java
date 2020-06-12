@@ -23,11 +23,11 @@ public class Repertoire {
     private boolean status;
     private Date timestamp;
 
-    @Column(name = "projection_date")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date projection_date;
-    private Date projection_time;
+    private Date projectionDate;
+    @Temporal(TemporalType.TIME)
+    private Date projectionTime;
 
     @Column(name = "projection_datetime")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
@@ -83,20 +83,20 @@ public class Repertoire {
         this.timestamp = timestamp;
     }
 
-    public Date getProjection_date() {
-        return projection_date;
+    public Date getProjectionDate() {
+        return projectionDate;
     }
 
-    public void setProjection_date(Date projection_date) {
-        this.projection_date = projection_date;
+    public void setProjectionDate(Date projectionDate) {
+        this.projectionDate = projectionDate;
     }
 
-    public Date getProjection_time() {
-        return projection_time;
+    public Date getProjectionTime() {
+        return projectionTime;
     }
 
-    public void setProjection_time(Date projection_time) {
-        this.projection_time = projection_time;
+    public void setProjectionTime(Date projectionTime) {
+        this.projectionTime = projectionTime;
     }
 
     public Date getProjection_datetime() {
