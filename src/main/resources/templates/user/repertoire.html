@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="user/fragments/header :: common-header"/>
+<body>
+<div th:replace="user/fragments/header :: navbar"/>
+<div class="container">
+    <h3>Repertoar</h3>
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+        <input type="text" class="form-control" id="datepicker" aria-describedby="basic-addon1"/>
+    </div>
+<!--    <div class="form-group">-->
+<!--        <label class="col-md-2 control-label" for="projection_date">Datum prikazivanja-->
+<!--        </label>-->
+<!--        <div class="col-md-8">-->
+<!--            <input type="date" class="form-control" id="projection_date"-->
+<!--                   name="projection_date" th:value="${repertoire.projection_date}"-->
+<!--                   placeholder="Datum prikazivanja"/> <span class="help-block">Datum prikazivanja</span>-->
+<!--        </div>-->
+<!--    </div>-->
+    <div class="row" style="margin-top: 60px;">
+        <div class="col-xs-9">
+            <div th:if="${emptyList}">
+                <h5 style="font-style: italic;">Nema rezultata pretrage. Pokušajte sa nekim drugim datumom.</h5>
+            </div>
+
+            <table border="0" id="playList">
+                <thead>
+                <tr>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="play-item" data-th-each="repertoire : ${repertoireList}">
+                    <td>
+                        <div th:if="${repertoire != null}">
+                            <div class="row" style="margin-bottom: 50px;">
+<!--                                <div class="col-xs-3">-->
+<!--                                    <a>-->
+<!--                                        <img th:src="@{'data:image/png;base64,' + ${play.playImage}}"-->
+<!--                                             class="img-responsive center-block"/></a>-->
+<!--                                </div>-->
+                                <div class="col-xs-9">
+                                    <a><h4 th:text="${repertoire.stage}"></h4></a>
+                                    <p th:text="${repertoire.play}"></p>
+                                    <p th:text="${repertoire.projection_date}"></p>
+                                    <p th:text="${repertoire.projection_time}"></p>
+<!--                                    <p th:utext="${#strings.abbreviate(play.description, 1000)}"></p>-->
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div th:replace="user/fragments/header :: footer"/>
+
+<div th:replace="user/fragments/header :: body-bottom-scripts"/>
+
+<script>
+    $(document).ready(function () {
+        $('#playList').DataTable({
+            "pagingType": "full_numbers",
+            "ordering": false,
+            stateSave: true
+        });
+    });
+    $.extend(true, $.fn.dataTable.defaults, {
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/1.10.16/i18n/Serbian.json"
+        }
+    });
+</script>
+</body>
+</html>
