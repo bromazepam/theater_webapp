@@ -6,6 +6,7 @@ import com.theater.app.repository.RepertoireRepository;
 import com.theater.app.service.RepertoireService;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +37,13 @@ public class RepertoireServiceImpl implements RepertoireService {
             throw new NotFoundException("Stage not found, For ID value: " + id.toString());
         }
         return optionalRepertoire.get();
+    }
+
+    @Override
+    public List<Repertoire> findByDate(Date date) {
+        List<Repertoire> repertoires = repertoireRepository.findByProjectionDate(new java.sql.Date(date.getTime()));
+
+        return repertoires;
     }
 
     @Override

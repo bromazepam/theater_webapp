@@ -1,21 +1,26 @@
 package com.theater.app.controller.user;
 
 import com.theater.app.domain.Play;
+import com.theater.app.domain.Repertoire;
 import com.theater.app.service.PlayService;
+import com.theater.app.service.RepertoireService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
 public class SearchController {
 
     private final PlayService playService;
+    private final RepertoireService repertoireService;
 
-    public SearchController(PlayService playService) {
+    public SearchController(PlayService playService, RepertoireService repertoireService) {
         this.playService = playService;
+        this.repertoireService = repertoireService;
     }
 
     @RequestMapping("/searchByCategory")
@@ -33,5 +38,19 @@ public class SearchController {
         }
         model.addAttribute("playList", playList);
         return "user/plays";
+    }
+
+    @RequestMapping("/searchByDate")
+    public String searchByDate(@RequestParam("date") Date date, Model model){
+
+
+        List<Repertoire> repertoireList = repertoireService.findByDate(date);
+
+        if(repertoireList.isEmpty()){
+            model.addAttribute("emptyList", true);
+            return "repertoireList";
+        }
+        model.addAttribute("repertoireList",repertoireList);
+        return "repertoireList";
     }
 }
