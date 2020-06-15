@@ -24,9 +24,11 @@ public class Repertoire {
     private Date timestamp;
 
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date projectionDate;
+
     @Temporal(TemporalType.TIME)
+//    @DateTimeFormat(pattern = "HH:mm")
     private Date projectionTime;
 
     @Column(name = "projection_datetime")
