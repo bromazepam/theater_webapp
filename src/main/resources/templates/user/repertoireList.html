@@ -10,7 +10,7 @@
         <input type="text" class="form-control" id="datepicker" aria-describedby="basic-addon1"/>
     </div>
     <div class="row" style="margin-top: 60px;">
-        <div class="col-xs-9">
+        <div class="col-xs-12">
             <div th:if="${emptyList}">
                 <h5 style="font-style: italic;">Nema rezultata pretrage. Pokušajte sa nekim drugim datumom.</h5>
             </div>
@@ -22,22 +22,27 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="play-item" data-th-each="repertoire : ${repertoireList}">
+                <tr class="repertoire-item" data-th-each="repertoire : ${repertoireList}">
                     <td>
                         <div th:if="${repertoire != null}">
-                            <div class="row" style="margin-bottom: 50px;">
+                            <div class="row">
                                 <div class="col-xs-3">
                                     <a>
                                         <img th:src="@{'data:image/png;base64,' + ${repertoire.getPlay().playImage}}"
                                              class="img-responsive center-block"/></a>
                                 </div>
                                 <div class="col-xs-9">
-                                    <a><h4 th:text="${repertoire.stage}"></h4></a>
-                                    <p th:text="${repertoire.play}"></p>
-                                    <p th:text="${repertoire.projectionDate}"></p>
-                                    <p th:text="${repertoire.projectionTime}"></p>
-<!--                                    <p th:utext="${#strings.abbreviate(play.description, 1000)}"></p>-->
-                                    <button type="submit" class="btn btn-warning" style="color:black;border:1px solid black; padding: 10px 40px 10px 40px;">Rezervisi</button>
+                                    <a><h4 th:text="${repertoire.play.getTitle()}"></h4></a>
+                                    <p th:text="${repertoire.stage.getName()}"></p>
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <p th:text="${repertoire.projectionDate}"></p>
+                                            <p th:text="${repertoire.projectionTime}"></p>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <button type="submit" class="btn btn-primary">Rezervisi</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

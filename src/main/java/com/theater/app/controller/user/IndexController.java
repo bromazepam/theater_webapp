@@ -40,9 +40,9 @@ public class IndexController {
 
         if(repertoireList.isEmpty()){
             model.addAttribute("emptyList", true);
-            return "repertoireList";
+            return "user/repertoireList";
         }
 
-        return "repertoireList";
+        return "user/repertoireList";
     }
 }

@@ -5,10 +5,6 @@
  */
 
 /* Account for fixed navbar */
-body {
-  padding-top: 70px;
-  padding-bottom: 30px;
-}
 
 body,
 .navbar-fixed-top,
