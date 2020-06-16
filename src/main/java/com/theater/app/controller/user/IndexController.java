@@ -21,6 +21,27 @@ public class IndexController {
         this.repertoireService = repertoireService;
     }
 
+    @RequestMapping("/")
+    public String index(){
+        return "redirect:/homescreen";
+    }
+
+    @RequestMapping("/login")
+    public String login(){
+        return "user/login";
+    }
+
+    @RequestMapping("/forgottenPass")
+    public String forgetPassword(){
+        return "user/forgotPassword";
+    }
+
+    @RequestMapping("/registration")
+    public String registration(){
+        return "user/registration";
+    }
+
+
     @RequestMapping("/plays")
     public String plays(Model model) {
 
