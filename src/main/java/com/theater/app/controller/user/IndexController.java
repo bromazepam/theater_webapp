@@ -23,7 +23,7 @@ public class IndexController {
 
     @RequestMapping("/")
     public String index(){
-        return "redirect:/homescreen";
+        return "user/homescreen";
     }
 
     @RequestMapping("/login")
