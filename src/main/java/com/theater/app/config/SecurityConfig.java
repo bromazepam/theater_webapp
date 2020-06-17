@@ -39,7 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/homescreen",
 			"/plays",
 			"/searchByCategory",
-			"/repertoireList"
+			"/repertoireList",
+			"/repertoireDetail/**"
 	};
 
 	@Override

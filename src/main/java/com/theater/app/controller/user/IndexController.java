@@ -6,6 +6,7 @@ import com.theater.app.service.PlayService;
 import com.theater.app.service.RepertoireService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -65,5 +66,12 @@ public class IndexController {
         }
 
         return "user/repertoireList";
+    }
+
+    @RequestMapping("/repertoireDetail/{id}")
+    public String repertoireDetail(@PathVariable String id, Model model){
+        Repertoire repertoire = repertoireService.findById(Long.valueOf(id));
+        model.addAttribute("repertoire", repertoire);
+        return "user/repertoireDetail";
     }
 }
