@@ -10,6 +10,7 @@
             <a th:href="@{/repertoireList}">Povratak na repertoar</a><br/>
             <img class="img-responsive shelf-book" th:src="@{'data:image/png;base64,' + ${repertoire.getPlay().playImage}}" />
         </div>
+        <br>
         <div class="col-xs-9">
             <h3><span th:if="${addReservationSuccess}" style="color: forestgreen"><i class="fa fa-check" aria-hidden="true" style="color: forestgreen"></i>Dodato u korpu.</span></h3>
             <h3><span th:if="${notEnoughSeats}" style="color: red">Samo <span th:text="${broj slobodnih sedista}"></span> Na lageru.</span></h3>
