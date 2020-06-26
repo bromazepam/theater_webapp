@@ -112,7 +112,7 @@ public class IndexController {
         //TODO
 //        model.addAttribute("orderList", user.getOrderList());
 
-        return "user/myAccount";
+        return "user/registration";
 
     }
 
