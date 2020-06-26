@@ -10,4 +10,10 @@ public interface UserService {
 	User createUser(User user, Set<UserRole> userRoles) throws Exception;
 	
 	User save(User user);
+
+	User findByUsername(String username);
+
+	User findByEmail(String email);
+
+	void createPasswordResetTokenForUser(final User user, final String token);
 }

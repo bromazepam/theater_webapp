@@ -1,6 +1,7 @@
 package com.theater.app.service.impl;
 
 import com.theater.app.domain.User;
+import com.theater.app.domain.security.PasswordResetToken;
 import com.theater.app.domain.security.UserRole;
 import com.theater.app.repository.RoleRepository;
 import com.theater.app.repository.UserRepository;
@@ -45,6 +46,22 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User save(User user) {
 		return userRepository.save(user);
+	}
+
+	@Override
+	public User findByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
+
+	@Override
+	public User findByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+
+	@Override
+	public void createPasswordResetTokenForUser(User user, String token) {
+		final PasswordResetToken myToken = new PasswordResetToken(token, user);
+
 	}
 
 }
