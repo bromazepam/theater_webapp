@@ -3,6 +3,7 @@ package com.theater.app.service.impl;
 import com.theater.app.domain.User;
 import com.theater.app.domain.security.PasswordResetToken;
 import com.theater.app.domain.security.UserRole;
+import com.theater.app.repository.PasswordResetTokenRepository;
 import com.theater.app.repository.RoleRepository;
 import com.theater.app.repository.UserRepository;
 import com.theater.app.service.UserService;
@@ -17,12 +18,19 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
-	
-	@Autowired
-	private UserRepository userRepository;
 
-	@Autowired
-	private RoleRepository roleRepository;
+	private final UserRepository userRepository;
+
+	private final RoleRepository roleRepository;
+
+	private final PasswordResetTokenRepository passwordResetTokenRepository;
+
+	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
+						   PasswordResetTokenRepository passwordResetTokenRepository) {
+		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
+		this.passwordResetTokenRepository = passwordResetTokenRepository;
+	}
 
 	@Override
 	public User createUser(User user, Set<UserRole> userRoles){
@@ -61,7 +69,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void createPasswordResetTokenForUser(User user, String token) {
 		final PasswordResetToken myToken = new PasswordResetToken(token, user);
+	}
 
+	@Override
+	public PasswordResetToken getPasswordResetToken(final String token) {
+		return passwordResetTokenRepository.findByToken(token);
 	}
 
 }

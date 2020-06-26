@@ -3,21 +3,24 @@ package com.theater.app.controller.user;
 import com.theater.app.domain.Play;
 import com.theater.app.domain.Repertoire;
 import com.theater.app.domain.User;
+import com.theater.app.domain.security.PasswordResetToken;
 import com.theater.app.domain.security.Role;
 import com.theater.app.domain.security.UserRole;
 import com.theater.app.service.PlayService;
 import com.theater.app.service.RepertoireService;
 import com.theater.app.service.UserService;
+import com.theater.app.service.impl.UserSecurityService;
 import com.theater.app.utility.MailConstructor;
 import com.theater.app.utility.SecurityUtility;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
@@ -33,33 +36,36 @@ public class IndexController {
     private final UserService userService;
     private final MailConstructor mailConstructor;
     private final JavaMailSender mailSender;
+    private final UserSecurityService userSecurityService;
 
     public IndexController(PlayService playService, RepertoireService repertoireService, UserService userService,
-                           MailConstructor mailConstructor, JavaMailSender mailSender) {
+                           MailConstructor mailConstructor, JavaMailSender mailSender,
+                           UserSecurityService userSecurityService) {
         this.playService = playService;
         this.repertoireService = repertoireService;
         this.userService = userService;
         this.mailConstructor = mailConstructor;
         this.mailSender = mailSender;
+        this.userSecurityService = userSecurityService;
     }
 
     @RequestMapping("/")
-    public String index(){
+    public String index() {
         return "user/homescreen";
     }
 
     @RequestMapping("/login")
-    public String login(){
+    public String login() {
         return "user/login";
     }
 
     @RequestMapping("/forgottenPass")
-    public String forgetPassword(){
+    public String forgetPassword() {
         return "user/forgotPassword";
     }
 
     @RequestMapping("/registration")
-    public String registration(){
+    public String registration() {
         return "user/registration";
     }
 
@@ -72,12 +78,12 @@ public class IndexController {
         model.addAttribute("email", userEmail);
         model.addAttribute("username", username);
 
-        if(userService.findByUsername(username) != null){
+        if (userService.findByUsername(username) != null) {
             model.addAttribute("usernameExists", true);
 
             return "user/registration";
         }
-        if(userService.findByEmail(userEmail) != null){
+        if (userService.findByEmail(userEmail) != null) {
             model.addAttribute("emailExists", true);
 
             return "user/registration";
@@ -102,7 +108,7 @@ public class IndexController {
         String token = UUID.randomUUID().toString();
         userService.createPasswordResetTokenForUser(user, token);
 
-        String appUrl = "http://" + request.getServerName()+":"+request.getServerPort()+request.getContextPath();
+        String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
 
         SimpleMailMessage email = mailConstructor.constructResetTokenEmail(appUrl, request.getLocale(), token, user, password);
 
@@ -114,6 +120,32 @@ public class IndexController {
 
         return "user/registration";
 
+    }
+
+    @GetMapping("/newUser")
+    public String newUser(@RequestParam("token") String token, Model model) {
+        PasswordResetToken passToken = userService.getPasswordResetToken(token);
+
+        if (passToken == null) {
+            String message = "Invalid Token.";
+            model.addAttribute("message", message);
+            return "redirect:/badRequest";
+        }
+
+        User user = passToken.getUser();
+        String username = user.getUsername();
+
+        UserDetails userDetails = userSecurityService.loadUserByUsername(username);
+
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(),
+                userDetails.getAuthorities());
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        model.addAttribute("user", user);
+        model.addAttribute("classActiveEdit", true);
+
+        return "user/myProfile";
     }
 
     @RequestMapping("/plays")
@@ -133,7 +165,7 @@ public class IndexController {
         model.addAttribute("repertoireList", repertoireList);
         model.addAttribute("activeAll", true);
 
-        if(repertoireList.isEmpty()){
+        if (repertoireList.isEmpty()) {
             model.addAttribute("emptyList", true);
             return "user/repertoireList";
         }
@@ -142,7 +174,7 @@ public class IndexController {
     }
 
     @RequestMapping("/repertoireDetail/{id}")
-    public String repertoireDetail(@PathVariable String id, Model model){
+    public String repertoireDetail(@PathVariable String id, Model model) {
         Repertoire repertoire = repertoireService.findById(Long.valueOf(id));
         model.addAttribute("repertoire", repertoire);
         return "user/repertoireDetail";
