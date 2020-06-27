@@ -60,7 +60,7 @@ public class IndexController {
     }
 
     @RequestMapping("/forgottenPass")
-    public String forgetPassword() {
+    public String forgottenPassword() {
         return "user/forgotPassword";
     }
 
@@ -148,6 +148,29 @@ public class IndexController {
         return "user/myProfile";
     }
 
+    @RequestMapping("/forgetPassword")
+    public String forgetPassword(HttpServletRequest request, @ModelAttribute("email") String email, Model model){
+        User user = userService.findByEmail(email);
+
+        if(user == null){
+            model.addAttribute("emailNotExist", true);
+            return "user/forgotPassword";
+        }
+        String password = SecurityUtility.randomPassword();
+        String encryptedPassword = SecurityUtility.passwordEncoder().encode(password);
+        user.setPassword(encryptedPassword);
+
+        userService.save(user);
+
+        String token = UUID.randomUUID().toString();
+        userService.createPasswordResetTokenForUser(user, token);
+
+        String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+        SimpleMailMessage newEmail = mailConstructor.constructResetTokenEmail(appUrl, request.getLocale(), token, user, password);
+        mailSender.send(newEmail);
+        model.addAttribute("forgetPasswordEmailSent", true);
+        return "user/forgotPassword";
+    }
     @RequestMapping("/plays")
     public String plays(Model model) {
 
