@@ -5,40 +5,41 @@
 <div th:replace="user/fragments/header :: navbar"/>
 <div class="container">
     <div class="col-md-6 panel-style">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <strong><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                        Registracija
-                    </strong>
-                </h3>
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <strong><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    Registracija
+                </strong>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class="alert alert-info" th:if="${emailSent}">
+                Email je poslat na adresu koju ste upravo registrovali.
+                Molim Vas potvrdite Vašu email adresu i ažurirajte informacije o šifri.
             </div>
-            <div class="panel-body">
-                <div class="alert alert-info" th:if="${emailSent}">
-                    Email je poslat na adresu koju ste upravo registrovali.
-                    Molim Vas potvrdite Vašu email adresu i ažurirajte informacije o šifri.</div>
-                <form  th:action="@{/newUser}" method="post">
-                    <div class="form-group">
-                        <label for="newUsername">* Korisničko ime: </label>
-                        <span style="color: red;" th:if="${usernameExists}">Korisničko ime već postoji. Unesite drugo.</span>
-                        <input type="text" name="username" id="newUsername" class="form-control" required="required">
-                        <p style="color: #828282">Unesite zeljeno korisnicko ime.</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">* Email Adresa: </label>
-                        <span style="color: red;" th:if="${emailExists}">Email adresa već postoji. Unesite drugu.</span>
-                        <input type="email" name="email" id="email" class="form-control" required="required">
-                        <p style="color: #828282">Validna email adresa. Sve
-                            poruke iz sistema biće slate na ovu adresu. Email
-                            adresa nije javna i koristiće se samo ako želite da promenite
-                            Vašu šifru ili primite određena obaveštenja.</p>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block">
-                            <span class="glyphicon glyphicon-send" aria-hidden="true"></span> Napravi novi nalog</button>
-                    </div>
-                </form>
-            </div>
+            <form th:action="@{/newUser}" method="post">
+                <div class="form-group">
+                    <label for="newUsername">* Korisničko ime: </label>
+                    <span style="color: red;"
+                          th:if="${usernameExists}">Korisničko ime već postoji. Unesite drugo.</span>
+                    <input type="text" name="username" id="newUsername" class="form-control" required="required">
+                    <p style="color: #828282">Unesite zeljeno korisnicko ime.</p>
+                </div>
+                <div class="form-group">
+                    <label for="email">* Email Adresa: </label>
+                    <span style="color: red;" th:if="${emailExists}">Email adresa već postoji. Unesite drugu.</span>
+                    <input type="email" name="email" id="email" class="form-control" required="required">
+                    <p style="color: #828282">Validna email adresa. Sve
+                        poruke iz sistema biće slate na ovu adresu. Email
+                        adresa nije javna i koristiće se samo ako želite da promenite
+                        Vašu šifru ili primite određena obaveštenja.</p>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <span class="glyphicon glyphicon-send" aria-hidden="true"></span> Napravi novi nalog
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
