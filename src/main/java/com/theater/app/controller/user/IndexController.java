@@ -24,6 +24,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -223,6 +224,17 @@ public class IndexController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         //TODO kada se odradi rezervacija
 //        model.addAttribute("orderList", user.getOrderList());
+
+        return "user/myProfile";
+    }
+
+    @RequestMapping("/myProfile")
+    public String myProfile(Model model, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+        //TODO kada se odrade rezervacije
+//        model.addAttribute("userReservationList", user.getUserReservationsList());
+        model.addAttribute("classActiveEdit", true);
 
         return "user/myProfile";
     }
