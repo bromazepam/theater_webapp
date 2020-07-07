@@ -27,9 +27,9 @@ public class Repertoire {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date projectionDate;
 
-    @Temporal(TemporalType.TIME)
-//    @DateTimeFormat(pattern = "HH:mm")
-    private Date projectionTime;
+//    @Temporal(TemporalType.TIME)
+//    @DateTimeFormat(pattern = "hh:mm:ss")
+    private String projectionTime;
 
     @Column(name = "projection_datetime")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
@@ -93,11 +93,11 @@ public class Repertoire {
         this.projectionDate = projectionDate;
     }
 
-    public Date getProjectionTime() {
+    public String getProjectionTime() {
         return projectionTime;
     }
 
-    public void setProjectionTime(Date projectionTime) {
+    public void setProjectionTime(String projectionTime) {
         this.projectionTime = projectionTime;
     }
 

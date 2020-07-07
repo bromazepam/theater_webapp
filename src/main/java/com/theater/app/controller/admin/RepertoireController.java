@@ -34,6 +34,8 @@ public class RepertoireController {
 
     @PostMapping("/addRepertoire")
     public String addStagePost(@ModelAttribute("repertoire") Repertoire repertoire) {
+        System.out.println(repertoire.getProjectionTime());
+        System.out.println(repertoire.getProjectionDate());
         repertoireService.save(repertoire);
         return "redirect:repertoire";
     }
