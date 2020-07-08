@@ -50,22 +50,22 @@
 
                 <!-- date -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="projection_date">Datum prikazivanja
+                    <label class="col-md-2 control-label" for="projectionDate">Datum prikazivanja
                     </label>
                     <div class="col-md-8">
-                        <input type="date" class="form-control" id="projection_date"
-                               name="projection_date" th:value="${repertoire.projectionDate}"
+                        <input type="date" dateformat="d M y" class="form-control" id="projectionDate"
+                               name="projectionDate" th:value="${repertoire.projectionDate}"
                                placeholder="Datum prikazivanja"/> <span class="help-block">Datum prikazivanja</span>
                     </div>
                 </div>
 
                 <!-- time -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="projection_time">Vreme prikazivanja
+                    <label class="col-md-2 control-label" for="projectionTime">Vreme prikazivanja
                     </label>
                     <div class="col-md-8">
-                        <input type="time" class="form-control" id="projection_time"
-                               name="projection_time" th:value="${repertoire.projectionTime}"
+                        <input type="time" class="form-control" id="projectionTime"
+                               name="projectionTime" th:value="${repertoire.projectionTime}"
                                placeholder="Vreme prikazivanja"/> <span class="help-block">Vreme prikazivanja</span>
                     </div>
                 </div>
