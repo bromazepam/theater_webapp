@@ -9,7 +9,7 @@ public interface CartItemService {
 
     CartItem updateCartItem(CartItem cartItem);
 
-    CartItem addBookToCartItem(Repertoire repertoire, User user, int qty);
+    CartItem addRepertoireToCartItem(Repertoire repertoire, User user, int qty);
 
     void removeCartItem(CartItem cartItem);
 

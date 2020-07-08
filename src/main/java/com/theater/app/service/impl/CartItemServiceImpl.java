@@ -29,7 +29,7 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
     @Override
-    public CartItem addBookToCartItem(Repertoire repertoire, User user, int qty) {
+    public CartItem addRepertoireToCartItem(Repertoire repertoire, User user, int qty) {
         return null;
     }
 
