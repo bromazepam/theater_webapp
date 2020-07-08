@@ -38,6 +38,7 @@
                                         <div class="col-xs-3">
                                             <p th:text="${repertoire.projectionDate}"></p>
                                             <p th:text="${repertoire.projectionTime}"></p>
+                                            <p th:text="${repertoire.price}">din.</p>
                                         </div>
                                         <div class="col-xs-3">
                                                 <a th:href="@{'/repertoireDetail/' +${repertoire.id}}">

@@ -36,6 +36,16 @@ public class Repertoire {
     @DateTimeFormat(pattern="dd.MM.yyyy hh:mm")
     private Date projection_datetime;
 
+    private int price;
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
     public Long getId() {
         return id;
     }

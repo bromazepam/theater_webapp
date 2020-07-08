@@ -70,6 +70,20 @@
                     </div>
                 </div>
 
+                <!-- price -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="price">Cena
+                    </label>
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <span class="input-group-addon">din.</span> <input
+                                th:value="${repertoire.price}" type="number" name="price"
+                                class="form-control" id="price" placeholder="Cena"/>
+                        </div>
+                        <span class="help-block">Cena karte</span>
+                    </div>
+                </div>
+
                 <!-- status of projection -->
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="status">Status</label>

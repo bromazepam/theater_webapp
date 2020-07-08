@@ -30,7 +30,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-xs-6">
-<!--                                    <p>Cena: <span style="text-decoration: line-through">$<span th:text="${book.listPrice}"></span></span></p>-->
+                                    <p>Cena: <span style="text-decoration: line-through"><span th:text="${repertoire.price}">din.</span></span></p>
                                     <span>Broj karata: </span>
                                     <select name="qty">
                                         <option th:each="qty : ${qtyList}" th:value="${qty}" th:text="${qty}">
