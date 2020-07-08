@@ -25,10 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 public class IndexController {
@@ -265,9 +262,20 @@ public class IndexController {
     }
 
     @RequestMapping("/repertoireDetail/{id}")
-    public String repertoireDetail(@PathVariable String id, Model model) {
+    public String repertoireDetail(@PathVariable String id, Model model, Principal principal) {
+        if(principal != null){
+            String username = principal.getName();
+            User user = userService.findByUsername(username);
+            model.addAttribute("user", user);
+        }
+
         Repertoire repertoire = repertoireService.findById(Long.valueOf(id));
         model.addAttribute("repertoire", repertoire);
+
+        List<Integer> qtyList = Arrays.asList(1,2,3,4,5);
+
+        model.addAttribute("qtyList", qtyList);
+        model.addAttribute("qty", 1);
         return "user/repertoireDetail";
     }
 }
