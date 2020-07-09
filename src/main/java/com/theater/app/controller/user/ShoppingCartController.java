@@ -38,7 +38,7 @@ public class ShoppingCartController {
                           @ModelAttribute("qty") String qty, Model model, Principal principal){
         User user = userService.findByUsername(principal.getName());
         repertoire = repertoireService.findById(repertoire.getId());
-
+//TODO broj slobodnih sedista
 //        if(Integer.parseInt(qty) > repertoire.getSeatNumber()){
 //            model.addAttribute("notEnoughSeats", true);
 //            return "user/repertoireDetail/"+repertoire.getId();
@@ -47,6 +47,6 @@ public class ShoppingCartController {
         CartItem cartItem = cartItemService.addRepertoireToCartItem(repertoire, user, Integer.parseInt(qty));
         model.addAttribute("addReservationSuccess", true);
 
-        return "user/repertoireDetail/{id}" +repertoire.getId();
+        return "forward:/repertoireDetail/" + repertoire.getId();
     }
 }
