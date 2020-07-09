@@ -13,16 +13,16 @@
                 </div>
                 <div class="col-xs-6 text-right">
                     <a class="btn btn-primary"
-                       th:href="@{/checkout(id=${shoppingCart.id})}">Plaćanje</a>
+                       th:href="@{'/checkout/'+${shoppingCart.id}}">Plaćanje</a>
                 </div>
                 <br/>
-                <div th:if="${notEnoughStock}" class="alert alert-warning">
-                    Nažalost neki od artikala nemamo dovoljno na lageru. Molim Vas
-                    ažurirajte količinu artikala.
+                <div th:if="${notEnoughSeats}" class="alert alert-warning">
+                    Nažalost nemamo dovoljno slobodnih sedista. Molim Vas
+                    ažurirajte količinu karata.
                 </div>
                 <div th:if="${emptyCart}" class="alert alert-warning">Vaša korpa je prazna.
                     Proverite da li možete da pronadjete nešto što Vam se sviđa
-                    na našim policama i dodajte u korpu.
+                    i dodajte u korpu.
                 </div>
 
                 <br/> <br/>
@@ -41,43 +41,42 @@
                 <!--**************** display products in cart ****************-->
 
                 <div class="row" th:each="cartItem : ${cartItemList}">
-                    <form th:action="@{/shoppingCart/updateCartItem}" method="post">
+                    <form th:action="@{/updateCartItem}" method="post">
                         <hr/>
                         <div class="col-xs-2">
-                            <a th:href="@{bookDetail(id=${cartItem.book.id})}"> <img
+                            <a th:href="@{'/repertoireDetail/'+ ${cartItem.repertoire.id}}"> <img
                                     style="width:70px;"
                                     class="img-responsive shelf-book center-block"
-                                    th:src="#{adminPath}+@{/image/book/}+
-								${cartItem.book.id}+'.png'"/>
+                                    th:src="@{'data:image/png;base64,' + ${cartItem.repertoire.getPlay().playImage}}"/>
                             </a>
                         </div>
                         <div class="col-xs-6">
                             <div style="margin-left:50px;">
-                                <a th:href="@{/bookDetail?id=}+${cartItem.book.id}"><h4
-                                        th:text="${cartItem.book.title}"></h4></a>
-                                <p th:if="${cartItem.book.inStockNumber&gt;10}"
-                                   style="color: green;">Na lageru</p>
+                                <a th:href="@{'/repertoireDetail/' +${cartItem.repertoire.id}}"><h4
+                                        th:text="${cartItem.repertoire.play.getTitle()}"></h4></a>
+                                <p th:if="${cartItem.repertoire.availableSeats&gt;5}"
+                                   style="color: green;">Slobodna sedista</p>
                                 <p
-                                        th:if="${cartItem.book.inStockNumber&lt;10 and cartItem.book.inStockNumber&gt;0}"
+                                        th:if="${cartItem.repertoire.availableSeats&lt;5 and cartItem.repertoire.availableSeats&gt;0}"
                                         style="color: green;">
-                                    Samo <span th:text="${cartItem.book.inStockNumber}"></span> Na lageru
+                                    Samo <span th:text="${cartItem.repertoire.availableSeats}"></span> slobodnih sedista
                                 </p>
-                                <p th:if="${cartItem.book.inStockNumber==0}"
-                                   style="color: darkred;">Artikal nije dostupan</p>
-                                <a th:href="@{/shoppingCart/removeItem?id=}+${cartItem.id}">izbriši</a>
+                                <p th:if="${cartItem.repertoire.availableSeats==0}"
+                                   style="color: darkred;">Sva mesta su popunjena</p>
+                                <a th:href="@{'/shoppingCart/removeItem/'+${cartItem.id}}">izbriši</a>
                             </div>
                         </div>
 
                         <div class="col-xs-2">
                             <h5 style="color: #db3208; font-size: large;">
-                                <span th:text="${cartItem.book.ourPrice}"
-                                       th:style="${cartItem.book.inStockNumber}==0? 'text-decoration: line-through' : ''"></span>
+                                <span th:text="${cartItem.repertoire.price}"
+                                       th:style="${cartItem.repertoire.availableSeats}==0? 'text-decoration: line-through' : ''"></span>
                             </h5>
                         </div>
 
                         <div class="col-xs-2">
                             <input hidden="hidden" name="id" th:value="${cartItem.id}"/> <input
-                                th:id="${cartItem.id}" th:name="qty" th:disabled="${cartItem.book.inStockNumber==0}"
+                                th:id="${cartItem.id}" th:name="qty" th:disabled="${cartItem.repertoire.availableSeats==0}"
                                 class="form-control cartItemQty" th:value="${cartItem.qty}"/>
                             <button style="display: none;"
                                     th:id="'update-item-'+${cartItem.id}" type="submit"
