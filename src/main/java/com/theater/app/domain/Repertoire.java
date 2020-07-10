@@ -37,6 +37,15 @@ public class Repertoire {
     private Date projection_datetime;
 
     private int price;
+    private int availableSeats;
+
+    public int getAvailableSeats() {
+        return availableSeats;
+    }
+
+    public void setAvailableSeats(int availableSeats) {
+        this.availableSeats = availableSeats;
+    }
 
     public int getPrice() {
         return price;

@@ -29,12 +29,12 @@ public class User implements UserDetails {
 	private String phone;
 	private boolean enabled=true;
 
-//	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-//	private ShoppingCart shoppingCart;
-//
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+	private ShoppingCart shoppingCart;
+
 //	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 //	private List<UserShipping> userShippingList;
-//
+
 //	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 //	private List<UserPayment> userPaymentList;
 
@@ -42,13 +42,13 @@ public class User implements UserDetails {
 	@JsonIgnore
 	private Set<UserRole> userRoles = new HashSet<>();
 
-//	public ShoppingCart getShoppingCart() {
-//		return shoppingCart;
-//	}
+	public ShoppingCart getShoppingCart() {
+		return shoppingCart;
+	}
 
-//	public void setShoppingCart(ShoppingCart shoppingCart) {
-//		this.shoppingCart = shoppingCart;
-//	}
+	public void setShoppingCart(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
+	}
 
 	public Long getId() {
 		return id;
