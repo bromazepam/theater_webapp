@@ -57,7 +57,7 @@ public class ShoppingCartController {
 
         if(Integer.parseInt(qty) > repertoire.getAvailableSeats()){
             model.addAttribute("notEnoughSeats", true);
-            return "user/repertoireDetail/"+repertoire.getId();
+            return "forward:/repertoireDetail/"+repertoire.getId();
         }
 
         CartItem cartItem = cartItemService.addRepertoireToCartItem(repertoire, user, Integer.parseInt(qty));
