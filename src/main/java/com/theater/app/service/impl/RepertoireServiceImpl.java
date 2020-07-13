@@ -1,8 +1,10 @@
 package com.theater.app.service.impl;
 
 import com.theater.app.domain.Repertoire;
+import com.theater.app.domain.Seat;
 import com.theater.app.exceptions.NotFoundException;
 import com.theater.app.repository.RepertoireRepository;
+import com.theater.app.repository.SeatRepository;
 import com.theater.app.service.RepertoireService;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +16,11 @@ import java.util.Optional;
 public class RepertoireServiceImpl implements RepertoireService {
 
     private RepertoireRepository repertoireRepository;
+    private SeatRepository seatRepository;
 
-    public RepertoireServiceImpl(RepertoireRepository repertoireRepository) {
+    public RepertoireServiceImpl(RepertoireRepository repertoireRepository, SeatRepository seatRepository) {
         this.repertoireRepository = repertoireRepository;
+        this.seatRepository = seatRepository;
     }
 
     @Override
@@ -49,5 +53,11 @@ public class RepertoireServiceImpl implements RepertoireService {
     @Override
     public void deleteById(Long id) {
         repertoireRepository.deleteById(id);
+    }
+
+    @Override
+    public int availableSeats(Long id) {
+        List<Seat> lst = seatRepository.findByStageIdAndReservedFalse(id);
+        return lst.size();
     }
 }

@@ -1,16 +1,12 @@
 package com.theater.app.controller.admin;
 
-import com.theater.app.domain.Play;
 import com.theater.app.domain.Repertoire;
 import com.theater.app.service.PlayService;
 import com.theater.app.service.RepertoireService;
 import com.theater.app.service.StageService;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 @Controller
 public class RepertoireController {
 
@@ -36,6 +32,7 @@ public class RepertoireController {
     public String addStagePost(@ModelAttribute("repertoire") Repertoire repertoire) {
         System.out.println(repertoire.getProjectionTime());
         System.out.println(repertoire.getProjectionDate());
+        repertoire.setAvailableSeats(repertoireService.availableSeats(repertoire.getStage().getId()));
         repertoireService.save(repertoire);
         return "redirect:repertoire";
     }
@@ -57,6 +54,7 @@ public class RepertoireController {
 
     @PostMapping("/updateRepertoire")
     public String updateStagePost(@ModelAttribute("repertoire") Repertoire repertoire) {
+        repertoire.setAvailableSeats(repertoireService.availableSeats(repertoire.getStage().getId()));
         repertoireService.save(repertoire);
         return "redirect:repertoire";
     }

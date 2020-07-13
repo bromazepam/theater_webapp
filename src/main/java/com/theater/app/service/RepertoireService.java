@@ -15,4 +15,6 @@ public interface RepertoireService {
     void deleteById(Long id);
 
     List<Repertoire> findByDate(Date date);
+
+    int availableSeats(Long id);
 }
