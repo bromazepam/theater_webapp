@@ -20,7 +20,7 @@ public class CartItemServiceImpl implements CartItemService {
         this.repertoireToCartItemRepository = repertoireToCartItemRepository;
     }
 
-    public List<CartItem> findByShoppingCart(ShoppingCart shoppingCart){
+    public List<CartItem> findByShoppingCart(ShoppingCart shoppingCart) {
         return cartItemRepository.findByShoppingCart(shoppingCart);
     }
 
@@ -37,9 +37,9 @@ public class CartItemServiceImpl implements CartItemService {
     public CartItem addRepertoireToCartItem(Repertoire repertoire, User user, int qty) {
         List<CartItem> cartItemList = findByShoppingCart(user.getShoppingCart());
 
-        for(CartItem cartItem: cartItemList){
+        for (CartItem cartItem : cartItemList) {
             if (repertoire.getId() == cartItem.getRepertoire().getId()) {
-                cartItem.setQty(cartItem.getQty()+qty);
+                cartItem.setQty(cartItem.getQty() + qty);
                 cartItem.setSubtotal(repertoire.getPrice() * qty);
                 cartItemRepository.save(cartItem);
                 return cartItem;

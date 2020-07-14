@@ -25,8 +25,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         int cartTotal = 0;
         List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
 
-        for(CartItem cartItem : cartItemList){
-            if(cartItem.getRepertoire().getAvailableSeats() > 0){
+        for (CartItem cartItem : cartItemList) {
+            if (cartItem.getRepertoire().getAvailableSeats() > 0) {
                 cartItemService.updateCartItem(cartItem);
                 cartTotal += cartItem.getSubtotal();
             }
@@ -40,7 +40,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public void clearShoppingCart(ShoppingCart shoppingCart) {
         List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
 
-        for(CartItem cartItem : cartItemList){
+        for (CartItem cartItem : cartItemList) {
             cartItem.setShoppingCart(null);
             cartItemService.save(cartItem);
         }

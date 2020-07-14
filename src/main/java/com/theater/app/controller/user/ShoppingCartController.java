@@ -34,7 +34,7 @@ public class ShoppingCartController {
     }
 
     @RequestMapping("/shoppingCart")
-    public String shoppingCart(Model model, Principal principal){
+    public String shoppingCart(Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         ShoppingCart shoppingCart = user.getShoppingCart();
 
@@ -50,14 +50,14 @@ public class ShoppingCartController {
 
 
     @PostMapping("/addItem")
-    public String addItem(@ModelAttribute("repertoire")Repertoire repertoire,
-                          @ModelAttribute("qty") String qty, Model model, Principal principal){
+    public String addItem(@ModelAttribute("repertoire") Repertoire repertoire,
+                          @ModelAttribute("qty") String qty, Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         repertoire = repertoireService.findById(repertoire.getId());
 
-        if(Integer.parseInt(qty) > repertoire.getAvailableSeats()){
+        if (Integer.parseInt(qty) > repertoire.getAvailableSeats()) {
             model.addAttribute("notEnoughSeats", true);
-            return "forward:/repertoireDetail/"+repertoire.getId();
+            return "forward:/repertoireDetail/" + repertoire.getId();
         }
 
         CartItem cartItem = cartItemService.addRepertoireToCartItem(repertoire, user, Integer.parseInt(qty));

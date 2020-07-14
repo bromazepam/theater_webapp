@@ -146,10 +146,10 @@ public class IndexController {
     }
 
     @RequestMapping("/forgetPassword")
-    public String forgetPassword(HttpServletRequest request, @ModelAttribute("email") String email, Model model){
+    public String forgetPassword(HttpServletRequest request, @ModelAttribute("email") String email, Model model) {
         User user = userService.findByEmail(email);
 
-        if(user == null){
+        if (user == null) {
             model.addAttribute("emailNotExist", true);
             return "user/forgotPassword";
         }
@@ -173,25 +173,25 @@ public class IndexController {
     public String updateUserInfo(@ModelAttribute("user") User user,
                                  @ModelAttribute("newPassword") String newPassword, Model model) throws Exception {
         User currentUser = userService.findById(user.getId());
-        if(currentUser == null){
+        if (currentUser == null) {
             throw new Exception("User not found");
         }
 
-        if (userService.findByEmail(user.getEmail()) != null){
-            if(userService.findByEmail(user.getEmail()).getId() != currentUser.getId()){
+        if (userService.findByEmail(user.getEmail()) != null) {
+            if (userService.findByEmail(user.getEmail()).getId() != currentUser.getId()) {
                 model.addAttribute("emailExists", true);
                 return "user/myProfile";
             }
         }
 
-        if(userService.findByUsername(user.getUsername()) != null){
-            if(userService.findByUsername(user.getUsername()).getId() != currentUser.getId()){
+        if (userService.findByUsername(user.getUsername()) != null) {
+            if (userService.findByUsername(user.getUsername()).getId() != currentUser.getId()) {
                 model.addAttribute("usernameExists", true);
                 return "user/myProfile";
             }
         }
 
-        if(newPassword!=null && !newPassword.isEmpty() && !newPassword.equals("")){
+        if (newPassword != null && !newPassword.isEmpty() && !newPassword.equals("")) {
             BCryptPasswordEncoder passwordEncoder = SecurityUtility.passwordEncoder();
             String dbPassword = currentUser.getPassword();
             if (passwordEncoder.matches(user.getPassword(), dbPassword)) {
@@ -263,7 +263,7 @@ public class IndexController {
 
     @RequestMapping("/repertoireDetail/{id}")
     public String repertoireDetail(@PathVariable String id, Model model, Principal principal) {
-        if(principal != null){
+        if (principal != null) {
             String username = principal.getName();
             User user = userService.findByUsername(username);
             model.addAttribute("user", user);
@@ -272,7 +272,7 @@ public class IndexController {
         Repertoire repertoire = repertoireService.findById(Long.valueOf(id));
         model.addAttribute("repertoire", repertoire);
 
-        List<Integer> qtyList = Arrays.asList(1,2,3,4,5);
+        List<Integer> qtyList = Arrays.asList(1, 2, 3, 4, 5);
 
         model.addAttribute("qtyList", qtyList);
         model.addAttribute("qty", 1);
