@@ -1,24 +1,29 @@
 package com.theater.app.service;
 
 import com.theater.app.domain.User;
+import com.theater.app.domain.UserPayment;
 import com.theater.app.domain.security.PasswordResetToken;
 import com.theater.app.domain.security.UserRole;
 
 import java.util.Set;
 
 public interface UserService {
-	
-	User createUser(User user, Set<UserRole> userRoles) throws Exception;
-	
-	User save(User user);
 
-	User findByUsername(String username);
+    User createUser(User user, Set<UserRole> userRoles) throws Exception;
 
-	User findByEmail(String email);
+    User save(User user);
 
-	void createPasswordResetTokenForUser(final User user, final String token);
+    User findByUsername(String username);
 
-	PasswordResetToken getPasswordResetToken(final String token);
+    User findByEmail(String email);
 
-	User findById(Long id);
+    void createPasswordResetTokenForUser(final User user, final String token);
+
+    PasswordResetToken getPasswordResetToken(final String token);
+
+    User findById(Long id);
+
+    void updateUserPayment(UserPayment userPayment, User user);
+
+    void setUserDefaultPayment(Long userPaymentId, User user);
 }

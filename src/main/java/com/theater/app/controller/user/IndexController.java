@@ -3,11 +3,13 @@ package com.theater.app.controller.user;
 import com.theater.app.domain.Play;
 import com.theater.app.domain.Repertoire;
 import com.theater.app.domain.User;
+import com.theater.app.domain.UserPayment;
 import com.theater.app.domain.security.PasswordResetToken;
 import com.theater.app.domain.security.Role;
 import com.theater.app.domain.security.UserRole;
 import com.theater.app.service.PlayService;
 import com.theater.app.service.RepertoireService;
+import com.theater.app.service.UserPaymentService;
 import com.theater.app.service.UserService;
 import com.theater.app.service.impl.UserSecurityService;
 import com.theater.app.utility.MailConstructor;
@@ -36,16 +38,18 @@ public class IndexController {
     private final MailConstructor mailConstructor;
     private final JavaMailSender mailSender;
     private final UserSecurityService userSecurityService;
+    private final UserPaymentService userPaymentService;
 
     public IndexController(PlayService playService, RepertoireService repertoireService, UserService userService,
                            MailConstructor mailConstructor, JavaMailSender mailSender,
-                           UserSecurityService userSecurityService) {
+                           UserSecurityService userSecurityService, UserPaymentService userPaymentService) {
         this.playService = playService;
         this.repertoireService = repertoireService;
         this.userService = userService;
         this.mailConstructor = mailConstructor;
         this.mailSender = mailSender;
         this.userSecurityService = userSecurityService;
+        this.userPaymentService = userPaymentService;
     }
 
     @RequestMapping("/")
@@ -112,8 +116,8 @@ public class IndexController {
         mailSender.send(email);
 
         model.addAttribute("emailSent", true);
-        //TODO
-//        model.addAttribute("orderList", user.getOrderList());
+
+        model.addAttribute("orderList", user.getOrderList());
 
         return "user/registration";
 
@@ -178,14 +182,14 @@ public class IndexController {
         }
 
         if (userService.findByEmail(user.getEmail()) != null) {
-            if (userService.findByEmail(user.getEmail()).getId() != currentUser.getId()) {
+            if (!userService.findByEmail(user.getEmail()).getId().equals(currentUser.getId())) {
                 model.addAttribute("emailExists", true);
                 return "user/myProfile";
             }
         }
 
         if (userService.findByUsername(user.getUsername()) != null) {
-            if (userService.findByUsername(user.getUsername()).getId() != currentUser.getId()) {
+            if (!userService.findByUsername(user.getUsername()).getId().equals(currentUser.getId())) {
                 model.addAttribute("usernameExists", true);
                 return "user/myProfile";
             }
@@ -219,8 +223,8 @@ public class IndexController {
                 userDetails.getAuthorities());
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        //TODO kada se odradi rezervacija
-//        model.addAttribute("orderList", user.getOrderList());
+
+        model.addAttribute("orderList", user.getOrderList());
 
         return "user/myProfile";
     }
@@ -229,8 +233,9 @@ public class IndexController {
     public String myProfile(Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         model.addAttribute("user", user);
-        //TODO kada se odrade rezervacije
-//        model.addAttribute("userReservationList", user.getUserReservationsList());
+        model.addAttribute("userPaymentList", user.getUserPaymentList());
+        model.addAttribute("orderList", user.getOrderList());
+        model.addAttribute("listOfCreditCards", true);
         model.addAttribute("classActiveEdit", true);
 
         return "user/myProfile";
@@ -277,5 +282,104 @@ public class IndexController {
         model.addAttribute("qtyList", qtyList);
         model.addAttribute("qty", 1);
         return "user/repertoireDetail";
+    }
+
+    @RequestMapping("/listOfCreditCards")
+    public String listOfCreditCards(Model model, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+        model.addAttribute("userPaymentList", user.getUserPaymentList());
+        model.addAttribute("orderList", user.getOrderList());
+        model.addAttribute("classActiveBilling", true);
+
+        return "user/myProfile";
+    }
+
+    @RequestMapping("/addNewCreditCard")
+    public String addNewCreditCard(Model model, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+        model.addAttribute("addNewCreditCard", true);
+        model.addAttribute("classActiveBilling", true);
+
+        UserPayment userPayment = new UserPayment();
+        model.addAttribute("userPayment", userPayment);
+        model.addAttribute("userPaymentList", user.getUserPaymentList());
+        model.addAttribute("orderList", user.getOrderList());
+
+        return "user/myProfile";
+    }
+
+    @PostMapping("/addNewCreditCard")
+    public String addNewCreditCard(@ModelAttribute("userPayment") UserPayment userPayment,
+                                   Principal principal, Model model) {
+        User user = userService.findByUsername(principal.getName());
+        userService.updateUserPayment(userPayment, user);
+
+        model.addAttribute("user", user);
+        model.addAttribute("userPaymentList", user.getUserPaymentList());
+        model.addAttribute("listOfCreditCards", true);
+        model.addAttribute("classActiveBilling", true);
+        model.addAttribute("orderList", user.getOrderList());
+
+        return "user/myProfile";
+    }
+
+    @RequestMapping("/updateCreditCard")
+    public String updateCreditCard(@ModelAttribute("id") Long creditCardId, Principal principal, Model model) {
+        User user = userService.findByUsername(principal.getName());
+        UserPayment userPayment = userPaymentService.findById(creditCardId);
+
+        if (!user.getId().equals(userPayment.getUser().getId())) {
+            return "user/badRequestPage";
+        } else {
+            model.addAttribute("user", user);
+            model.addAttribute("userPayment", userPayment);
+
+            model.addAttribute("addNewCreditCard", true);
+            model.addAttribute("classActiveBilling", true);
+
+            model.addAttribute("userPaymentList", user.getUserPaymentList());
+            model.addAttribute("orderList", user.getOrderList());
+
+            return "user/myProfile";
+        }
+    }
+
+    @PostMapping("/setDefaultPayment")
+    public String setDefaultPayment(@ModelAttribute("defaultUserPaymentId") Long defaultPaymentId,
+                                    Principal principal, Model model) {
+        User user = userService.findByUsername(principal.getName());
+        userService.setUserDefaultPayment(defaultPaymentId, user);
+
+        model.addAttribute("user", user);
+        model.addAttribute("listOfCreditCards", true);
+        model.addAttribute("classActiveBilling", true);
+
+        model.addAttribute("userPaymentList", user.getUserPaymentList());
+        model.addAttribute("orderList", user.getOrderList());
+
+        return "user/myProfile";
+    }
+
+    @RequestMapping("/removeCreditCard")
+    public String removeCreditCard(@ModelAttribute("id") Long creditCardId, Principal principal, Model model) {
+        User user = userService.findByUsername(principal.getName());
+        UserPayment userPayment = userPaymentService.findById(creditCardId);
+
+        if (!user.getId().equals(userPayment.getUser().getId())) {
+            return "user/badRequestPage";
+        } else {
+            model.addAttribute("user", user);
+            userPaymentService.removeById(creditCardId);
+
+            model.addAttribute("listOfCreditCards", true);
+            model.addAttribute("classActiveBilling", true);
+
+            model.addAttribute("userPaymentList", user.getUserPaymentList());
+            model.addAttribute("orderList", user.getOrderList());
+
+            return "user/myProfile";
+        }
     }
 }
