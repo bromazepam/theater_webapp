@@ -33,7 +33,7 @@ public class PlayServiceImpl implements PlayService {
         Optional<Play> playOptional = playRepository.findById(l);
 
         if (!playOptional.isPresent()) {
-            throw new NotFoundException("recipe not found, For ID value: " + l.toString());
+            throw new NotFoundException("play not found, For ID value: " + l.toString());
         }
         return playOptional.get();
     }
