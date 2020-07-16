@@ -13,6 +13,8 @@
                         href="#tab-1" data-toggle="tab"><span>Profil</span></a></li>
                 <li th:classappend="${classActiveReservations}? 'active'"><a
                         href="#tab-2" data-toggle="tab"><span>Rezervacije</span></a></li>
+                <li th:classappend="${classActiveBilling}? 'active'"><a
+                        href="#tab-3" data-toggle="tab"><span style="color: red;">Plaćanje</span></a></li>
             </ul>
 
             <!-- Tab panels -->
@@ -254,6 +256,162 @@
 <!--                    </div>-->
 <!--                </div>-->
 
+                <!-- Billing Information -->
+                <div class="tab-pane fade" id="tab-3"
+                     th:classappend="${classActiveBilling}? 'in active'">
+                    <div class="panel-group">
+                        <div class="panel panel-default" style="border: none;">
+                            <div class="panel-body"
+                                 style="background-color: #ededed; margin-top: 20px;">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item active"><a
+                                            th:href="@{/listOfCreditCards}"
+                                            th:style="${listOfCreditCards}? 'color:red'">Lista kreditnih kartica</a></li>
+                                    <li class="breadcrumb-item active"><a
+                                            th:href="@{/addNewCreditCard}"
+                                            th:style="${addNewCreditCard}? 'color:red'">Dodaj(Izmeni)
+                                        kreditnu karticu</a></li>
+                                </ol>
+
+                                <div th:if="${listOfCreditCards}">
+                                    <form th:action="@{/setDefaultPayment}" method="post">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>Default</th>
+                                                <th>Kreditna kartica</th>
+                                                <th>operacije</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="userPayment : ${userPaymentList}">
+                                                <td><input type="radio" name="defaultUserPaymentId"
+                                                           th:value="${userPayment.id}"
+                                                           th:checked="${userPayment.defaultPayment}" /></td>
+                                                <td th:text="${userPayment.cardName}"></td>
+                                                <td><a
+                                                        th:href="@{/updateCreditCard(id=${userPayment.id})}"><i
+                                                        class="fa fa-pencil"></i></a>&nbsp;&nbsp;<a
+                                                        th:href="@{/removeCreditCard(id=${userPayment.id})}"><i
+                                                        class="fa fa-times"></i></a></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <button class="btn btn-primary" type="submit">Sačuvaj</button>
+                                    </form>
+                                </div>
+
+                                <div th:if="${addNewCreditCard}">
+                                    <form th:action="@{addNewCreditCard}" method="post">
+<!--                                        <div class="bg-info" th:if="${updateUserPaymentInfo}">Informacije o korisniku ažurirane</div>-->
+
+                                        <input hidden="hidden" name="id" th:value="${userPayment.id}" />
+
+                                        <div class="form-group">
+                                            <h5>* Dajte ime kartici:</h5>
+                                            <input type="text" class="form-control" id="cardName"
+                                                   placeholder="Ime kartice" th:name="cardName"
+                                                   required="required" th:value="${userPayment.cardName}" />
+                                        </div>
+
+                                        <!-- Credit Card Information -->
+                                        <hr />
+                                        <div class="form-group">
+                                            <h4>Informacije o kreditnoj kartici</h4>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <img src="/image/creditcard.png" class="img-responsive" /><br />
+                                                <div class="form-group">
+                                                    <label for="cardType">* Odaberite tip kartice:</label> <select
+                                                        class="form-control" id="cardType" th:name="type"
+                                                        th:value="${userPayment.type}">
+                                                    <option value="visa">Visa</option>
+                                                    <option value="mastercard">Mastercard</option>
+                                                    <option value="discover">Discover</option>
+                                                    <option value="amex">American Express</option>
+                                                </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="cardHolder">* Ime i prezime vlasnika kartice:</label> <input
+                                                        type="text" class="form-control" id="cardHolder"
+                                                        required="required" placeHolder="Ime lvasnika kartice"
+                                                        th:name="holderName" th:value="${userPayment.holderName}" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="cardNumber">* Broj kartice:</label>
+                                                    <div class="input-group">
+                                                        <input type="tel" class="form-control" id="cardNumber"
+                                                               required="required" placeHolder="Važeći broj kartice"
+                                                               th:name="cardNumber"
+                                                               th:value="${userPayment.cardNumber}" /> <span
+                                                            class="input-group-addon"><i
+                                                            class="fa fa-credit-card" aria-hidden="true"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-7">
+                                                <div class="form-group">
+                                                    <label>* Datum isticanja</label>
+                                                    <div class="row">
+                                                        <div class="col-xs-6">
+                                                            <select class="form-control" name="expiryMonth"
+                                                                    required="required"
+                                                                    th:value="${userPayment.expiryMonth}">
+                                                                <option disabled="disabled">-- Mesec --</option>
+                                                                <option value="01">Jan (01)</option>
+                                                                <option value="02">Feb (02)</option>
+                                                                <option value="03">Mar (03)</option>
+                                                                <option value="04">Apr (04)</option>
+                                                                <option value="05">Maj (05)</option>
+                                                                <option value="06">Jun (06)</option>
+                                                                <option value="07">Jul (07)</option>
+                                                                <option value="08">Avg (08)</option>
+                                                                <option value="09">Sep (09)</option>
+                                                                <option value="10">Oct (10)</option>
+                                                                <option value="11">Nov (11)</option>
+                                                                <option value="12">Dec (12)</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-xs-6">
+                                                            <select class="form-control" name="expiryYear"
+                                                                    th:value="${userPayment.expiryYear}">
+                                                                <option disabled="disabled">-- Godina --</option>
+                                                                <option value="20">2020</option>
+                                                                <option value="21">2021</option>
+                                                                <option value="22">2022</option>
+                                                                <option value="23">2023</option>
+                                                                <option value="23">2024</option>
+                                                                <option value="23">2025</option>
+                                                                <option value="23">2026</option>
+                                                                <option value="23">2027</option>
+                                                                <option value="23">2028</option>
+                                                                <option value="23">2029</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-5">
+                                                <div class="form-group">
+                                                    <label for="cardCVC">CV Kod</label> <input id="cardCVC"
+                                                                                               type="tel" class="form-control" name="cvc"
+                                                                                               placeholder="CVC" th:name="cvc"
+                                                                                               th:value="${userPayment.cvc}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <button type="submit" class="btn btn-primary btn-lg">Sačuvaj sve</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div th:replace="user/fragments/header :: footer"/>
 

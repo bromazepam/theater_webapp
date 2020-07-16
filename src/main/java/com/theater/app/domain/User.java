@@ -35,8 +35,8 @@ public class User implements UserDetails {
 //	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 //	private List<UserShipping> userShippingList;
 
-//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-//	private List<UserPayment> userPaymentList;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	private List<UserPayment> userPaymentList;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
@@ -139,11 +139,11 @@ public class User implements UserDetails {
 //		this.userShippingList = userShippingList;
 //	}
 //
-//	public List<UserPayment> getUserPaymentList() {
-//		return userPaymentList;
-//	}
-//
-//	public void setUserPaymentList(List<UserPayment> userPaymentList) {
-//		this.userPaymentList = userPaymentList;
-//	}
+	public List<UserPayment> getUserPaymentList() {
+		return userPaymentList;
+	}
+
+	public void setUserPaymentList(List<UserPayment> userPaymentList) {
+		this.userPaymentList = userPaymentList;
+	}
 }
