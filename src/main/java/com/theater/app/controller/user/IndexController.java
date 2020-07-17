@@ -1,16 +1,10 @@
 package com.theater.app.controller.user;
 
-import com.theater.app.domain.Play;
-import com.theater.app.domain.Repertoire;
-import com.theater.app.domain.User;
-import com.theater.app.domain.UserPayment;
+import com.theater.app.domain.*;
 import com.theater.app.domain.security.PasswordResetToken;
 import com.theater.app.domain.security.Role;
 import com.theater.app.domain.security.UserRole;
-import com.theater.app.service.PlayService;
-import com.theater.app.service.RepertoireService;
-import com.theater.app.service.UserPaymentService;
-import com.theater.app.service.UserService;
+import com.theater.app.service.*;
 import com.theater.app.service.impl.UserSecurityService;
 import com.theater.app.utility.MailConstructor;
 import com.theater.app.utility.SecurityUtility;
@@ -39,10 +33,14 @@ public class IndexController {
     private final JavaMailSender mailSender;
     private final UserSecurityService userSecurityService;
     private final UserPaymentService userPaymentService;
+    private final OrderService orderService;
+    private final CartItemService cartItemService;
 
-    public IndexController(PlayService playService, RepertoireService repertoireService, UserService userService,
-                           MailConstructor mailConstructor, JavaMailSender mailSender,
-                           UserSecurityService userSecurityService, UserPaymentService userPaymentService) {
+    public IndexController(PlayService playService, RepertoireService repertoireService,
+                           UserService userService, MailConstructor mailConstructor,
+                           JavaMailSender mailSender, UserSecurityService userSecurityService,
+                           UserPaymentService userPaymentService, OrderService orderService,
+                           CartItemService cartItemService) {
         this.playService = playService;
         this.repertoireService = repertoireService;
         this.userService = userService;
@@ -50,6 +48,8 @@ public class IndexController {
         this.mailSender = mailSender;
         this.userSecurityService = userSecurityService;
         this.userPaymentService = userPaymentService;
+        this.orderService = orderService;
+        this.cartItemService = cartItemService;
     }
 
     @RequestMapping("/")
@@ -229,18 +229,6 @@ public class IndexController {
         return "user/myProfile";
     }
 
-    @RequestMapping("/myProfile")
-    public String myProfile(Model model, Principal principal) {
-        User user = userService.findByUsername(principal.getName());
-        model.addAttribute("user", user);
-        model.addAttribute("userPaymentList", user.getUserPaymentList());
-        model.addAttribute("orderList", user.getOrderList());
-        model.addAttribute("listOfCreditCards", true);
-        model.addAttribute("classActiveEdit", true);
-
-        return "user/myProfile";
-    }
-
     @RequestMapping("/plays")
     public String plays(Model model) {
 
@@ -282,6 +270,52 @@ public class IndexController {
         model.addAttribute("qtyList", qtyList);
         model.addAttribute("qty", 1);
         return "user/repertoireDetail";
+    }
+
+    @RequestMapping("/myProfile")
+    public String myProfile(Model model, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+        model.addAttribute("userPaymentList", user.getUserPaymentList());
+        model.addAttribute("orderList", user.getOrderList());
+        model.addAttribute("listOfCreditCards", true);
+        model.addAttribute("classActiveEdit", true);
+
+        return "user/myProfile";
+    }
+
+    @RequestMapping("/orders")
+    public String orders(Model model, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+        model.addAttribute("classActiveReservations", true);
+        model.addAttribute("orderList", user.getOrderList());
+
+        return "user/orders";
+    }
+
+    @RequestMapping("/orderDetail")
+    public String orderDetail(@RequestParam("id") Long orderId, Principal principal, Model model) {
+        User user = userService.findByUsername(principal.getName());
+        Order order = orderService.findById(orderId);
+
+        if (!order.getUser().getId().equals(user.getId())) {
+            return "badRequestPage";
+        } else {
+            List<CartItem> cartItemList = cartItemService.findByOrder(order);
+            model.addAttribute("cartItemList", cartItemList);
+            model.addAttribute("user", user);
+            model.addAttribute("order", order);
+
+            model.addAttribute("userPaymentList", user.getUserPaymentList());
+            model.addAttribute("orderList", user.getOrderList());
+
+            model.addAttribute("classActiveOrders", true);
+            model.addAttribute("displayOrderDetail", true);
+
+            return "user/orders";
+
+        }
     }
 
     @RequestMapping("/listOfCreditCards")
