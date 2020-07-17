@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="user/fragments/header :: common-header"/>
+<body>
+<div th:replace="user/fragments/header :: navbar"/>
+<div class="container">
+    <h3>Kupovine</h3>
+    <div class="row" style="margin-top: 60px;">
+        <div class="col-xs-12">
+            <!--nav tabs-->
+            <ul class="nav nav-tabs">
+                <li th:classappend="${classActiveOrders}? 'active'"><a
+                        href="#tab-2" data-toggle="tab"><span>Rezervacije</span></a></li>
+            </ul>
+
+            <!-- Tab panels -->
+            <div class="tab-content">
+<!--                Reservation Information-->
+                <div class="tab-pane fade" id="tab-2"
+                     th:classappend="${classActiveOrders}? 'in active'">
+                    <div class="panel-group">
+                        <div class="panel panel-default" style="border: none;">
+                            <div class="panel-body"
+                                 style="background-color: #ededed; margin-top: 20px;">
+
+                                <table class="table table-sm table-inverse">
+                                    <thead>
+                                    <tr>
+                                        <th>Datum kupovine</th>
+                                        <th>Broj kupovine</th>
+                                        <th>Ukupno</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="order : ${orderList}">
+                                        <td><a th:href="@{/orderDetail(id=${order.id})}"><span
+                                                th:text="${order.orderDate}"></span></a></td>
+                                        <td data-th-text="${order.id}"></td>
+                                        <td data-th-text="${order.orderTotal}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <div th:if="${displayOrderDetail}">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="text-center">
+                                                <h2>
+                                                    Detalji kupovine #<span th:text="${order.id}"></span>
+                                                </h2>
+                                            </div>
+                                            <hr/>
+
+                                            <div class="row">
+                                                <div class="col-xs-4">
+                                                    <div class="panel panel-default height">
+                                                        <div class="panel-heading">
+                                                            <strong>Informacije o plaćanju</strong>
+                                                        </div>
+                                                        <div class="panel-body">
+                																<span th:text="${order.payment.holderName}">Naziv
+                																	kartice</span><br/> <span
+                                                                th:text="${order.payment.cardNumber}">Broj
+                																	Kartice</span><br/> <span>Datum isticanja:</span><span
+                                                                th:text="${order.payment.expiryMonth}"></span>/<span
+                                                                th:text="${order.payment.expiryYear}"></span><br/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="panel-heading">
+                                                <h3 class="text-center">
+                                                    <strong>Račun kupovine</strong>
+                                                </h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-condensed">
+                                                        <thead>
+                                                        <tr>
+                                                            <td><strong>Naziv artikla</strong></td>
+                                                            <td class="text-center"><strong>Cena
+                                                            </strong></td>
+                                                            <td class="text-center"><strong>
+                                                                Količina</strong></td>
+                                                            <td class="text-right"><strong>Ukupno</strong></td>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr th:each="cartItem : ${cartItemList}">
+                                                            <td data-th-text="${cartItem.repertoire.play.getTitle()}"></td>
+                                                            <td class="text-center"
+                                                                data-th-text="${cartItem.repertoire.price}"></td>
+                                                            <td class="text-center" data-th-text="${cartItem.qty}"></td>
+                                                            <td class="text-center"
+                                                                data-th-text="${cartItem.subtotal}"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="emptyrow"><i
+                                                                    class="fa fa-barcode iconbig"></i></td>
+                                                            <td class="emptyrow"></td>
+                                                            <td class="emptyrow text-center"><strong>Ukupno</strong>
+                                                            </td>
+                                                            <td
+                                                                    th:with="total=${order.orderTotal}"
+                                                                    class="emptyrow text-right"></td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:replace="user/fragments/header :: footer"/>
+
+            <div th:replace="user/fragments/header :: body-bottom-scripts"/>
+        </div>
+    </div>
+</div>
+</body>
+</html>
