@@ -11,8 +11,8 @@
             <ul class="nav nav-tabs">
                 <li th:classappend="${classActiveEdit}? 'active'"><a
                         href="#tab-1" data-toggle="tab"><span>Profil</span></a></li>
-<!--                <li th:classappend="${classActiveReservations}? 'active'"><a-->
-<!--                        href="#tab-2" data-toggle="tab"><span>Rezervacije</span></a></li>-->
+                <!--                <li th:classappend="${classActiveReservations}? 'active'"><a-->
+                <!--                        href="#tab-2" data-toggle="tab"><span>Rezervacije</span></a></li>-->
                 <li th:classappend="${classActiveBilling}? 'active'"><a
                         href="#tab-3" data-toggle="tab"><span>Plaćanje</span></a></li>
             </ul>
@@ -161,7 +161,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <img src="http://www.credit-card-logos.com/images/multiple_credit-card-logos-2/credit_card_logos_42.gif" class="img-responsive"/><br/>
+                                                <img src="http://www.credit-card-logos.com/images/multiple_credit-card-logos-2/credit_card_logos_42.gif"
+                                                     class="img-responsive"/><br/>
                                                 <div class="form-group">
                                                     <label for="cardType">* Odaberite tip kartice:</label> <select
                                                         class="form-control" id="cardType" th:name="type"

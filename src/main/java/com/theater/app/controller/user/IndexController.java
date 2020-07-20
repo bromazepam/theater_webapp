@@ -300,7 +300,7 @@ public class IndexController {
         Order order = orderService.findById(orderId);
 
         if (!order.getUser().getId().equals(user.getId())) {
-            return "badRequestPage";
+            return "user/badRequestPage";
         } else {
             List<CartItem> cartItemList = cartItemService.findByOrder(order);
             model.addAttribute("cartItemList", cartItemList);
