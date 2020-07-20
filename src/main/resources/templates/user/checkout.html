@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="user/fragments/header :: common-header"/>
+<body>
+<div th:replace="user/fragments/header :: navbar"/>
+
+<div class="container">
+    <h3>Podesavanja</h3>
+    <div class="row" style="margin-top: 60px;">
+        <form th:action="@{/checkout}" method="post">
+
+            <!-- Left Panel -->
+            <div class="col-xs-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <button type="submit" class="btn btn-warning btn-block">Naruči</button>
+                        <p style="font-size: smaller;">
+                            Naručivanjem prihvatate pravila <a href="#">privatnosti</a>
+                            Moje knjižare i <a href="#">uslove</a> korišćenja.
+                        </p>
+                        <hr/>
+                        <h3>Račun kupovine</h3>
+                        <div class="row">
+                            <div class="col-xs-7 text-left">
+                                <h3 style="color: darkred;">
+                                    <strong>Ukupno: </strong>
+                                </h3>
+                            </div>
+                            <div class="col-xs-5 text-right">
+                                <h3>
+                                    <strong style="color: darkred;">$<span
+                                            th:with="total=${shoppingCart.grandTotal+shoppingCart.grandTotal*0.06}"
+                                            th:text="${#numbers.formatDecimal(total, 0 ,2)}"></span></strong>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checkout Info -->
+            <div class="col-xs-8">
+                <div th:if="${missingRequiredField}">
+                    <h5 class="alert alert-warning">Neka polja nisu popunjena. Polja sa * su obavezna.</h5>
+                </div>
+
+                <div class="panel-group" id="accordion">
+
+                    <!-- Payment Information -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                   href="#paymentInfo"> 1. Informacije o plaćanju </a>
+                            </h4>
+                        </div>
+
+                        <div id="paymentInfo" class="panel-collapse collapse"
+                             th:classappend="${classActivePayment}? 'in'">
+                            <div class="panel-body">
+                                <table class="table" th:if="${not emptyPaymentList}">
+                                    <thead>
+                                    <tr>
+                                        <th>Dostupne kartice</th>
+                                        <th>Operacije</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="userPayment : ${userPaymentList}">
+                                        <td th:text="${userPayment.cardName}"></td>
+                                        <td><a
+                                                th:href="@{/setPaymentMethod(userPaymentId=${userPayment.id})}">koristi
+                                            ovaj način plaćanja</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- Credit Card Information -->
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <img th:src="@{/image/creditcard.png}" class="img-responsive"/><br/>
+                                        <div class="form-group">
+                                            <label for="cardType">* Odaberite kreditnu karticu: </label> <select
+                                                class="form-control" id="cardType" name="type"
+                                                th:value="${payment.type}">
+                                            <option value="visa">Visa</option>
+                                            <option value="mastercard">Mastercard</option>
+                                            <option value="discover">Discover</option>
+                                            <option value="amex">American Express</option>
+                                        </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="cardHolder">* Ime vlasnika kartice:</label> <input
+                                                type="text" class="form-control" id="cardHolder"
+                                                required="required" placeHolder="Ime i prezime vlasnika kartice"
+                                                th:name="holderName" th:value="${payment.holderName}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cardNumber">* Broj kreditne kartice:</label>
+                                            <div class="input-group">
+                                                <input type="tel" class="form-control" id="cardNumber"
+                                                       required="required" placeHolder="Validni broj kartice"
+                                                       th:name="cardNumber" th:value="${payment.cardNumber}"/>
+                                                <span class="input-group-addon"><i
+                                                        class="fa fa-credit-card" aria-hidden="true"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-7">
+                                        <div class="form-group">
+                                            <label>* Datum isticanja</label>
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <select class="form-control" name="expiryMonth"
+                                                            required="required" th:value="${payment.expiryMonth}">
+                                                        <option disabled="disabled">-- Mesec --</option>
+                                                        <option value="01">Jan (01)</option>
+                                                        <option value="02">Feb (02)</option>
+                                                        <option value="03">Mar (03)</option>
+                                                        <option value="04">Apr (04)</option>
+                                                        <option value="05">Maj (05)</option>
+                                                        <option value="06">Jun (06)</option>
+                                                        <option value="07">Jul (07)</option>
+                                                        <option value="08">Avg (08)</option>
+                                                        <option value="09">Sep (09)</option>
+                                                        <option value="10">Oct (10)</option>
+                                                        <option value="11">Nov (11)</option>
+                                                        <option value="12">Dec (12)</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <select class="form-control" name="expiryYear"
+                                                            th:value="${payment.expiryYear}">
+                                                        <option disabled="disabled">-- Godina --</option>
+                                                        <option value="20">2020</option>
+                                                        <option value="21">2021</option>
+                                                        <option value="22">2022</option>
+                                                        <option value="23">2023</option>
+                                                        <option value="23">2024</option>
+                                                        <option value="23">2025</option>
+                                                        <option value="23">2026</option>
+                                                        <option value="23">2027</option>
+                                                        <option value="23">2028</option>
+                                                        <option value="23">2029</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <div class="form-group">
+                                            <label for="cardCVC">CV kod</label> <input id="cardCVC"
+                                                                                       type="tel" class="form-control"
+                                                                                       name="cvc"
+                                                                                       placeholder="CVC" th:name="cvc"
+                                                                                       th:value="${payment.cvc}"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                   class="btn btn-warning pull-right" href="#reviewItems">Sledeće</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review Items and Shipping -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                   href="#reviewItems"> 2. Revizija artikala </a>
+                            </h4>
+                        </div>
+                        <div id="reviewItems" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-xs-8">
+                                        <h4>Artikli</h4>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <h4>Cena</h4>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <h4>Količina</h4>
+                                    </div>
+                                </div>
+
+                                <!-- display products in cart -->
+                                <div class="row" th:each="cartItem : ${cartItemList}">
+                                    <hr/>
+                                    <div class="col-xs-2">
+                                        <a th:href="@{/bookDetail(id=${cartItem.book.id})}"> <img
+                                                class="img-responsive shelf-book"
+                                                th:src="#{adminPath}+@{/image/book/}+${cartItem.book.id}+'.png'"
+                                                style="width: 70px;"/>
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div style="margin-left: 50px;">
+                                            <a th:href="@{/bookDetail?id=}+${cartItem.book.id}"><h4
+                                                    th:text="${cartItem.book.title}"></h4></a>
+                                            <p th:if="${cartItem.book.inStockNumber&gt;10}"
+                                               style="color: green;">Na lageru</p>
+                                            <p
+                                                    th:if="${cartItem.book.inStockNumber&lt;10 and cartItem.book.inStockNumber&gt;0}"
+                                                    style="color: green;">
+                                                Samo <span th:text="${cartItem.book.inStockNumber}"></span>
+                                                Na lageru
+                                            </p>
+                                            <p th:if="${cartItem.book.inStockNumber==0}"
+                                               style="color: darkred;">Artikal nedostupan</p>
+                                            <a th:href="@{/shoppingCart/removeItem?id=}+${cartItem.id}">izbriši</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-2">
+                                        <h5 style="color: #db3208; font-size: large;">
+                                            $<span th:text="${cartItem.book.ourPrice}"
+                                                   th:style="${cartItem.book.inStockNumber}==0? 'text-decoration: line-through' : ''"></span>
+                                        </h5>
+                                    </div>
+
+                                    <div class="col-xs-2">
+                                        <h5 style="font-size: large;" th:text="${cartItem.qty}"></h5>
+                                    </div>
+
+                                </div>
+
+                                <hr/>
+                                <h4 class="col-xs-12 text-right">
+                                    <strong style="font-size: large;">Ukupna cena (<span
+                                            th:text="${#lists.size(cartItemList)}"></span> artikli):
+                                    </strong> <span style="color: #db3208; font-szie: large;">$<span
+                                        th:text="${shoppingCart.grandTotal}"></span></span>
+                                </h4>
+                                <br/>
+                                <br/>
+                                <button type="submit" class="btn btn-warning btn-block">Naruči</button>
+                                <p style="font-size: smaller;">
+                                    Naručivanjem prihvatate pravila <a href="#">privatnosti</a>
+                                    i <a href="#">uslove</a> korišćenja.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- end of container -->
+
+<div th:replace="user/fragments/header :: footer"/>
+
+<div th:replace="user/fragments/header :: body-bottom-scripts"/>
+</body>
+</html>
