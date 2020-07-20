@@ -288,7 +288,7 @@ public class IndexController {
     public String orders(Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         model.addAttribute("user", user);
-        model.addAttribute("classActiveReservations", true);
+        model.addAttribute("classActiveOrders", true);
         model.addAttribute("orderList", user.getOrderList());
 
         return "user/orders";
