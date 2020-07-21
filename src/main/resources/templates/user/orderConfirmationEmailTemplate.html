@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <link href="/css/non-responsive.css" rel="stylesheet"/>
+
+    <link href="/css/font-awesome.min.css" rel="stylesheet"/>
+
+    <!-- Custom styles for this template -->
+    <link href="/css/style.css" rel="stylesheet"/>
+
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<p>Dragi <span th:text="${user.firstName}"></span>,</p>
+<br/>
+<p>Hvala što kupujete kod nas. Nadamo se da ste zadovoljni našom uslugom!</p>
+<p>Broj Vaše narudžbine je: <strong>#<span th:text="${order.id}"></span></strong>. Detalji narudžbine:</p>
+<h2>Detalji kupovine #<span th:text="${order.id}"></span></h2>
+<hr/>
+
+<table>
+    <tr>
+        <th>Informacije o plaćanju</th>
+    </tr>
+    <tr>
+        <td>
+            <span th:text="${order.payment.holderName}"></span><br/>
+            <span th:text="${order.payment.type}"></span><br/>
+            <span th:text="${order.payment.cardNumber}"></span><br/>
+            <span th:text="${order.payment.expiryMonth}"></span><br/>
+            <span th:text="${order.payment.expiryYear}"></span><br/>
+        </td>
+    </tr>
+</table>
+
+<h3><strong>Račun kupovine</strong></h3>
+<table>
+    <thead>
+    <tr>
+        <td><strong>Naziv</strong></td>
+        <td class="text-center"><strong>Cena</strong></td>
+        <td class="text-center"><strong>Količina</strong></td>
+        <td class="text-right"><strong>Ukupno</strong></td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cartItem : ${cartItemList}">
+        <td><span data-th-text="${cartItem.repertoire.play.getTitle()}"></span></td>
+        <td class="text-center" data-th-text="${cartItem.repertoire.price}"></td>
+        <td class="text-center" data-th-text="${cartItem.qty}"></td>
+        <td class="text-right" data-th-text="${cartItem.subtotal}"></td>
+    </tr>
+    <tr>
+        <td class="highrow"></td>
+        <td class="highrow"></td>
+        <td class="highrow text-center"><strong>Cena</strong></td>
+        <td class="highrow text-right" data-th-text="${order.orderTotal}"></td>
+    </tr>
+    <tr>
+        <td class="emptyrow"><i class="fa fa-barcode iconbig"></i></td>
+        <td class="emptyrow"></td>
+        <td class="emptyrow text-center"><strong>Ukupno</strong></td>
+        <td th:with="total=${order.orderTotal}"
+            class="emptyrow text-right">
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<br/>
+<p>Srdačan pozdrav</p>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="user/fragments/header :: common-header"/>
+<body>
+<div th:replace="user/fragments/header :: navbar"/>
+
+<div class="container">
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-xs-12">
+            <div class="alert alert-success">
+                <h3>
+                    <i class="fa fa-check" aria-hidden="true"
+                       style="color: limegreen;"></i> Hvala Vam, Vaša kupovina je sačuvana.
+                </h3>
+            </div>
+            <h3>Lista artikala</h3>
+            <div class="row" th:each="cartItem : ${cartItemList}">
+                <hr />
+                <div class="col-xs-2"></div>
+                <div class="col-xs-2">
+                    <a th:href="@{'/repertoireDetail/'+ ${cartItem.repertoire.id}}"> <img
+                            style="width:70px;"
+                            class="img-responsive shelf-book center-block"
+                            th:src="@{'data:image/png;base64,' + ${cartItem.repertoire.getPlay().playImage}}"/>
+                    </a>
+                </div>
+                <div class="col-xs-6">
+                    <div style="margin-left: 50px;">
+                        <a th:href="@{'/repertoireDetail/'+ ${cartItem.repertoire.id}}"><h4
+                                th:text="${cartItem.repertoire.play.getTitle()}"></h4></a>
+                    </div>
+                </div>
+
+                <div class="col-xs-2">
+                    <h5 style="color: #db3208; font-size: large;">
+                        $<span th:text="${cartItem.repertoire.price}"
+                               th:style="${cartItem.repertoire.availableSeats}==0? 'text-decoration: line-through' : ''"></span>
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end of container -->
+
+<div th:replace="user/fragments/header :: footer"/>
+
+<div th:replace="user/fragments/header :: body-bottom-scripts"/>
+</body>
+</html>
