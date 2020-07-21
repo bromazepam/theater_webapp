@@ -39,12 +39,12 @@ public class CheckoutController {
         this.userPaymentService = userPaymentService;
     }
 
-    @GetMapping("/checkout")
-    public String checkout(@RequestParam("id") Long cartId, @RequestParam(value = "missingRequiredField", required = false)
+    @GetMapping("/checkout/{cartId}")
+    public String checkout(@PathVariable String cartId, @RequestParam(value = "missingRequiredField", required = false)
             boolean missingrequiredField, Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
 
-        if (!cartId.equals(user.getShoppingCart().getId())) {
+        if (!Long.valueOf(cartId).equals(user.getShoppingCart().getId())) {
             return "user/badRequestPage";
         }
 
@@ -99,7 +99,7 @@ public class CheckoutController {
         User user = userService.findByUsername(principal.getName());
         Order order = orderService.createOrder(shoppingCart, payment, user);
 
-        mailSender.send(mailConstructor.constructOrderConfirmationEmail(user, order, Locale.ENGLISH));
+        mailSender.send(mailConstructor.constructOrderConfirmationEmail(user, order));
         shoppingCartService.clearShoppingCart(shoppingCart);
 
         return "user/orderSubmittedPage";

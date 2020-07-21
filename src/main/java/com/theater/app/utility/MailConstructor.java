@@ -38,24 +38,19 @@ public class MailConstructor {
 
     }
 
-    public MimeMessagePreparator constructOrderConfirmationEmail(User user, Order order, Locale locale) {
+    public MimeMessagePreparator constructOrderConfirmationEmail(User user, Order order) {
         Context context = new Context();
         context.setVariable("order", order);
         context.setVariable("user", user);
         context.setVariable("cartItemList", order.getCartItemList());
         String text = templateEngine.process("orderConfirmationEmailTemplate", context);
 
-        MimeMessagePreparator messagePreparator = new MimeMessagePreparator() {
-            @Override
-            public void prepare(MimeMessage mimeMessage) throws Exception {
-                MimeMessageHelper email = new MimeMessageHelper(mimeMessage);
-                email.setTo(user.getEmail());
-                email.setSubject("order confirmation - " + order.getId());
-                email.setText(text, true);
-                email.setFrom(new InternetAddress("beermezv@gmail.com"));
-            }
+        return mimeMessage -> {
+            MimeMessageHelper email = new MimeMessageHelper(mimeMessage);
+            email.setTo(user.getEmail());
+            email.setSubject("order confirmation - " + order.getId());
+            email.setText(text, true);
+            email.setFrom(new InternetAddress("beermezv@gmail.com"));
         };
-
-        return messagePreparator;
     }
 }
