@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -240,9 +243,13 @@ public class IndexController {
     }
 
     @RequestMapping("/repertoireList")
-    public String repertoire(Model model) {
+    public String repertoire(Model model) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        Date date2 = dateFormat.parse(dateFormat.format(date));
 
-        List<Repertoire> repertoireList = repertoireService.findAll();
+        List<Repertoire> repertoireList = repertoireService.findByPresentOrFutureDate(date2);
+        repertoireList.sort(Comparator.comparing(Repertoire::getProjectionDate));
         model.addAttribute("repertoireList", repertoireList);
         model.addAttribute("activeAll", true);
 
