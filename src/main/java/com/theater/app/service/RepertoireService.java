@@ -16,5 +16,7 @@ public interface RepertoireService {
 
     List<Repertoire> findByDate(Date date);
 
+    List<Repertoire> findByPresentOrFutureDate(Date date);
+
     int availableSeats(Long id);
 }

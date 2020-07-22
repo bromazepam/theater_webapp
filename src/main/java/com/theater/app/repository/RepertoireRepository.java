@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface RepertoireRepository extends CrudRepository<Repertoire, Long> {
     List<Repertoire> findByProjectionDate(Date projectionDate);
+    List<Repertoire> findByProjectionDateGreaterThanEqual(Date currentDate);
 }
 

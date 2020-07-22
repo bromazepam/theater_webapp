@@ -45,9 +45,8 @@ public class RepertoireServiceImpl implements RepertoireService {
 
     @Override
     public List<Repertoire> findByDate(Date date) {
-        List<Repertoire> repertoires = repertoireRepository.findByProjectionDate(new java.sql.Date(date.getTime()));
 
-        return repertoires;
+        return repertoireRepository.findByProjectionDate(new java.sql.Date(date.getTime()));
     }
 
     @Override
@@ -59,5 +58,11 @@ public class RepertoireServiceImpl implements RepertoireService {
     public int availableSeats(Long id) {
         List<Seat> lst = seatRepository.findByStageIdAndReservedFalse(id);
         return lst.size();
+    }
+
+    @Override
+    public List<Repertoire> findByPresentOrFutureDate(Date date) {
+
+        return repertoireRepository.findByProjectionDateGreaterThanEqual(new java.sql.Date(date.getTime()));
     }
 }
