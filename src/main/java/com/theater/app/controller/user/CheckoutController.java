@@ -41,7 +41,7 @@ public class CheckoutController {
 
     @GetMapping("/checkout/{cartId}")
     public String checkout(@PathVariable String cartId, @RequestParam(value = "missingRequiredField", required = false)
-            boolean missingrequiredField, Model model, Principal principal) {
+            boolean missingRequiredField, Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
 
         if (!Long.valueOf(cartId).equals(user.getShoppingCart().getId())) {
@@ -82,7 +82,7 @@ public class CheckoutController {
         model.addAttribute("shoppingCart", user.getShoppingCart());
 
         model.addAttribute("classActivePayment", true);
-        if (missingrequiredField) {
+        if (missingRequiredField) {
             model.addAttribute("missingRequiredField", true);
         }
 
@@ -91,10 +91,15 @@ public class CheckoutController {
     }
 
     @PostMapping("/checkout")
-    public String checkoutPost(@ModelAttribute("payment") Payment payment, Principal principal, Model model) {
+    public String submitOrder(@ModelAttribute("payment") Payment payment, Principal principal, Model model) {
         ShoppingCart shoppingCart = userService.findByUsername(principal.getName()).getShoppingCart();
         List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
         model.addAttribute("cartItemList", cartItemList);
+
+        if(payment.getType().isEmpty() || payment.getHolderName().isEmpty() || payment.getCardNumber().isEmpty() ||
+                payment.getExpiryMonth() == 0 || payment.getExpiryYear() == 0 || payment.getCvc() == 0){
+            return "redirect:/checkout/"+ shoppingCart.getId() + "&missingRequiredField=true";
+        }
 
         User user = userService.findByUsername(principal.getName());
         Order order = orderService.createOrder(shoppingCart, payment, user);
