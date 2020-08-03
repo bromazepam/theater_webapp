@@ -16,27 +16,21 @@
     <field name="price" class="java.lang.Integer">
     </field>
     <group name="Group1">
-        <groupExpression><![CDATA[$F{projectionDate}]]></groupExpression>
+        <groupExpression><![CDATA[MONTH($F{projectionDate})]]></groupExpression>
         <groupHeader>
-            <band height="33">
-                <staticText>
-                    <reportElement mode="Opaque" x="0" y="0" width="180" height="32" forecolor="#666666"
-                                   backcolor="#E6E6E6" uuid="304e67b3-ebab-4f1d-a1f9-75085cc76735"/>
-                    <textElement textAlignment="Center" verticalAlignment="Middle">
-                        <font size="12"/>
-                    </textElement>
-                    <text><![CDATA[Datum prikazivanja]]></text>
-                </staticText>
+            <band height="53">
                 <textField>
-                    <reportElement mode="Opaque" x="180" y="0" width="375" height="32" forecolor="#006699"
-                                   backcolor="#E6E6E6" uuid="e68f6601-8b5e-4769-9237-3108a3050ba6"/>
-                    <textElement>
+                    <reportElement key="" mode="Opaque" x="0" y="-17" width="555" height="32"
+                                   printWhenGroupChanges="Group1" forecolor="#006699" backcolor="#E6E6E6"
+                                   uuid="e68f6601-8b5e-4769-9237-3108a3050ba6"/>
+                    <textElement textAlignment="Center" verticalAlignment="Middle">
                         <font size="24" isBold="true"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[$F{projectionDate}]]></textFieldExpression>
+                    <textFieldExpression>
+                        <![CDATA[new SimpleDateFormat("MMM/YYYY").format($F{projectionDate})]]></textFieldExpression>
                 </textField>
                 <line>
-                    <reportElement x="-20" y="32" width="595" height="1" forecolor="#666666"
+                    <reportElement x="-20" y="15" width="595" height="1" forecolor="#666666"
                                    uuid="163145cd-c50b-45ab-ae01-40c2ee1507d2"/>
                 </line>
             </band>
@@ -51,7 +45,7 @@
     <title>
         <band height="72">
             <frame>
-                <reportElement mode="Opaque" x="-19" y="-20" width="595" height="92" backcolor="#006699"
+                <reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699"
                                uuid="72b05f6f-9aaa-466f-a960-7396425feaf4"/>
                 <staticText>
                     <reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF"
@@ -67,7 +61,7 @@
                     <textElement textAlignment="Right">
                         <font size="14" isBold="false"/>
                     </textElement>
-                    <text><![CDATA[]]></text>
+                    <text><![CDATA[mesecni prikaz]]></text>
                 </staticText>
             </frame>
         </band>
@@ -76,13 +70,13 @@
         <band height="13"/>
     </pageHeader>
     <columnHeader>
-        <band height="21">
+        <band height="38">
             <line>
                 <reportElement x="-20" y="20" width="595" height="1" forecolor="#666666"
                                uuid="311e26f9-3b0c-4a09-87e1-4e5577f76515"/>
             </line>
             <staticText>
-                <reportElement mode="Opaque" x="0" y="0" width="185" height="20" forecolor="#006699" backcolor="#E6E6E6"
+                <reportElement mode="Opaque" x="0" y="0" width="140" height="20" forecolor="#006699" backcolor="#E6E6E6"
                                uuid="7dee67bf-a014-493d-9e19-2eebf8fe5b3d">
                     <property name="com.jaspersoft.studio.spreadsheet.connectionID"
                               value="37adfb9d-3c26-4eb8-8f96-003a307cfd97"/>
@@ -90,10 +84,11 @@
                 <textElement textAlignment="Center">
                     <font size="14" isBold="true"/>
                 </textElement>
-                <text><![CDATA[Naslov predstave]]></text>
+                <text><![CDATA[Naslov predstave
+]]></text>
             </staticText>
             <staticText>
-                <reportElement mode="Opaque" x="185" y="0" width="185" height="20" forecolor="#006699"
+                <reportElement mode="Opaque" x="140" y="0" width="140" height="20" forecolor="#006699"
                                backcolor="#E6E6E6" uuid="3befff96-75dd-4705-b29f-ddd86ec9c069">
                     <property name="com.jaspersoft.studio.spreadsheet.connectionID"
                               value="3fceb7ed-bfae-417a-96af-1bfbf1641e37"/>
@@ -101,10 +96,11 @@
                 <textElement textAlignment="Center">
                     <font size="14" isBold="true"/>
                 </textElement>
-                <text><![CDATA[Scena]]></text>
+                <text><![CDATA[Scena
+]]></text>
             </staticText>
             <staticText>
-                <reportElement mode="Opaque" x="370" y="0" width="185" height="20" forecolor="#006699"
+                <reportElement mode="Opaque" x="280" y="0" width="130" height="20" forecolor="#006699"
                                backcolor="#E6E6E6" uuid="e810074f-a1fe-403d-88a1-a2e24593b541">
                     <property name="com.jaspersoft.studio.spreadsheet.connectionID"
                               value="d91d0b7a-3ff7-413e-ba3e-73e420aacd5e"/>
@@ -114,16 +110,24 @@
                 </textElement>
                 <text><![CDATA[Cena karte]]></text>
             </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="410" y="0" width="145" height="20" forecolor="#006699"
+                               backcolor="#E6E6E6" uuid="531883b6-454d-4686-91ea-4f47c987665c"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="14" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Datum izvodjenja]]></text>
+            </staticText>
         </band>
     </columnHeader>
     <detail>
         <band height="20">
             <line>
-                <reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1"
+                <reportElement positionType="FixRelativeToBottom" x="0" y="-18" width="555" height="1"
                                uuid="a9b094eb-c50d-47d2-b6c2-2867c98b42e8"/>
             </line>
             <textField textAdjust="StretchHeight">
-                <reportElement x="0" y="0" width="185" height="20" uuid="65c2fe42-a368-4248-a1b1-02f973572b9e">
+                <reportElement x="0" y="-37" width="140" height="20" uuid="65c2fe42-a368-4248-a1b1-02f973572b9e">
                     <property name="com.jaspersoft.studio.spreadsheet.connectionID"
                               value="37adfb9d-3c26-4eb8-8f96-003a307cfd97"/>
                 </reportElement>
@@ -133,7 +137,7 @@
                 <textFieldExpression><![CDATA[$F{play}.getTitle()]]></textFieldExpression>
             </textField>
             <textField textAdjust="StretchHeight">
-                <reportElement x="185" y="0" width="185" height="20" uuid="f515e218-000f-43aa-9cd2-d1c6da0b9411">
+                <reportElement x="140" y="-37" width="140" height="20" uuid="f515e218-000f-43aa-9cd2-d1c6da0b9411">
                     <property name="com.jaspersoft.studio.spreadsheet.connectionID"
                               value="3fceb7ed-bfae-417a-96af-1bfbf1641e37"/>
                 </reportElement>
@@ -143,7 +147,7 @@
                 <textFieldExpression><![CDATA[$F{stage}.getName()]]></textFieldExpression>
             </textField>
             <textField textAdjust="StretchHeight">
-                <reportElement x="370" y="0" width="185" height="20" uuid="b2c33c13-f43f-44ca-a5a9-f2bec76bbbd7">
+                <reportElement x="280" y="-37" width="130" height="20" uuid="b2c33c13-f43f-44ca-a5a9-f2bec76bbbd7">
                     <property name="com.jaspersoft.studio.spreadsheet.connectionID"
                               value="d91d0b7a-3ff7-413e-ba3e-73e420aacd5e"/>
                 </reportElement>
@@ -151,6 +155,17 @@
                     <font size="14"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight" isBlankWhenNull="true">
+                <reportElement x="420" y="-37" width="135" height="20" uuid="b2c33c13-f43f-44ca-a5a9-f2bec76bbbd7">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID"
+                              value="d91d0b7a-3ff7-413e-ba3e-73e420aacd5e"/>
+                </reportElement>
+                <textElement textAlignment="Center">
+                    <font size="14"/>
+                </textElement>
+                <textFieldExpression>
+                    <![CDATA[new SimpleDateFormat("d/MM/YYYY").format($F{projectionDate})]]></textFieldExpression>
             </textField>
         </band>
     </detail>
@@ -160,18 +175,18 @@
     <pageFooter>
         <band height="17">
             <textField>
-                <reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6"
+                <reportElement mode="Opaque" x="0" y="-33" width="515" height="13" backcolor="#E6E6E6"
                                uuid="061dde5b-1ba4-496f-995f-cec2ec6a4186"/>
                 <textElement textAlignment="Right"/>
                 <textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
             </textField>
             <textField evaluationTime="Report">
-                <reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6"
+                <reportElement mode="Opaque" x="515" y="-33" width="40" height="13" backcolor="#E6E6E6"
                                uuid="ba6b61ea-489e-43f2-94b9-2693fb22cc75"/>
                 <textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
             </textField>
-            <textField pattern="dd MMMMM yyyy">
-                <reportElement x="0" y="4" width="100" height="13" uuid="6b216f32-d7da-484e-b612-ee4fe8e68594"/>
+            <textField pattern="EEEEE dd MMMMM yyyy">
+                <reportElement x="0" y="-33" width="100" height="13" uuid="6b216f32-d7da-484e-b612-ee4fe8e68594"/>
                 <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
             </textField>
         </band>
