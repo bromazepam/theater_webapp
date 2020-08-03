@@ -5,16 +5,10 @@
               xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
               name="repertoire" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20"
               topMargin="20" bottomMargin="20" uuid="e62eb15f-e2bb-4548-b16b-bcdb3fd19563">
-
-
-    <field name="play" class="com.theater.app.domain.Play">
-    </field>
-    <field name="projectionDate" class="java.sql.Date">
-    </field>
-    <field name="stage" class="com.theater.app.domain.Stage">
-    </field>
-    <field name="price" class="java.lang.Integer">
-    </field>
+    <field name="play" class="com.theater.app.domain.Play"/>
+    <field name="projectionDate" class="java.sql.Date"/>
+    <field name="stage" class="com.theater.app.domain.Stage"/>
+    <field name="price" class="java.lang.Integer"/>
     <group name="Group1">
         <groupExpression><![CDATA[MONTH($F{projectionDate})]]></groupExpression>
         <groupHeader>
@@ -84,8 +78,7 @@
                 <textElement textAlignment="Center">
                     <font size="14" isBold="true"/>
                 </textElement>
-                <text><![CDATA[Naslov predstave
-]]></text>
+                <text><![CDATA[Naslov predstave]]></text>
             </staticText>
             <staticText>
                 <reportElement mode="Opaque" x="140" y="0" width="140" height="20" forecolor="#006699"
@@ -96,8 +89,7 @@
                 <textElement textAlignment="Center">
                     <font size="14" isBold="true"/>
                 </textElement>
-                <text><![CDATA[Scena
-]]></text>
+                <text><![CDATA[Scena]]></text>
             </staticText>
             <staticText>
                 <reportElement mode="Opaque" x="280" y="0" width="130" height="20" forecolor="#006699"
@@ -157,7 +149,7 @@
                 <textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
             </textField>
             <textField textAdjust="StretchHeight" isBlankWhenNull="true">
-                <reportElement x="420" y="-37" width="135" height="20" uuid="b2c33c13-f43f-44ca-a5a9-f2bec76bbbd7">
+                <reportElement x="410" y="-37" width="145" height="20" uuid="b2c33c13-f43f-44ca-a5a9-f2bec76bbbd7">
                     <property name="com.jaspersoft.studio.spreadsheet.connectionID"
                               value="d91d0b7a-3ff7-413e-ba3e-73e420aacd5e"/>
                 </reportElement>
