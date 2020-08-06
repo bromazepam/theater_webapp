@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.13.0.final using JasperReports Library version 6.13.0-46ada4d1be8f3c5985fd0b6146f3ed44caed6f05  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="monthlyAttendance" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20"
+              rightMargin="20" topMargin="20" bottomMargin="20" uuid="84cbac01-5e95-4dbc-8f5b-13a99cd4c2fb">
+    <field name="projectionDate" class="java.sql.Date"/>
+    <field name="stage" class="com.theater.app.domain.Stage"/>
+    <field name="availableSeats" class="java.lang.Integer"/>
+    <group name="Group1">
+        <groupExpression><![CDATA[MONTH($F{r.projection_date})]]></groupExpression>
+        <groupHeader>
+            <band height="33">
+                <line>
+                    <reportElement x="-20" y="32" width="595" height="1" forecolor="#666666"
+                                   uuid="7ec20daa-23e0-4dee-8540-b7fec94a6ca6"/>
+                </line>
+                <textField>
+                    <reportElement mode="Opaque" x="0" y="0" width="140" height="32" forecolor="#006699"
+                                   backcolor="#E6E6E6" uuid="90c98bf7-d2cb-41f1-8e6e-0787297d9762">
+                        <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                    </reportElement>
+                    <textElement textAlignment="Center" verticalAlignment="Middle">
+                        <font size="14" isBold="true"/>
+                    </textElement>
+                    <textFieldExpression>
+                        <![CDATA[new SimpleDateFormat("MMM/YYYY").format($F{r.projectionDate})]]></textFieldExpression>
+                </textField>
+                <textField textAdjust="StretchHeight">
+                    <reportElement x="141" y="0" width="139" height="32" uuid="d68ff54d-1dcb-4921-96ed-191b5f2d33bd">
+                        <property name="com.jaspersoft.studio.spreadsheet.connectionID"
+                                  value="68e04014-3a58-40b6-853d-4877ea5114b9"/>
+                    </reportElement>
+                    <textElement textAlignment="Center" verticalAlignment="Middle">
+                        <font size="14"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[SUM( $F{stage}.getCapacity() - $F{availableSeats})]]></textFieldExpression>
+                </textField>
+                <textField textAdjust="StretchHeight">
+                    <reportElement x="280" y="0" width="140" height="32" uuid="a904f2e4-9cec-42bb-a58b-4dd23285e607">
+                        <property name="com.jaspersoft.studio.spreadsheet.connectionID"
+                                  value="20165704-2388-4994-b3d6-f0c131d71d1f"/>
+                    </reportElement>
+                    <textElement textAlignment="Center" verticalAlignment="Middle">
+                        <font size="14"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[COUNT($F{id})]]></textFieldExpression>
+                </textField>
+                <textField>
+                    <reportElement x="420" y="0" width="135" height="32" uuid="051a6a8a-2d5a-42f3-9ac7-ba558aed2730"/>
+                    <textElement textAlignment="Center" verticalAlignment="Middle">
+                        <font size="14"/>
+                    </textElement>
+                    <textFieldExpression>
+                        <![CDATA[SUM( $F{stage}.getCapacity() - $F{available_seats}) / COUNT($F{id})]]></textFieldExpression>
+                </textField>
+            </band>
+        </groupHeader>
+        <groupFooter>
+            <band/>
+        </groupFooter>
+    </group>
+    <background>
+        <band/>
+    </background>
+    <title>
+        <band height="72">
+            <frame>
+                <reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699"
+                               uuid="35c748d0-e2f4-4430-b87f-d2490524518f"/>
+                <staticText>
+                    <reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF"
+                                   uuid="cdac34c4-bdfb-43a2-b125-298e89967e43"/>
+                    <textElement>
+                        <font size="34" isBold="true"/>
+                    </textElement>
+                    <text><![CDATA[Poseta]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF"
+                                   uuid="581655f3-5af0-4506-a876-f697df78749d"/>
+                    <textElement textAlignment="Right">
+                        <font size="14" isBold="false"/>
+                    </textElement>
+                    <text><![CDATA[mesecni prikaz]]></text>
+                </staticText>
+            </frame>
+        </band>
+    </title>
+    <pageHeader>
+        <band height="13"/>
+    </pageHeader>
+    <columnHeader>
+        <band height="21">
+            <line>
+                <reportElement x="-20" y="20" width="595" height="1" forecolor="#666666"
+                               uuid="22faf753-baf5-4d52-9a44-38bf3677b50d"/>
+            </line>
+            <staticText>
+                <reportElement mode="Opaque" x="140" y="0" width="140" height="20" forecolor="#006699"
+                               backcolor="#E6E6E6" uuid="a609f9bf-f728-4cd4-8808-bd5d59cf1ad0">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID"
+                              value="68e04014-3a58-40b6-853d-4877ea5114b9"/>
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Center">
+                    <font size="14" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Poseta]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="280" y="0" width="140" height="20" forecolor="#006699"
+                               backcolor="#E6E6E6" uuid="435b6dc3-5ef6-4c55-a6f3-8fa18cc02fab">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID"
+                              value="20165704-2388-4994-b3d6-f0c131d71d1f"/>
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Center">
+                    <font size="14" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Broj predstava]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="420" y="0" width="135" height="20" forecolor="#006699"
+                               backcolor="#E6E6E6" uuid="fca559e6-a5c4-49a6-8c81-5085eff51718"/>
+                <textElement textAlignment="Center">
+                    <font size="11" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Prosecna poseta po predstavi]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="0" y="0" width="141" height="20" forecolor="#006699" backcolor="#E6E6E6"
+                               uuid="c4a17471-f8ed-4a80-813c-18a6bea211fe"/>
+                <textElement textAlignment="Center">
+                    <font size="14" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Mesec]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="20">
+            <line>
+                <reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1"
+                               uuid="d2659797-85ac-4a2f-8773-f3c0a16aafd2"/>
+            </line>
+        </band>
+    </detail>
+    <columnFooter>
+        <band/>
+    </columnFooter>
+    <pageFooter>
+        <band height="17">
+            <textField>
+                <reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6"
+                               uuid="333d94c6-3030-4a87-b018-6a3b8e5802c6"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+            </textField>
+            <textField evaluationTime="Report">
+                <reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6"
+                               uuid="ef76f707-e09b-48b6-b7ea-10b4c5f8ff9e"/>
+                <textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+            <textField pattern="EEEEE dd MMMMM yyyy">
+                <reportElement x="0" y="4" width="100" height="13" uuid="db987a3c-4e5b-4a7f-a8cf-e85debe1ea8a"/>
+                <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+    <summary>
+        <band/>
+    </summary>
+</jasperReport>
