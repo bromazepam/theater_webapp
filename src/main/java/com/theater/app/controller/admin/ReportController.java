@@ -26,4 +26,13 @@ public class ReportController {
     public String generateCancelledPlaysReport(@PathVariable String format) throws FileNotFoundException, JRException {
         return reportService.cancelledPlaysReport(format);
     }
+
+    @GetMapping("/monthlyProfitReport/{format}")
+    public String generateMonthlyProfitReport(@PathVariable String format) throws FileNotFoundException, JRException {
+        return reportService.monthlyProfitReport(format);
+    }
+    @GetMapping("/playAttendanceReport/{format}")
+    public String generatePlayAttendanceReport(@PathVariable String format) throws FileNotFoundException, JRException {
+        return reportService.playAttendance(format);
+    }
 }

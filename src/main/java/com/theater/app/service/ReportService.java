@@ -8,4 +8,6 @@ public interface ReportService {
 
     String repertoireReport(String reportFormat) throws FileNotFoundException, JRException;
     String cancelledPlaysReport(String reportFormat) throws FileNotFoundException, JRException;
+    String monthlyProfitReport(String reportFormat) throws FileNotFoundException, JRException;
+    String playAttendance(String reportFormat) throws FileNotFoundException, JRException;
 }
