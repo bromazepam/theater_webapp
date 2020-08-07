@@ -19,6 +19,11 @@ public class ReportController {
 
     @GetMapping("/repertoireReport/{format}")
     public String generateReport(@PathVariable String format) throws FileNotFoundException, JRException {
-        return reportService.exportReport(format);
+        return reportService.repertoireReport(format);
+    }
+
+    @GetMapping("/cancelledPlaysReport/{format}")
+    public String generateCancelledPlaysReport(@PathVariable String format) throws FileNotFoundException, JRException {
+        return reportService.cancelledPlaysReport(format);
     }
 }
