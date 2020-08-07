@@ -6,5 +6,6 @@ import java.io.FileNotFoundException;
 
 public interface ReportService {
 
-    String exportReport(String reportFormat) throws FileNotFoundException, JRException;
+    String repertoireReport(String reportFormat) throws FileNotFoundException, JRException;
+    String cancelledPlaysReport(String reportFormat) throws FileNotFoundException, JRException;
 }

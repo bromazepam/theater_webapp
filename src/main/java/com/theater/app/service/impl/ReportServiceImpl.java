@@ -1,8 +1,6 @@
 package com.theater.app.service.impl;
 
-import com.theater.app.domain.Play;
 import com.theater.app.domain.Repertoire;
-import com.theater.app.domain.Stage;
 import com.theater.app.repository.PlayRepository;
 import com.theater.app.repository.RepertoireRepository;
 import com.theater.app.repository.StageRepository;
@@ -33,7 +31,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
+    public String repertoireReport(String reportFormat) throws FileNotFoundException, JRException {
         String path = "C:\\Users\\David\\Desktop";
         List<Repertoire> repertoireList = (List<Repertoire>) repertoireRepository.findAll();
         //load file and compile it
@@ -49,6 +47,30 @@ public class ReportServiceImpl implements ReportService {
         }
         if (reportFormat.equalsIgnoreCase("pdf")) {
             JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\repertoar.pdf");
+        }
+        return "admin/reports";
+    }
+
+
+    @Override
+    public String cancelledPlaysReport(String reportFormat) throws FileNotFoundException, JRException {
+        String path = "C:\\Users\\David\\Desktop";
+        List<Repertoire> repertoireList = (List<Repertoire>) repertoireRepository.findByStatusIsTrue();
+        //load file and compile it
+        File file = ResourceUtils.getFile("src/main/resources/reports/cancelledPlays.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(repertoireList);
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("createdBy", "David");
+        if(repertoireList.isEmpty()){
+            parameters.put("empty","nema otkazanih predstava");
+        }
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+        if (reportFormat.equalsIgnoreCase("html")) {
+            JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\cancelledPlays.html");
+        }
+        if (reportFormat.equalsIgnoreCase("pdf")) {
+            JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\cancelledPlays.pdf");
         }
         return "admin/reports";
     }
