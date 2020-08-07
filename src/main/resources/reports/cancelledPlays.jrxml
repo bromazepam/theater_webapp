@@ -5,6 +5,7 @@
               xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
               name="cancelledPlays" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20"
               topMargin="20" bottomMargin="20" uuid="6050247c-da65-49af-96ad-be53c867bead">
+    <parameter name="empty" class="java.lang.String"/>
     <field name="id" class="java.lang.Long"/>
     <field name="projectionDate" class="java.sql.Date"/>
     <field name="play" class="com.theater.app.domain.Play"/>
@@ -26,6 +27,13 @@
                     <reportElement x="-20" y="13" width="595" height="1" forecolor="#666666"
                                    uuid="3a05c033-0458-488f-9fe1-7497daf22576"/>
                 </line>
+                <textField>
+                    <reportElement x="0" y="34" width="555" height="20" uuid="f7eb055e-fc6e-4e2b-a674-81c79c566cb2"/>
+                    <textElement textAlignment="Center">
+                        <font size="14" isBold="true"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$P{empty}]]></textFieldExpression>
+                </textField>
             </band>
         </groupHeader>
         <groupFooter>
