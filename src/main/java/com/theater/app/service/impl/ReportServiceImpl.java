@@ -52,7 +52,6 @@ public class ReportServiceImpl implements ReportService {
         return "admin/reports";
     }
 
-
     @Override
     public String cancelledPlaysReport(String reportFormat) throws FileNotFoundException, JRException {
         String path = "C:\\Users\\David\\Desktop";
@@ -76,7 +75,7 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public String monthlyProfitReport(String reportFormat) throws FileNotFoundException, JRException {
         String path = "C:\\Users\\David\\Desktop";
-        List<Order> orderList = (List<Order>) orderRepository.find();
+        List<Order> orderList = (List<Order>) orderRepository.findAll();
         //load file and compile it
         File file = ResourceUtils.getFile("src/main/resources/reports/monthlyProfit.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
@@ -96,11 +95,11 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public String playAttendance(String reportFormat) throws FileNotFoundException, JRException {
         String path = "C:\\Users\\David\\Desktop";
-        List<Order> orderList = (List<Order>) orderRepository.find();
+        List<Repertoire> repertoireList = (List<Repertoire>) repertoireRepository.findByStatusIsFalse();
         //load file and compile it
         File file = ResourceUtils.getFile("src/main/resources/reports/playAttendance.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(orderList);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(repertoireList);
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("createdBy", "David");
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);

@@ -5,7 +5,7 @@
               xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
               name="playAttendance" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20"
               topMargin="20" bottomMargin="20" uuid="37587656-ba6d-4050-8866-905038f7ca32">
-    <field name="projection_date" class="java.sql.Date"/>
+    <field name="projectionDate" class="java.sql.Date"/>
     <field name="play" class="com.theater.app.domain.Play"/>
     <field name="availableSeats" class="java.lang.Integer"/>
     <field name="stage" class="com.theater.app.domain.Stage"/>

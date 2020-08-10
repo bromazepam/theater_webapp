@@ -12,5 +12,7 @@ public interface RepertoireRepository extends CrudRepository<Repertoire, Long> {
     List<Repertoire> findByProjectionDateGreaterThanEqual(Date currentDate);
 
     List<Repertoire> findByStatusIsTrue();
+
+    List<Repertoire> findByStatusIsFalse();
 }
 
