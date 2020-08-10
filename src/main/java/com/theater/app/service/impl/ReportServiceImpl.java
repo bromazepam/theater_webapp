@@ -75,13 +75,16 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public String monthlyProfitReport(String reportFormat) throws FileNotFoundException, JRException {
         String path = "C:\\Users\\David\\Desktop";
-        List<Order> orderList = (List<Order>) orderRepository.findAll();
+        List<Order> orderList = (List<Order>) orderRepository.findAllAndSum();
         //load file and compile it
         File file = ResourceUtils.getFile("src/main/resources/reports/monthlyProfit.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(orderList);
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("createdBy", "David");
+        for(Order order : orderList){
+            System.out.println("u nis se nece jedu becke snicle!!!" + order.getTotal());
+        }
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
         if (reportFormat.equalsIgnoreCase("html")) {
             JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\monthlyProfit.html");
@@ -95,7 +98,7 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public String playAttendance(String reportFormat) throws FileNotFoundException, JRException {
         String path = "C:\\Users\\David\\Desktop";
-        List<Repertoire> repertoireList = (List<Repertoire>) repertoireRepository.findByStatusIsFalse();
+        List<Repertoire> repertoireList = repertoireRepository.findByStatusIsFalse();
         //load file and compile it
         File file = ResourceUtils.getFile("src/main/resources/reports/playAttendance.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
