@@ -1,5 +1,7 @@
 package com.theater.app.domain;
 
+import org.hibernate.annotations.Formula;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +26,10 @@ public class Order {
 
     @ManyToOne
     private User user;
+
+    @Transient
+//    @Formula("select SUM(order_total) from user_order group by month(order_date)")
+    private int total;
 
     public Long getId() {
         return id;
@@ -79,5 +85,13 @@ public class Order {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
     }
 }
