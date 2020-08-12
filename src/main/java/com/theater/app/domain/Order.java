@@ -27,8 +27,8 @@ public class Order {
     @ManyToOne
     private User user;
 
+    @Column(name = "total")
     @Transient
-//    @Formula("select SUM(order_total) from user_order group by month(order_date)")
     private int total;
 
     public Long getId() {
