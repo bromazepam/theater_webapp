@@ -27,7 +27,6 @@ public class Order {
     @ManyToOne
     private User user;
 
-    @Column(name = "total")
     @Transient
     private int total;
 
