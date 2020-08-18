@@ -1,7 +1,10 @@
 package com.theater.app.domain;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 public class RepertoireToCartItem {
 
@@ -17,27 +20,4 @@ public class RepertoireToCartItem {
     @JoinColumn
     private CartItem cartItem;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Repertoire getRepertoire() {
-        return repertoire;
-    }
-
-    public void setRepertoire(Repertoire repertoire) {
-        this.repertoire = repertoire;
-    }
-
-    public CartItem getCartItem() {
-        return cartItem;
-    }
-
-    public void setCartItem(CartItem cartItem) {
-        this.cartItem = cartItem;
-    }
 }
