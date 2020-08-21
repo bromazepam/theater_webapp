@@ -1,14 +1,10 @@
 package com.theater.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
-@Data
 @Entity
 public class Repertoire {
 
@@ -25,7 +21,6 @@ public class Repertoire {
     private Play play;
 
     private boolean status;
-    @Column(name="timestamp", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date timestamp;
 
     @Temporal(TemporalType.DATE)
@@ -44,10 +39,58 @@ public class Repertoire {
     private int price;
     private int availableSeats;
 
-    @OneToMany(mappedBy = "repertoire")
-    @JsonIgnore
-    private List<RepertoireToCartItem> repertoireToCartItemList;
+    public int getAvailableSeats() {
+        return availableSeats;
+    }
 
+    public void setAvailableSeats(int availableSeats) {
+        this.availableSeats = availableSeats;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public Play getPlay() {
+        return play;
+    }
+
+    public void setPlay(Play play) {
+        this.play = play;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    @Column(name="timestamp", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    public Date getTimestamp() {
+        return timestamp;
+    }
     @PrePersist
     protected void onCreate() {
         timestamp = new Date();
@@ -57,4 +100,31 @@ public class Repertoire {
         timestamp = new Date();
     }
 
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public Date getProjectionDate() {
+        return projectionDate;
+    }
+
+    public void setProjectionDate(Date projectionDate) {
+        this.projectionDate = projectionDate;
+    }
+
+    public String getProjectionTime() {
+        return projectionTime;
+    }
+
+    public void setProjectionTime(String projectionTime) {
+        this.projectionTime = projectionTime;
+    }
+
+    public Date getProjection_datetime() {
+        return projection_datetime;
+    }
+
+    public void setProjection_datetime(Date projection_datetime) {
+        this.projection_datetime = projection_datetime;
+    }
 }
