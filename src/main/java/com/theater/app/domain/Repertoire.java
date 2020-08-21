@@ -1,9 +1,11 @@
 package com.theater.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Repertoire {
@@ -38,6 +40,10 @@ public class Repertoire {
 
     private int price;
     private int availableSeats;
+
+    @OneToMany(mappedBy = "repertoire")
+    @JsonIgnore
+    private List<RepertoireToCartItem> repertoireToCartItemList;
 
     public int getAvailableSeats() {
         return availableSeats;

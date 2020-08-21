@@ -31,10 +31,6 @@ public class Play {
     @Lob
     private byte[] playImage;
 
-//    @OneToMany(mappedBy = "book")
-//    @JsonIgnore
-//    private List<BookToCartItem> bookToCartItemList;
-
     public Long getId() {
         return id;
     }
@@ -99,21 +95,13 @@ public class Play {
         this.playImage = playImage;
     }
 
-    public static String convertBinImageToString(byte[] binImage) {
+    private static String convertBinImageToString(byte[] binImage) {
         if(binImage!=null && binImage.length>0) {
             return Base64.getEncoder().encodeToString(binImage);
         }
         else
             return "";
     }
-
-    //    public List<BookToCartItem> getBookToCartItemList() {
-//        return bookToCartItemList;
-//    }
-//
-//    public void setBookToCartItemList(List<BookToCartItem> bookToCartItemList) {
-//        this.bookToCartItemList = bookToCartItemList;
-//    }
 
     public List<Repertoire> getRepertoires() {
         return repertoires;

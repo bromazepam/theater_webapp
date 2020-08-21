@@ -19,8 +19,6 @@ public class Payment {
     @OneToOne
     private Order order;
 
-//    @OneToOne
-//    private UserPayment userPayment;
 
     public Long getId() {
         return id;
