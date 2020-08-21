@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="user/fragments/header :: common-header"/>
+<body>
+<div th:replace="user/fragments/header :: navbar"/>
+<div class="container">
+    <h3>Cesto postavljana pitanja</h3>
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+        <input type="text" class="form-control" id="datepicker" aria-describedby="basic-addon1"/>
+    </div>
+    <div class="row" style="margin-top: 60px;">
+        <div class="col-xs-12">
+            <h3>Kupovina</h3>
+            <hr/>
+            <h4 class="question">Pitanje: Kako da obavim kupovinu?</h4>
+            <p>Odgovor:&nbsp;Prvo treba da napravite nalog, kada otvorite nalog, spremni ste za kupovinu.</p>
+            <h4 class="question">Pitanje: Kako da napravim nalog?&nbsp;</h4>
+            <p>Odgovor: Kliknite na 'Login' dugme u gornjem desnom ćošku glavne stranice i zatim kliknite na 'Registracija'.</p>
+            <h4 class="question">Pitanje: Koliko dugo traje procesiranje?</h4>
+            <p>Odgovor: Procesiranje se izvrsava odmah nakon potvrde kupovine, a zatim se na mail salje potvrda sa svim neophodnim
+                informacijama.
+            </p>
+            <h4 class="question">Pitanje: Da li su svi karte garantovano dostupna za svaku predstavu?</h4>
+            <p>Odgovor: Trudimo se da ažuriramo sajt što je češće moguće. Bićete obavešteni
+                ukoliko karte nisu dostupne.
+            </p>
+            <h4 class="question">Pitanje: Ne mogu da nadjem odredjenu predstavu u repertoaru, da li postoje predstave koje se ne nalaze na sajtu?</h4>
+            <p>Odgovor:&nbsp;Predstave koje se trenutno nalaze na sajtu predstavljaju predstave koje su trenutno dostupne
+                u repertoaru.
+            </p>
+        </div>
+    </div>
+</div>
+<div th:replace="user/fragments/header :: footer"/>
+
+<div th:replace="user/fragments/header :: body-bottom-scripts"/>
+</body>
+</html>

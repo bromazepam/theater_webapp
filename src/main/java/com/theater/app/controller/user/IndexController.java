@@ -423,4 +423,9 @@ public class IndexController {
             return "user/myProfile";
         }
     }
+
+    @RequestMapping("/faq")
+    public String faq() {
+        return "user/faq";
+    }
 }
