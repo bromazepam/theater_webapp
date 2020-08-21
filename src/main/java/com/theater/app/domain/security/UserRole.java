@@ -2,11 +2,9 @@ package com.theater.app.domain.security;
 
 
 import com.theater.app.domain.User;
-import lombok.*;
 
 import javax.persistence.*;
 
-@Data
 @Entity
 @Table(name="user_role")
 public class UserRole {
@@ -27,6 +25,36 @@ public class UserRole {
 
 	public UserRole(User user, Role role) {
 		this.user = user;
+		this.role = role;
+	}
+
+
+	public Long getUserRoleId() {
+		return userRoleId;
+	}
+
+
+	public void setUserRoleId(Long userRoleId) {
+		this.userRoleId = userRoleId;
+	}
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+	public Role getRole() {
+		return role;
+	}
+
+
+	public void setRole(Role role) {
 		this.role = role;
 	}
 
