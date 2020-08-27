@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/homescreen",
 			"/faq",
 			"/about",
+			"/contact",
 			"/plays",
 			"/searchByCategory",
 			"/repertoireList",

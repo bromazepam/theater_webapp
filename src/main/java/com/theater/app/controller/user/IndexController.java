@@ -433,4 +433,9 @@ public class IndexController {
     public String about() {
         return "user/about";
     }
+
+    @RequestMapping("/contact")
+    public String contact() {
+        return "user/contact";
+    }
 }

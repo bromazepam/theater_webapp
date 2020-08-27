@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="user/fragments/header :: common-header"/>
+<body>
+<div th:replace="user/fragments/header :: navbar"/>
+<div class="container">
+    <div class="row" style="margin-top: 60px;">
+        <section id="contact-section">
+            <div class="container">
+                <h2>Kontaktirajte nas</h2>
+                <p>Posaljite nam e-mail i ostanite u kontaktu</p>
+                <div class="contact-form">
+
+                    <!-- First grid -->
+                    <div>
+                        <i class="fa fa-map-marker"></i><span class="form-info">  Trg Nikole Pasica 33, 11000 Beograd</span><br>
+                        <i class="fa fa-phone" > </i><span class="form-info">  +381 11 33 02 123</span><br>
+                        <i class="fa fa-envelope"></i><span class="form-info">  a.djaja@pozoriste.com</span>
+                    </div>
+
+                    <!-- second grid -->
+                    <div>
+                        <form>
+                            <input type="text" placeholder="Ime" required>
+                            <input type="text" placeholder="Prezime"><br>
+                            <input type="Email" placeholder="Email" required><br>
+                            <input type="text" placeholder="Naslov ove poruke"><br>
+                            <textarea name="poruka" placeholder="Message" rows="5" required></textarea><br>
+                            <button class="submit" >Posalji</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<div th:replace="user/fragments/header :: footer"/>
+
+<div th:replace="user/fragments/header :: body-bottom-scripts"/>
+</body>
+</html>
