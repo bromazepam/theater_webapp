@@ -428,4 +428,9 @@ public class IndexController {
     public String faq() {
         return "user/faq";
     }
+
+    @RequestMapping("/about")
+    public String about() {
+        return "user/about";
+    }
 }
