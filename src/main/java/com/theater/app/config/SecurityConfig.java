@@ -41,6 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/forgottenPass",
 			"/registration",
 			"/homescreen",
+			"/faq",
+			"/about",
 			"/plays",
 			"/searchByCategory",
 			"/repertoireList",
