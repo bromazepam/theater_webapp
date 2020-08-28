@@ -57,7 +57,7 @@ body {
     /* color: #fff; */
     font-size: 22px;
     padding: 3%;
-    background-color: none;
+    background-color: white;
     border-radius: 80%;
     margin: 2%;
     /* border: 2px solid #fff; */
@@ -149,5 +149,17 @@ textarea::placeholder{
 
         width: 60%;
     }
-
 }
+.gallery{
+    margin:5px;
+    border:1px solid #ccc;
+    float: left;
+    width: 370px;
+}
+.gallery img{
+    width:100%;
+    height: 270px;
+}
+
+
+

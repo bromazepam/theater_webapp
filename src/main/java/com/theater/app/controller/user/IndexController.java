@@ -438,4 +438,9 @@ public class IndexController {
     public String contact() {
         return "user/contact";
     }
+
+    @RequestMapping("/gallery")
+    public String gallery() {
+        return "user/gallery";
+    }
 }
