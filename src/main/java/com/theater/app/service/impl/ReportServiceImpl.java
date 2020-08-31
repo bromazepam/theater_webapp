@@ -13,9 +13,7 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -32,7 +30,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public String repertoireReport(String reportFormat) throws FileNotFoundException, JRException {
+    public String repertoireReport() throws FileNotFoundException, JRException {
         String path = "C:\\Users\\David\\Desktop";
         List<Repertoire> repertoireList = (List<Repertoire>) repertoireRepository.findAll();
         //load file and compile it
@@ -43,17 +41,12 @@ public class ReportServiceImpl implements ReportService {
         parameters.put("createdBy", "David");
 
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
-        if (reportFormat.equalsIgnoreCase("html")) {
-            JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\repertoar.html");
-        }
-        if (reportFormat.equalsIgnoreCase("pdf")) {
-            JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\repertoar.pdf");
-        }
+        JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\repertoar.html");
         return "admin/reports";
     }
 
     @Override
-    public String cancelledPlaysReport(String reportFormat) throws FileNotFoundException, JRException {
+    public String cancelledPlaysReport() throws FileNotFoundException, JRException {
         String path = "C:\\Users\\David\\Desktop";
         List<Repertoire> repertoireList = (List<Repertoire>) repertoireRepository.findByStatusIsTrue();
         //load file and compile it
@@ -63,40 +56,35 @@ public class ReportServiceImpl implements ReportService {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("createdBy", "David");
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
-        if (reportFormat.equalsIgnoreCase("html")) {
-            JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\cancelledPlays.html");
-        }
-        if (reportFormat.equalsIgnoreCase("pdf")) {
-            JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\cancelledPlays.pdf");
-        }
+        JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\cancelledPlays.html");
+//        JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\cancelledPlays.pdf");
         return "admin/reports";
     }
 
     @Override
-    public String monthlyProfitReport(String reportFormat) throws FileNotFoundException, JRException {
+    public String monthlyProfitReport() throws FileNotFoundException, JRException {
         String path = "C:\\Users\\David\\Desktop";
-        List<Order> orderList = (List<Order>) orderRepository.findAllAndSum();
+        List<Order> orderList = orderRepository.getAggregates();
+//        if(orderList.isPresent()) {
+//            List<Object[]> objects = orderList.get();
+//            Stream.of(objects.toString()).forEach(System.out::println);
+//        }
+
         //load file and compile it
         File file = ResourceUtils.getFile("src/main/resources/reports/monthlyProfit.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(orderList);
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("createdBy", "David");
-        for(Order order : orderList){
-            System.out.println("u nis se nece jedu becke snicle!!!" + order.getTotal());
-        }
+
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
-        if (reportFormat.equalsIgnoreCase("html")) {
-            JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\monthlyProfit.html");
-        }
-        if (reportFormat.equalsIgnoreCase("pdf")) {
-            JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\monthlyProfit.pdf");
-        }
+        JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\monthlyProfit.html");
+//        JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\monthlyProfit.pdf");
         return "admin/reports";
     }
 
     @Override
-    public String playAttendance(String reportFormat) throws FileNotFoundException, JRException {
+    public String playAttendance() throws FileNotFoundException, JRException {
         String path = "C:\\Users\\David\\Desktop";
         List<Repertoire> repertoireList = repertoireRepository.findByStatusIsFalse();
         //load file and compile it
@@ -106,12 +94,9 @@ public class ReportServiceImpl implements ReportService {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("createdBy", "David");
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
-        if (reportFormat.equalsIgnoreCase("html")) {
-            JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\playAttendance.html");
-        }
-        if (reportFormat.equalsIgnoreCase("pdf")) {
-            JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\playAttendance.pdf");
-        }
+        JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\playAttendance.html");
+//        JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\playAttendance.pdf");
         return "admin/reports";
     }
+
 }

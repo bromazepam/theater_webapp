@@ -5,8 +5,10 @@ import net.sf.jasperreports.engine.JRException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.transaction.Transactional;
+import javax.servlet.http.HttpServletRequest;
 import java.io.FileNotFoundException;
 
 @Controller
@@ -18,22 +20,29 @@ public class ReportController {
         this.reportService = reportService;
     }
 
-    @GetMapping("/repertoireReport/{format}")
-    public String generateReport(@PathVariable String format) throws FileNotFoundException, JRException {
-        return reportService.repertoireReport(format);
+    @RequestMapping("/reports")
+    public String reports() {
+        return "admin/reports";
     }
 
-    @GetMapping("/cancelledPlaysReport/{format}")
-    public String generateCancelledPlaysReport(@PathVariable String format) throws FileNotFoundException, JRException {
-        return reportService.cancelledPlaysReport(format);
+    @PostMapping("/reports")
+    public String reports(HttpServletRequest request) throws FileNotFoundException, JRException {
+        String type = request.getParameter("type");
+        switch (type) {
+            case "repertoire":
+                return reportService.repertoireReport();
+            case "cancelledPlays":
+                return reportService.cancelledPlaysReport();
+            case "monthlyAttendance":
+//            return reportService.monthlyAttendanceReport();
+            case "monthlyProfit":
+                return reportService.monthlyProfitReport();
+            case "playAttendance":
+//                return reportService.playPerMonth();
+            case "playsPerMonth":
+                return reportService.playAttendance();
+        }
+        return "admin/reports";
     }
 
-    @GetMapping("/monthlyProfitReport/{format}")
-    public String generateMonthlyProfitReport(@PathVariable String format) throws FileNotFoundException, JRException {
-        return reportService.monthlyProfitReport(format);
-    }
-    @GetMapping("/playAttendanceReport/{format}")
-    public String generatePlayAttendanceReport(@PathVariable String format) throws FileNotFoundException, JRException {
-        return reportService.playAttendance(format);
-    }
 }

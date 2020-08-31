@@ -6,29 +6,26 @@
 <div th:replace="admin/fragments/header :: navbar"/>
 <div class="container">
     <div class="row">
-        <form class="form-horizontal" th:action="@{'/reports'}" method="post"
-              enctype="multipart/form-data">
+        <form th:action="@{'/reports'}" role="form" id="reportType" method="post">
             <fieldset>
                 <div class="form-group">
                     <div class="col-md-3">
                         <h3 style="color:#2C3E50">Izvestaji</h3>
-                        <h4><label for="Choose Report" style="color:#E74C3C">Odaberite zeljeni isvestaj</label></h4>
+                        <h4><label style="color:#E74C3C">Izaberite zeljeni isvestaj</label></h4>
                         <div class="input-group"><span class="input-group-addon"><span
                                 class="glyphicon glyphicon-tasks"></span></span>
-                            <select class="form-control">
-                                <option value="Income" selected>Profit</option>
-                                <option value="Expenses">Broj predstava</option>
-                                <option value="Profit">Repertoar</option>
-                            </select></div>
-                        <h5><label for="Choose time frame" style="color:#E74C3C"> Time :</label>
-                            <input id="a" type="radio" name="type" value="Weekly">Nedeljni
-                            <input id="b" type="radio" name="type" value="Monthly">Mesecni
-                            <input id="c" type="radio" name="type" value="Yearly">Godisnji</h5>
+                            <select class="form-control" name="type">
+                                <option value="">Izaberi izvestaj</option>
+                                <option value="cancelledPlays">Otkazane predstave</option>
+                                <option value="monthlyAttendance">Mesecna poseta</option>
+                                <option value="monthlyProfit">Mesecna zarada</option>
+                                <option value="playAttendance">Poseta po predstavama</option>
+                                <option value="playsPerMonth">Broj predstava po mesecima</option>
+                                <option value="repertoire">Repertoar</option>
+                            </select>
+                        </div>
                         </br>
-                        <button type="button" class="btn btn-primary btn-lg btn3d"><span
-                                class="glyphicon glyphicon-print"></span>
-                            Generisi
-                        </button>
+                        <button type="submit" class="btn btn-success">Generisi izvestaj</button>
                     </div>
                 </div>
             </fieldset>
