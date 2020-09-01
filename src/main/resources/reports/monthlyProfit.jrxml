@@ -6,12 +6,12 @@
               name="monthlyProfit" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20"
               topMargin="20" bottomMargin="20" uuid="22335a87-e39c-4604-924e-9b3f546b7eb2">
 <!--    <parameter name="sum" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>-->
-    <field name="orderDate" class="java.sql.Timestamp"/>
-    <field name="orderTotal" class="java.lang.Integer"/>
-    <field name="id" class="java.lang.Long"/>
-    <field name="total" class="java.lang.Integer"/>
+    <field name="profitMonth" class="java.sql.Date"/>
+<!--    <field name="orderTotal" class="java.lang.Integer"/>-->
+<!--    <field name="id" class="java.lang.Long"/>-->
+    <field name="profitTotal" class="java.lang.Integer"/>
     <group name="Group1">
-        <groupExpression><![CDATA[$F{orderDate}]]></groupExpression>
+        <groupExpression><![CDATA[$F{profitMonth}]]></groupExpression>
         <groupHeader>
             <band height="33">
                 <textField>
@@ -21,7 +21,7 @@
                         <font size="24" isBold="true"/>
                     </textElement>
                     <textFieldExpression>
-                        <![CDATA[new SimpleDateFormat("MMM/YYYY").format($F{orderDate})]]></textFieldExpression>
+                        <![CDATA[new SimpleDateFormat("MMM/YYYY").format($F{profitMonth})]]></textFieldExpression>
                 </textField>
                 <line>
                     <reportElement x="0" y="32" width="555" height="1" forecolor="#666666"
@@ -108,7 +108,7 @@
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font size="14" isBold="true"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{profitTotal}]]></textFieldExpression>
             </textField>
         </band>
     </detail>
