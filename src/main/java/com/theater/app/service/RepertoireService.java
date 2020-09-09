@@ -10,7 +10,7 @@ public interface RepertoireService {
 
     List<Repertoire> findAll();
 
-    Repertoire findById(Long id);
+    Repertoire findById(String id);
 
     void deleteById(Long id);
 
@@ -18,5 +18,5 @@ public interface RepertoireService {
 
     List<Repertoire> findByPresentOrFutureDate(Date date);
 
-    int availableSeats(Long id);
+    int availableSeats(String id);
 }

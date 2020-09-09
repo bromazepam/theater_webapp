@@ -1,6 +1,10 @@
 package com.theater.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.FieldType;
 import org.springframework.lang.Nullable;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,12 +13,12 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-@Entity
+@Document
 public class Play {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
     private String title;
     private String author;
     private String director;
@@ -22,20 +26,21 @@ public class Play {
     private boolean active=true;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "play")
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "play")
+    @DBRef(lazy = true)
     private List<Repertoire> repertoires = new ArrayList<>();
 
-    @Column(columnDefinition="text")
+//    @Column(columnDefinition="text")
     private String description;
 
     @Lob
     private byte[] playImage;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

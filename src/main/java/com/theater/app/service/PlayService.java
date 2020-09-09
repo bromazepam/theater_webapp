@@ -9,7 +9,7 @@ public interface PlayService {
 
     List<Play> findAll();
 
-    Play findById(Long id);
+    Play findById(String id);
 
     void removeOne(Long id);
 

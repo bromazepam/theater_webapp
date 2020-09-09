@@ -1,30 +1,32 @@
 package com.theater.app.domain;
 
-import jdk.nashorn.internal.objects.annotations.Constructor;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 
-@Entity
+@Document
 public class Seat {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
     private String name;
     private boolean reserved = false;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "stage_id")
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "stage_id")
+    @DBRef(lazy = true)
     private Stage stage;
 
     public Seat() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

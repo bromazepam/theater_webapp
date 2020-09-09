@@ -1,40 +1,43 @@
 package com.theater.app.domain;
 
-import org.hibernate.annotations.Formula;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-@Table(name = "user_order")
+@Document(collection = "user_order")
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String id;
 
     private Date orderDate;
     private String orderStatus;
     private int orderTotal;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+//    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @DBRef
     private List<CartItem> cartItemList;
 
-    @OneToOne(cascade = CascadeType.ALL)
+//    @OneToOne(cascade = CascadeType.ALL)
+    @DBRef
     private Payment payment;
 
-    @ManyToOne
+//    @ManyToOne
+    @DBRef
     private User user;
 
     @Transient
     private int total;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

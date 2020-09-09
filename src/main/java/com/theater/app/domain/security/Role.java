@@ -1,24 +1,28 @@
 package com.theater.app.domain.security;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+@Document
 public class Role {
 
 	@Id
-	private int roleId;
+	private String roleId;
 	private String name;
 
-	@OneToMany(mappedBy = "role", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+//	@OneToMany(mappedBy = "role", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@DBRef(lazy = true)
 	private Set<UserRole> userRoles = new HashSet<>();
 
-	public int getRoleId() {
+	public String getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(int roleId) {
+	public void setRoleId(String roleId) {
 		this.roleId = roleId;
 	}
 

@@ -1,32 +1,36 @@
 package com.theater.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Document
 public class Stage {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
     private String name;
     private int capacity;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stage")
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stage")
+    @DBRef(lazy = true)
     private List<Seat> seats;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stage")
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stage")
+    @DBRef(lazy = true)
     private List<Repertoire> repertoires = new ArrayList<>();
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

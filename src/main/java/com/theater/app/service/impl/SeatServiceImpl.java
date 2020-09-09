@@ -36,7 +36,7 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public void remove(long stageId){
+    public void remove(String stageId){
         Stage stage = stageService.findById(stageId);
         List<Seat> seats = (List<Seat>) seatRepository.findAll();
         List<Seat> result = seats.stream()
@@ -46,7 +46,7 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public void update(long stageId, int newSeatNum) {
+    public void update(String stageId, int newSeatNum) {
         Stage stage = stageService.findById(stageId);
         List<Seat> list = new ArrayList<>();
         List<Seat> seats = (List<Seat>) seatRepository.findAll();

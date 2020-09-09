@@ -34,7 +34,7 @@ public class RepertoireServiceImpl implements RepertoireService {
     }
 
     @Override
-    public Repertoire findById(Long id) {
+    public Repertoire findById(String id) {
         Optional<Repertoire> optionalRepertoire = repertoireRepository.findById(id);
 
         if (!optionalRepertoire.isPresent()) {
@@ -55,7 +55,7 @@ public class RepertoireServiceImpl implements RepertoireService {
     }
 
     @Override
-    public int availableSeats(Long id) {
+    public int availableSeats(String id) {
         List<Seat> lst = seatRepository.findByStageIdAndReservedFalse(id);
         return lst.size();
     }

@@ -388,7 +388,7 @@ public class IndexController {
     }
 
     @PostMapping("/setDefaultPayment")
-    public String setDefaultPayment(@ModelAttribute("defaultUserPaymentId") Long defaultPaymentId,
+    public String setDefaultPayment(@ModelAttribute("defaultUserPaymentId") String defaultPaymentId,
                                     Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
         userService.setUserDefaultPayment(defaultPaymentId, user);

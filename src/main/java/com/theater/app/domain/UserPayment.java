@@ -1,13 +1,16 @@
 package com.theater.app.domain;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.persistence.*;
 
-@Entity
+@Document
 public class UserPayment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String id;
     private String type;
     private String cardName;
     private String cardNumber;
@@ -17,15 +20,16 @@ public class UserPayment {
     private String holderName;
     private boolean defaultPayment;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+    @DBRef
     private User user;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

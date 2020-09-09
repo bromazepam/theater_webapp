@@ -1,27 +1,32 @@
 package com.theater.app.domain;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.persistence.*;
 
-@Entity
+@Document
 public class RepertoireToCartItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "repertoire_id")
+//    @ManyToOne
+//    @JoinColumn(name = "repertoire_id")
+    @DBRef
     private Repertoire repertoire;
 
-    @ManyToOne
-    @JoinColumn
+//    @ManyToOne
+//    @JoinColumn
+    @DBRef
     private CartItem cartItem;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

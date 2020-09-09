@@ -1,24 +1,27 @@
 package com.theater.app.domain.security;
 
 import com.theater.app.domain.User;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
 
-@Entity
+@Document
 public class PasswordResetToken {
 
 	private static final int EXPIRATION = 60 * 24;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+	private String id;
 
 	private String token;
 
-	@OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
-	@JoinColumn(nullable=false, name="user_id")
+//	@OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+//	@JoinColumn(nullable=false, name="user_id")
+	@DBRef
 	private User user;
 
 	private Date expiryDate;
@@ -45,11 +48,11 @@ public class PasswordResetToken {
 		this.expiryDate = calculateExpiryDate(EXPIRATION);
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

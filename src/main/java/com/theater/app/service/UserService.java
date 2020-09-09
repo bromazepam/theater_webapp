@@ -21,9 +21,9 @@ public interface UserService {
 
     PasswordResetToken getPasswordResetToken(final String token);
 
-    User findById(Long id);
+    User findById(String id);
 
     void updateUserPayment(UserPayment userPayment, User user);
 
-    void setUserDefaultPayment(Long userPaymentId, User user);
+    void setUserDefaultPayment(String userPaymentId, User user);
 }

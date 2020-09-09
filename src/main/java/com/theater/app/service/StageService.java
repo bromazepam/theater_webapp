@@ -9,7 +9,7 @@ public interface StageService {
 
     List<Stage> findAll();
 
-    Stage findById(Long id);
+    Stage findById(String id);
 
     void remove(Long id);
 }

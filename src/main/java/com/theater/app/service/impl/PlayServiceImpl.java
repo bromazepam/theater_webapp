@@ -29,7 +29,7 @@ public class PlayServiceImpl implements PlayService {
     }
 
     @Override
-    public Play findById(Long l) {
+    public Play findById(String l) {
         Optional<Play> playOptional = playRepository.findById(l);
 
         if (!playOptional.isPresent()) {

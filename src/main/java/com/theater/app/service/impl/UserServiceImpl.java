@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Long id) {
+    public User findById(String id) {
         Optional<User> userOptional = userRepository.findById(id);
 
         if (!userOptional.isPresent()) {
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void setUserDefaultPayment(Long userPaymentId, User user) {
+    public void setUserDefaultPayment(String userPaymentId, User user) {
         List<UserPayment> userPaymentList = (List<UserPayment>) userPaymentRepository.findAll();
 
         for (UserPayment userPayment : userPaymentList) {

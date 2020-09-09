@@ -29,7 +29,7 @@ public class StageServiceImpl implements StageService {
     }
 
     @Override
-    public Stage findById(Long id) {
+    public Stage findById(String id) {
         Optional<Stage> optionalStage = stageRepository.findById(id);
 
         if (!optionalStage.isPresent()) {

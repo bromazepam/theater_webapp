@@ -1,38 +1,44 @@
 package com.theater.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+@Document
 public class CartItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String id;
     private int qty;
     private int subtotal;
 
-    @OneToOne
+//    @OneToOne
+    @DBRef
     private Repertoire repertoire;
 
-    @OneToMany(mappedBy = "cartItem")
+//    @OneToMany(mappedBy = "cartItem")
+    @DBRef
     @JsonIgnore
     private List<RepertoireToCartItem> repertoireToCartItemList;
 
-    @ManyToOne
-    @JoinColumn(name = "shopping_cart_id")
+//    @ManyToOne
+//    @JoinColumn(name = "shopping_cart_id")
+    @DBRef
     private ShoppingCart shoppingCart;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
+//    @ManyToOne
+//    @JoinColumn(name = "order_id")
+    @DBRef
     private Order order;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -3,6 +3,8 @@ package com.theater.app.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.theater.app.domain.security.Authority;
 import com.theater.app.domain.security.UserRole;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,35 +14,39 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Entity
+@Document
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false, updatable = false)
-    private Long id;
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column(name = "id", nullable = false, updatable = false)
+    private String id;
     private String username;
     private String password;
     private String firstName;
     private String lastName;
 
-    @Column(name = "email", nullable = false, updatable = false)
+//    @Column(name = "email", nullable = false, updatable = false)
     private String email;
     private String phone;
     private boolean enabled = true;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @DBRef
     private ShoppingCart shoppingCart;
 
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @DBRef
     private List<UserPayment> userPaymentList;
 
-    @OneToMany(mappedBy = "user")
+//    @OneToMany(mappedBy = "user")
+    @DBRef
     private List<Order> orderList;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
+    @DBRef
     private Set<UserRole> userRoles = new HashSet<>();
 
     public ShoppingCart getShoppingCart() {
@@ -51,11 +57,11 @@ public class User implements UserDetails {
         this.shoppingCart = shoppingCart;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
