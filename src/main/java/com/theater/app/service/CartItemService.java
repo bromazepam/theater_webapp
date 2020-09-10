@@ -14,7 +14,7 @@ public interface CartItemService {
 
     void removeCartItem(CartItem cartItem);
 
-    CartItem findById(Long id);
+    CartItem findById(String id);
 
     CartItem save(CartItem cartItem);
 

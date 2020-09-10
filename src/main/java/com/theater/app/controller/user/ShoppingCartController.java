@@ -66,7 +66,7 @@ public class ShoppingCartController {
     }
 
     @RequestMapping("/updateCartItem")
-    public String updateShoppingCart(@ModelAttribute("id") long cartItemId,
+    public String updateShoppingCart(@ModelAttribute("id") String cartItemId,
                                      @ModelAttribute("qty") int qty) {
         CartItem cartItem = cartItemService.findById(cartItemId);
         cartItem.setQty(qty);
@@ -78,7 +78,7 @@ public class ShoppingCartController {
     @Transactional
     @RequestMapping("shoppingCart/removeItem/{id}")
     public String removeItem(@PathVariable String id) {
-        cartItemService.removeCartItem(cartItemService.findById(Long.valueOf(id)));
+        cartItemService.removeCartItem(cartItemService.findById(id));
         return "forward:/shoppingCart";
     }
 }

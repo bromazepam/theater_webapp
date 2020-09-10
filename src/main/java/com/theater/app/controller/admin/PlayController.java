@@ -8,15 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 @Slf4j
@@ -49,7 +41,7 @@ public class PlayController {
 
     @RequestMapping("/playInfo/{id}/")
     public String playInfo(@PathVariable String id, Model model) {
-        Play play =  playService.findById(Long.valueOf(id));
+        Play play =  playService.findById(id);
         String photoencodeBase64 = play.getPlayImage();
         model.addAttribute("PHOTOYOUNEED", photoencodeBase64);
         model.addAttribute("play", play);
@@ -68,7 +60,7 @@ public class PlayController {
     @GetMapping("/updatePlay/{id}/")
     public String updatePlay(@PathVariable String id, Model model) {
 
-        model.addAttribute("play", playService.findById(Long.valueOf(id)));
+        model.addAttribute("play", playService.findById(id));
 
         return "admin/play/updatePlay";
     }
@@ -83,7 +75,7 @@ public class PlayController {
 
     @PostMapping("/remove")
     public String remove(@ModelAttribute("id") String id, Model model) {
-        playService.removeOne(Long.parseLong(id.substring(8)));
+        playService.removeById(id);
         List<Play> playList = playService.findAll();
         model.addAttribute("playList", playList);
 
