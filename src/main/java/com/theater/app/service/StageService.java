@@ -11,5 +11,5 @@ public interface StageService {
 
     Stage findById(String id);
 
-    void remove(Long id);
+    void remove(String id);
 }

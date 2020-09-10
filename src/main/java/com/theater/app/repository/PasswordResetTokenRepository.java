@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Date;
 import java.util.stream.Stream;
 
-public interface PasswordResetTokenRepository extends JpaRepository<PasswordResetToken, Long> {
+public interface PasswordResetTokenRepository extends JpaRepository<PasswordResetToken, String> {
 
     PasswordResetToken findByToken(String token);
 

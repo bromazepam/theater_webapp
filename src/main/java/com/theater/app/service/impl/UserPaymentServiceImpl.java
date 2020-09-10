@@ -17,13 +17,13 @@ public class UserPaymentServiceImpl implements UserPaymentService {
     }
 
     @Override
-    public UserPayment findById(Long id) {
+    public UserPayment findById(String id) {
         Optional<UserPayment> userPayment = userPaymentRepository.findById(id);
         return userPayment.get();
     }
 
     @Override
-    public void removeById(Long id) {
+    public void removeById(String id) {
         userPaymentRepository.deleteById(id);
     }
 }

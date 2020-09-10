@@ -103,7 +103,7 @@ public class IndexController {
         user.setPassword(encryptedPassword);
 
         Role role = new Role();
-        role.setRoleId(1);
+        role.setRoleId("1");
         role.setName("ROLE_USER");
         Set<UserRole> userRoles = new HashSet<>();
         userRoles.add(new UserRole(user, role));
@@ -269,7 +269,7 @@ public class IndexController {
             model.addAttribute("user", user);
         }
 
-        Repertoire repertoire = repertoireService.findById(Long.valueOf(id));
+        Repertoire repertoire = repertoireService.findById(id);
         model.addAttribute("repertoire", repertoire);
 
         List<Integer> qtyList = Arrays.asList(1, 2, 3, 4, 5);
@@ -302,7 +302,7 @@ public class IndexController {
     }
 
     @RequestMapping("/orderDetail")
-    public String orderDetail(@RequestParam("id") Long orderId, Principal principal, Model model) {
+    public String orderDetail(@RequestParam("id") String orderId, Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
         Order order = orderService.findById(orderId);
 
@@ -367,7 +367,7 @@ public class IndexController {
     }
 
     @RequestMapping("/updateCreditCard")
-    public String updateCreditCard(@ModelAttribute("id") Long creditCardId, Principal principal, Model model) {
+    public String updateCreditCard(@ModelAttribute("id") String creditCardId, Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
         UserPayment userPayment = userPaymentService.findById(creditCardId);
 
@@ -404,7 +404,7 @@ public class IndexController {
     }
 
     @RequestMapping("/removeCreditCard")
-    public String removeCreditCard(@ModelAttribute("id") Long creditCardId, Principal principal, Model model) {
+    public String removeCreditCard(@ModelAttribute("id") String creditCardId, Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
         UserPayment userPayment = userPaymentService.findById(creditCardId);
 

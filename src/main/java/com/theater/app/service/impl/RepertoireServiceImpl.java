@@ -50,7 +50,7 @@ public class RepertoireServiceImpl implements RepertoireService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
         repertoireRepository.deleteById(id);
     }
 

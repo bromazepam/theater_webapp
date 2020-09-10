@@ -47,7 +47,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order findById(Long id) {
+    public Order findById(String id) {
         Optional<Order> orderOptional = orderRepository.findById(id);
         if (!orderOptional.isPresent()) {
             throw new NotFoundException("order not found");
