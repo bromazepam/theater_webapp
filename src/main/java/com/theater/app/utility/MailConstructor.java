@@ -24,7 +24,7 @@ public class MailConstructor {
     private TemplateEngine templateEngine;
 
     public SimpleMailMessage constructResetTokenEmail(
-            String contextPath, String token, User user, String password
+            String contextPath, Locale locale, String token, User user, String password
     ) {
 
         String url = contextPath + "/newUser?token=" + token;

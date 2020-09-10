@@ -26,6 +26,7 @@ public class SecurityUtility {
 			int index= (int) (rnd.nextFloat()*SALTCHARS.length());
 			salt.append(SALTCHARS.charAt(index));
 		}
-		return salt.toString();
+		String saltStr = salt.toString();
+		return saltStr;
 	}
 }
