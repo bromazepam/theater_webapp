@@ -2,10 +2,9 @@ package com.theater.app.domain.security;
 
 
 import com.theater.app.domain.User;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import javax.persistence.*;
 
 //@Entity
 //@Table(name="user_role")

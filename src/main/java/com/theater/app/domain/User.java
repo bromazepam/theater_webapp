@@ -3,12 +3,13 @@ package com.theater.app.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.theater.app.domain.security.Authority;
 import com.theater.app.domain.security.UserRole;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;

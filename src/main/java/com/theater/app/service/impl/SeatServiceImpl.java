@@ -6,8 +6,8 @@ import com.theater.app.repository.SeatRepository;
 import com.theater.app.service.SeatService;
 import com.theater.app.service.StageService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

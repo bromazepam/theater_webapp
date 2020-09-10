@@ -114,7 +114,7 @@ public class IndexController {
 
         String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
 
-        SimpleMailMessage email = mailConstructor.constructResetTokenEmail(appUrl, request.getLocale(), token, user, password);
+        SimpleMailMessage email = mailConstructor.constructResetTokenEmail(appUrl, token, user, password);
 
         mailSender.send(email);
 
@@ -170,7 +170,7 @@ public class IndexController {
         userService.createPasswordResetTokenForUser(user, token);
 
         String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
-        SimpleMailMessage newEmail = mailConstructor.constructResetTokenEmail(appUrl, request.getLocale(), token, user, password);
+        SimpleMailMessage newEmail = mailConstructor.constructResetTokenEmail(appUrl, token, user, password);
         mailSender.send(newEmail);
         model.addAttribute("forgetPasswordEmailSent", true);
         return "user/forgotPassword";

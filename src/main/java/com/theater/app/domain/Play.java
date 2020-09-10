@@ -1,14 +1,10 @@
 package com.theater.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.FieldType;
-import org.springframework.lang.Nullable;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -33,7 +29,7 @@ public class Play {
 //    @Column(columnDefinition="text")
     private String description;
 
-    @Lob
+//    @Lob
     private byte[] playImage;
 
     public String getId() {

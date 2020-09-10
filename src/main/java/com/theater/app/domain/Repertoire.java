@@ -1,11 +1,11 @@
 package com.theater.app.domain;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class Repertoire {
     private boolean status;
     private Date timestamp;
 
-    @Temporal(TemporalType.DATE)
+//    @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date projectionDate;
 
@@ -37,7 +37,7 @@ public class Repertoire {
     private String projectionTime;
 
     @Field(name = "projection_datetime")
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+//    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern="dd.MM.yyyy hh:mm")
     private Date projection_datetime;
 
@@ -102,11 +102,11 @@ public class Repertoire {
     public Date getTimestamp() {
         return timestamp;
     }
-    @PrePersist
+//    @PrePersist
     protected void onCreate() {
         timestamp = new Date();
     }
-    @PreUpdate
+//    @PreUpdate
     protected void onUpdate() {
         timestamp = new Date();
     }
