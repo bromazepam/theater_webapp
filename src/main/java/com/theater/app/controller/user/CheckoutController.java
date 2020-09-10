@@ -43,7 +43,7 @@ public class CheckoutController {
             boolean missingRequiredField, Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
 
-        if (!(cartId).equals(user.getShoppingCart().getId())) {
+        if (!Long.valueOf(cartId).equals(user.getShoppingCart().getId())) {
             return "user/badRequestPage";
         }
 
@@ -111,7 +111,7 @@ public class CheckoutController {
     }
 
     @RequestMapping("/setPaymentMethod")
-    public String setPaymentMethod(@RequestParam("userPaymentId") String userPaymentId, Principal principal, Model model) {
+    public String setPaymentMethod(@RequestParam("userPaymentId") Long userPaymentId, Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
         UserPayment userPayment = userPaymentService.findById(userPaymentId);
 

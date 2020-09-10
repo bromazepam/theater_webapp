@@ -12,7 +12,7 @@ public interface RepertoireService {
 
     Repertoire findById(String id);
 
-    void deleteById(String id);
+    void deleteById(Long id);
 
     List<Repertoire> findByDate(Date date);
 

@@ -39,7 +39,7 @@ public class PlayServiceImpl implements PlayService {
     }
 
     @Override
-    public void removeById(String id) {
+    public void removeOne(Long id) {
         playRepository.deleteById(id);
     }
 

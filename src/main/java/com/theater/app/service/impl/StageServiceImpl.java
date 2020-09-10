@@ -39,7 +39,7 @@ public class StageServiceImpl implements StageService {
     }
 
     @Override
-    public void remove(String id) {
+    public void remove(Long id) {
         stageRepository.deleteById(id);
     }
 }

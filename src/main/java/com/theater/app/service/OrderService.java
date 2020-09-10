@@ -8,5 +8,5 @@ import com.theater.app.domain.User;
 public interface OrderService {
     Order createOrder(ShoppingCart shoppingCart, Payment payment, User user);
 
-    Order findById(String id);
+    Order findById(Long id);
 }

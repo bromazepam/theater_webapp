@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface PlayRepository extends CrudRepository<Play,String> {
+public interface PlayRepository extends CrudRepository<Play,Long> {
     List<Play> findByCategory(String category);
 }

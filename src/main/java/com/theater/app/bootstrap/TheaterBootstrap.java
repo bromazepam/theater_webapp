@@ -39,7 +39,7 @@ public class TheaterBootstrap implements ApplicationListener<ContextRefreshedEve
         user1.setEmail("admin@gmail.com");
         Set<UserRole> userRoles = new HashSet<>();
         Role role1= new Role();
-        role1.setRoleId("0");
+        role1.setRoleId(0);
         role1.setName("ROLE_ADMIN");
 //        roleRepository.save(role1);
         userRoles.add(new UserRole(user1, role1));
@@ -52,7 +52,7 @@ public class TheaterBootstrap implements ApplicationListener<ContextRefreshedEve
         user2.setEmail("user@gmail.com");
         Set<UserRole> userRoles2 = new HashSet<>();
         Role role2= new Role();
-        role2.setRoleId("1");
+        role2.setRoleId(1);
         role2.setName("ROLE_USER");
 //        roleRepository.save(role2);
         userRoles2.add(new UserRole(user2, role2));

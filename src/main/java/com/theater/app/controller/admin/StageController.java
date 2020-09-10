@@ -41,7 +41,7 @@ public class StageController {
 
     @RequestMapping("/updateStage/{id}/")
     public String updateStage(@PathVariable String id, Model model) {
-        model.addAttribute("stage", stageService.findById(id));
+        model.addAttribute("stage", stageService.findById(Long.valueOf(id)));
         return "admin/stage/updateStage";
     }
 
@@ -55,8 +55,8 @@ public class StageController {
 
     @GetMapping("/removeStage/{id}/")
     public String remove(@PathVariable("id") String id, Model model) {
-        seatService.remove(id);
-        stageService.remove(id);
+        seatService.remove(Long.parseLong(id));
+        stageService.remove(Long.valueOf(id));
         model.addAttribute("stageList", stageService.findAll());
         return "admin/stage/stageList";
     }

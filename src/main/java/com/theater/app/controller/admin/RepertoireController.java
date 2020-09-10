@@ -45,7 +45,7 @@ public class RepertoireController {
 
     @RequestMapping("/updateRepertoire/{id}/")
     public String updateRepertoire(@PathVariable String id, Model model) {
-        model.addAttribute("repertoire", repertoireService.findById(id));
+        model.addAttribute("repertoire", repertoireService.findById(Long.valueOf(id)));
         model.addAttribute("plays", playService.findAll());
         model.addAttribute("stageList", stageService.findAll());
         return "admin/repertoire/updateRepertoire";
@@ -61,7 +61,7 @@ public class RepertoireController {
 
     @GetMapping("/removeRepertoire/{id}/")
     public String remove(@PathVariable("id") String id, Model model) {
-        repertoireService.deleteById(id);
+        repertoireService.deleteById(Long.valueOf(id));
         model.addAttribute("repertoireList",repertoireService.findAll());
         return "admin/repertoire/repertoire";
     }
