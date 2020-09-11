@@ -37,27 +37,27 @@ public class TheaterBootstrap implements ApplicationListener<ContextRefreshedEve
         user1.setUsername("admin");
         user1.setPassword(SecurityUtility.passwordEncoder().encode("admin"));
         user1.setEmail("admin@gmail.com");
-        Set<UserRole> userRoles = new HashSet<>();
+        Set<Role> userRoles = new HashSet<>();
         Role role1= new Role();
         role1.setRoleId("0");
         role1.setName("ROLE_ADMIN");
         roleRepository.save(role1);
-        userRoles.add(new UserRole(user1, role1));
+        userRoles.add(role1);
 
         userService.createUser(user1, userRoles);
-//
-//        User user2 = new User();
-//        user2.setId("1");
-//        user2.setUsername("user");
-//        user2.setPassword(SecurityUtility.passwordEncoder().encode("user"));
-//        user2.setEmail("user@gmail.com");
-//        Set<UserRole> userRoles2 = new HashSet<>();
-//        Role role2= new Role();
-//        role2.setRoleId("1");
-//        role2.setName("ROLE_USER");
-//        roleRepository.save(role2);
-//        userRoles2.add(new UserRole(user2, role2));
-//
-//        userService.createUser(user2, userRoles2);
+
+        User user2 = new User();
+        user2.setId("1");
+        user2.setUsername("user");
+        user2.setPassword(SecurityUtility.passwordEncoder().encode("user"));
+        user2.setEmail("user@gmail.com");
+        Set<Role> userRoles2 = new HashSet<>();
+        Role role2= new Role();
+        role2.setRoleId("1");
+        role2.setName("ROLE_USER");
+        roleRepository.save(role2);
+        userRoles2.add(role2);
+
+        userService.createUser(user2, userRoles2);
     }
 }

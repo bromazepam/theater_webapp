@@ -3,13 +3,13 @@ package com.theater.app.service;
 import com.theater.app.domain.User;
 import com.theater.app.domain.UserPayment;
 import com.theater.app.domain.security.PasswordResetToken;
-import com.theater.app.domain.security.UserRole;
+import com.theater.app.domain.security.Role;
 
 import java.util.Set;
 
 public interface UserService {
 
-    User createUser(User user, Set<UserRole> userRoles) throws Exception;
+    User createUser(User user, Set<Role> userRoles) throws Exception;
 
     User save(User user);
 

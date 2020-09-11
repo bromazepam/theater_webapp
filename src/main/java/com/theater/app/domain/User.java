@@ -1,8 +1,7 @@
 package com.theater.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.theater.app.domain.security.Authority;
-import com.theater.app.domain.security.UserRole;
+import com.theater.app.domain.security.Role;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -46,9 +45,9 @@ public class User implements UserDetails {
     private List<Order> orderList;
 
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnore
+//    @JsonIgnore
     @DBRef
-    private Set<UserRole> userRoles = new HashSet<>();
+    private Set<Role> userRoles = new HashSet<>();
 
     public ShoppingCart getShoppingCart() {
         return shoppingCart;
@@ -118,18 +117,18 @@ public class User implements UserDetails {
         this.enabled = enabled;
     }
 
-    public Set<UserRole> getUserRoles() {
+    public Set<Role> getUserRoles() {
         return userRoles;
     }
 
-    public void setUserRoles(Set<UserRole> userRoles) {
+    public void setUserRoles(Set<Role> userRoles) {
         this.userRoles = userRoles;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorites = new HashSet<>();
-        userRoles.forEach(ur -> authorites.add(new Authority(ur.getRole().getName())));
+        userRoles.forEach(ur -> authorites.add(new Authority(ur.getName())));
 
         return authorites;
     }

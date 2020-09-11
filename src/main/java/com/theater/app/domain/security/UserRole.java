@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 //@Entity
 //@Table(name="user_role")
-@Document(collection = "user_role")
+//@Document(collection = "user_role")
 public class UserRole {
 
 	@Id

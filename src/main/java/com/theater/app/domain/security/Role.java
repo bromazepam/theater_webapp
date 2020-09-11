@@ -15,8 +15,8 @@ public class Role {
 	private String name;
 
 //	@OneToMany(mappedBy = "role", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@DBRef(lazy = true)
-	private Set<UserRole> userRoles = new HashSet<>();
+//	@DBRef(lazy = true)
+//	private Set<UserRole> userRoles = new HashSet<>();
 
 	public String getRoleId() {
 		return roleId;
@@ -34,13 +34,13 @@ public class Role {
 		this.name = name;
 	}
 
-	public Set<UserRole> getUserRoles() {
-		return userRoles;
-	}
-
-	public void setUserRoles(Set<UserRole> userRoles) {
-		this.userRoles = userRoles;
-	}
+//	public Set<UserRole> getUserRoles() {
+//		return userRoles;
+//	}
+//
+//	public void setUserRoles(Set<UserRole> userRoles) {
+//		this.userRoles = userRoles;
+//	}
 
 
 }

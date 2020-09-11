@@ -3,7 +3,7 @@ package com.theater.app.service.impl;
 import com.theater.app.domain.User;
 import com.theater.app.domain.UserPayment;
 import com.theater.app.domain.security.PasswordResetToken;
-import com.theater.app.domain.security.UserRole;
+import com.theater.app.domain.security.Role;
 import com.theater.app.exceptions.NotFoundException;
 import com.theater.app.repository.PasswordResetTokenRepository;
 import com.theater.app.repository.RoleRepository;
@@ -36,15 +36,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(User user, Set<UserRole> userRoles) {
+    public User createUser(User user, Set<Role> userRoles) {
         User localUser = userRepository.findByUsername(user.getUsername());
 
         if (localUser != null) {
             LOG.info("user {} already exists. Nothing will be done.", user.getUsername());
         } else {
-            for (UserRole ur : userRoles) {
-                roleRepository.save(ur.getRole());
-            }
+//            for (Role ur : userRoles) {
+//                roleRepository.save(ur.getRole());
+//            }
 
             user.getUserRoles().addAll(userRoles);
 
