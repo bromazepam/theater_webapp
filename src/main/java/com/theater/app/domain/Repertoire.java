@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,11 +17,12 @@ public class Repertoire {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-//
+    //   @ManyToOne(optional = false)
+    //   @JoinColumn(name="id_stage")
     @DBRef
     private Stage stage;
 
-//    @ManyToOne(optional = false)
+    //    @ManyToOne(optional = false)
 //    @JoinColumn(name="id_play")
     @DBRef
     private Play play;
@@ -28,26 +30,26 @@ public class Repertoire {
     private boolean status;
     private Date timestamp;
 
-//    @Temporal(TemporalType.DATE)
+    //    @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date projectionDate;
 
-//    @Temporal(TemporalType.TIME)
-//    @DateTimeFormat(pattern = "hh:mm:ss")
+    //    @Temporal(TemporalType.TIME)
+    @DateTimeFormat(pattern = "hh:mm:ss")
     private String projectionTime;
 
+    //    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     @Field(name = "projection_datetime")
-//    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern="dd.MM.yyyy hh:mm")
+    @DateTimeFormat(pattern = "dd.MM.yyyy hh:mm")
     private Date projection_datetime;
 
     private int price;
     private int availableSeats;
 
-//    @OneToMany(mappedBy = "repertoire")
+    //    @OneToMany(mappedBy = "repertoire")
 //    @JsonIgnore
-    @DBRef
-    private List<RepertoireToCartItem> repertoireToCartItemList;
+//    @DBRef
+    private List<RepertoireToCartItem> repertoireToCartItemList = new ArrayList<>();
 
     public int getAvailableSeats() {
         return availableSeats;
@@ -97,16 +99,18 @@ public class Repertoire {
         this.status = status;
     }
 
-//    @Column(name="timestamp", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    //    @Column(name="timestamp", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Field(name = "timestamp")
     public Date getTimestamp() {
         return timestamp;
     }
-//    @PrePersist
+
+    //    @PrePersist
     protected void onCreate() {
         timestamp = new Date();
     }
-//    @PreUpdate
+
+    //    @PreUpdate
     protected void onUpdate() {
         timestamp = new Date();
     }

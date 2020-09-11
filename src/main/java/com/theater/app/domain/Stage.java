@@ -18,12 +18,12 @@ public class Stage {
     private int capacity;
 
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stage")
-    @DBRef(lazy = true)
-    private List<Seat> seats;
+//    @DBRef(lazy = true)
+    private List<Seat> seats = new ArrayList<>();
 
     @JsonIgnore
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stage")
-    @DBRef(lazy = true)
+//    @DBRef(lazy = true)
     private List<Repertoire> repertoires = new ArrayList<>();
 
     public String getId() {

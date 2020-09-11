@@ -9,10 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Document
 public class User implements UserDetails {
@@ -32,21 +29,21 @@ public class User implements UserDetails {
     private boolean enabled = true;
 
 //    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-    @DBRef
+//    @DBRef
     private ShoppingCart shoppingCart;
 
 
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    @DBRef
-    private List<UserPayment> userPaymentList;
+//    @DBRef
+    private List<UserPayment> userPaymentList = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "user")
-    @DBRef
-    private List<Order> orderList;
+//    @DBRef
+    private List<Order> orderList = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //    @JsonIgnore
-    @DBRef
+//    @DBRef
     private Set<Role> userRoles = new HashSet<>();
 
     public ShoppingCart getShoppingCart() {

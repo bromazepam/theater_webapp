@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Document
@@ -16,13 +17,13 @@ public class CartItem {
     private int subtotal;
 
 //    @OneToOne
-    @DBRef
+//    @DBRef
     private Repertoire repertoire;
 
 //    @OneToMany(mappedBy = "cartItem")
-    @DBRef
+//    @DBRef
     @JsonIgnore
-    private List<RepertoireToCartItem> repertoireToCartItemList;
+    private List<RepertoireToCartItem> repertoireToCartItemList = new ArrayList<>();
 
 //    @ManyToOne
 //    @JoinColumn(name = "shopping_cart_id")

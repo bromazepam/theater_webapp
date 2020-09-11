@@ -23,7 +23,7 @@ public class Play {
 
     @JsonIgnore
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "play")
-    @DBRef(lazy = true)
+//    @DBRef(lazy = true)
     private List<Repertoire> repertoires = new ArrayList<>();
 
 //    @Column(columnDefinition="text")

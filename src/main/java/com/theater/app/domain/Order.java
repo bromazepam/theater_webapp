@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,11 +21,11 @@ public class Order {
     private int orderTotal;
 
 //    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    @DBRef
-    private List<CartItem> cartItemList;
+//    @DBRef
+    private List<CartItem> cartItemList = new ArrayList<>();
 
 //    @OneToOne(cascade = CascadeType.ALL)
-    @DBRef
+//    @DBRef
     private Payment payment;
 
 //    @ManyToOne

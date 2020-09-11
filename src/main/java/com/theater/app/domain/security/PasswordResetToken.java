@@ -21,7 +21,7 @@ public class PasswordResetToken {
 
 //	@OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
 //	@JoinColumn(nullable=false, name="user_id")
-	@DBRef
+//	@DBRef
 	private User user;
 
 	private Date expiryDate;

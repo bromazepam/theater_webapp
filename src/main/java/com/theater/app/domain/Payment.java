@@ -19,7 +19,7 @@ public class Payment {
     private String holderName;
 
 //    @OneToOne
-    @DBRef
+//    @DBRef
     private Order order;
 
 

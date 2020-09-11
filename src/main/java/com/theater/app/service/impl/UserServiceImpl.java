@@ -1,14 +1,12 @@
 package com.theater.app.service.impl;
 
+import com.theater.app.domain.ShoppingCart;
 import com.theater.app.domain.User;
 import com.theater.app.domain.UserPayment;
 import com.theater.app.domain.security.PasswordResetToken;
 import com.theater.app.domain.security.Role;
 import com.theater.app.exceptions.NotFoundException;
-import com.theater.app.repository.PasswordResetTokenRepository;
-import com.theater.app.repository.RoleRepository;
-import com.theater.app.repository.UserPaymentRepository;
-import com.theater.app.repository.UserRepository;
+import com.theater.app.repository.*;
 import com.theater.app.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,13 +24,16 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final PasswordResetTokenRepository passwordResetTokenRepository;
     private final UserPaymentRepository userPaymentRepository;
+    private final ShoppingCartRepository shoppingCartRepository;
 
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
-                           PasswordResetTokenRepository passwordResetTokenRepository, UserPaymentRepository userPaymentRepository) {
+                           PasswordResetTokenRepository passwordResetTokenRepository,
+                           UserPaymentRepository userPaymentRepository, ShoppingCartRepository shoppingCartRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordResetTokenRepository = passwordResetTokenRepository;
         this.userPaymentRepository = userPaymentRepository;
+        this.shoppingCartRepository = shoppingCartRepository;
     }
 
     @Override
@@ -49,6 +50,8 @@ public class UserServiceImpl implements UserService {
             user.getUserRoles().addAll(userRoles);
 
             localUser = userRepository.save(user);
+//            ShoppingCart shoppingCart = new ShoppingCart();
+//            shoppingCartRepository.save(shoppingCart);
         }
 
         return localUser;

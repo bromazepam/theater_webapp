@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Document
@@ -16,11 +17,11 @@ public class ShoppingCart {
 
 //    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    @JsonIgnore
-    @DBRef(lazy = true)
-    private List<CartItem> cartItemList;
+//    @DBRef(lazy = true)
+    private List<CartItem> cartItemList = new ArrayList<>();
 
 //    @OneToOne(cascade = CascadeType.ALL)
-    @DBRef
+//    @DBRef
     private User user;
 
     public String getId() {
