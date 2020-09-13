@@ -2,7 +2,6 @@ package com.theater.app.service.impl;
 
 import com.theater.app.domain.CartItem;
 import com.theater.app.domain.ShoppingCart;
-import com.theater.app.domain.User;
 import com.theater.app.repository.ShoppingCartRepository;
 import com.theater.app.service.CartItemService;
 import com.theater.app.service.ShoppingCartService;
@@ -22,10 +21,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public ShoppingCart updateShoppingCart(ShoppingCart shoppingCart, User user) {
+    public ShoppingCart updateShoppingCart(ShoppingCart shoppingCart) {
         int cartTotal = 0;
-//        List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
-        List<CartItem> cartItemList = user.getShoppingCart().getCartItemList();
+        List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
 
         for (CartItem cartItem : cartItemList) {
             if (cartItem.getRepertoire().getAvailableSeats() > 0) {
@@ -39,12 +37,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public void clearShoppingCart(ShoppingCart shoppingCart, User user) {
-//        List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
-        List<CartItem> cartItemList = user.getShoppingCart().getCartItemList();
+    public void clearShoppingCart(ShoppingCart shoppingCart) {
+        List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
 
         for (CartItem cartItem : cartItemList) {
-//            cartItem.setShoppingCart(null);
+            cartItem.setShoppingCart(null);
             cartItemService.save(cartItem);
         }
         shoppingCart.setGrandTotal(0);

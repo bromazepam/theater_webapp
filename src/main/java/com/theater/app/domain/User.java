@@ -43,7 +43,7 @@ public class User implements UserDetails {
 
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //    @JsonIgnore
-    @DBRef
+//    @DBRef
     private Set<Role> userRoles = new HashSet<>();
 
     public ShoppingCart getShoppingCart() {

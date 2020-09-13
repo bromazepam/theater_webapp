@@ -20,9 +20,9 @@ public class CartItemServiceImpl implements CartItemService {
         this.repertoireToCartItemRepository = repertoireToCartItemRepository;
     }
 
-//    public List<CartItem> findByShoppingCart(ShoppingCart shoppingCart) {
-//        return cartItemRepository.findByShoppingCart(shoppingCart);
-//    }
+    public List<CartItem> findByShoppingCart(ShoppingCart shoppingCart) {
+        return cartItemRepository.findByShoppingCart(shoppingCart);
+    }
 
     @Override
     public CartItem updateCartItem(CartItem cartItem) {
@@ -35,7 +35,7 @@ public class CartItemServiceImpl implements CartItemService {
 
     @Override
     public CartItem addRepertoireToCartItem(Repertoire repertoire, User user, int qty) {
-        List<CartItem> cartItemList = user.getShoppingCart().getCartItemList();
+        List<CartItem> cartItemList = findByShoppingCart(user.getShoppingCart());
 
         for (CartItem cartItem : cartItemList) {
             if (repertoire.getId() == cartItem.getRepertoire().getId()) {
@@ -47,7 +47,7 @@ public class CartItemServiceImpl implements CartItemService {
         }
 
         CartItem cartItem = new CartItem();
-//        cartItem.setShoppingCart(user.getShoppingCart());
+        cartItem.setShoppingCart(user.getShoppingCart());
         cartItem.setRepertoire(repertoire);
 
         cartItem.setQty(qty);
@@ -80,8 +80,8 @@ public class CartItemServiceImpl implements CartItemService {
         return cartItemRepository.save(cartItem);
     }
 
-//    @Override
-//    public List<CartItem> findByOrder(Order order) {
-//        return cartItemRepository.findByOrder(order);
-//    }
+    @Override
+    public List<CartItem> findByOrder(Order order) {
+        return cartItemRepository.findByOrder(order);
+    }
 }

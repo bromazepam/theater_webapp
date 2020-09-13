@@ -38,16 +38,16 @@ public class CheckoutController {
         this.userPaymentService = userPaymentService;
     }
 
-    @GetMapping("/checkout")
+    @GetMapping("/checkout/{cartId}")
     public String checkout(@PathVariable String cartId, @RequestParam(value = "missingRequiredField", required = false)
             boolean missingRequiredField, Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
 
-//        if (!(cartId).equals(user.getShoppingCart().getId())) {
-//            return "user/badRequestPage";
-//        }
+        if (!(cartId).equals(user.getShoppingCart().getId())) {
+            return "user/badRequestPage";
+        }
 
-        List<CartItem> cartItemList = user.getShoppingCart().getCartItemList();
+        List<CartItem> cartItemList = cartItemService.findByShoppingCart(user.getShoppingCart());
 
         if (cartItemList.size() == 0) {
             model.addAttribute("emptyCart", true);
@@ -92,20 +92,19 @@ public class CheckoutController {
     @PostMapping("/checkout")
     public String submitOrder(@ModelAttribute("payment") Payment payment, Principal principal, Model model) {
         ShoppingCart shoppingCart = userService.findByUsername(principal.getName()).getShoppingCart();
-        User user = userService.findByUsername(principal.getName());
-        List<CartItem> cartItemList = user.getShoppingCart().getCartItemList();
+        List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
         model.addAttribute("cartItemList", cartItemList);
 
         if(payment.getType().isEmpty() || payment.getHolderName().isEmpty() || payment.getCardNumber().isEmpty() ||
                 payment.getExpiryMonth() == 0 || payment.getExpiryYear() == 0 || payment.getCvc() == 0){
-            return "redirect:/checkout/"+ "&missingRequiredField=true";
+            return "redirect:/checkout/"+ shoppingCart.getId() + "&missingRequiredField=true";
         }
 
-//        User user = userService.findByUsername(principal.getName());
+        User user = userService.findByUsername(principal.getName());
         Order order = orderService.createOrder(shoppingCart, payment, user);
 
         mailSender.send(mailConstructor.constructOrderConfirmationEmail(user, order));
-        shoppingCartService.clearShoppingCart(shoppingCart, user);
+        shoppingCartService.clearShoppingCart(shoppingCart);
 
         return "user/orderSubmittedPage";
 
@@ -120,7 +119,7 @@ public class CheckoutController {
             return "user/badRequestPage";
         } else {
             paymentService.setByUserPayment(userPayment, payment);
-            List<CartItem> cartItemList = user.getShoppingCart().getCartItemList();
+            List<CartItem> cartItemList = cartItemService.findByShoppingCart(user.getShoppingCart());
 
             model.addAttribute("payment", payment);
             model.addAttribute("cartItemList", cartItemList);

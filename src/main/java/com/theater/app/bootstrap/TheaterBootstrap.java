@@ -1,7 +1,5 @@
 package com.theater.app.bootstrap;
 
-import com.theater.app.domain.CartItem;
-import com.theater.app.domain.ShoppingCart;
 import com.theater.app.domain.User;
 import com.theater.app.domain.security.Role;
 import com.theater.app.domain.security.UserRole;
@@ -15,7 +13,6 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,7 +51,6 @@ public class TheaterBootstrap implements ApplicationListener<ContextRefreshedEve
         user2.setUsername("user");
         user2.setPassword(SecurityUtility.passwordEncoder().encode("user"));
         user2.setEmail("user@gmail.com");
-        user2.setShoppingCart(new ShoppingCart(0, new ArrayList<CartItem>()));
         Set<Role> userRoles2 = new HashSet<>();
         Role role2= new Role();
         role2.setRoleId("1");
