@@ -96,7 +96,7 @@ public class IndexController {
         User user = new User();
         user.setUsername(username);
         user.setEmail(userEmail);
-
+        user.setShoppingCart(new ShoppingCart(0,null));
         String password = SecurityUtility.randomPassword();
 
         String encryptedPassword = SecurityUtility.passwordEncoder().encode(password);
@@ -309,7 +309,8 @@ public class IndexController {
         if (!order.getUser().getId().equals(user.getId())) {
             return "user/badRequestPage";
         } else {
-            List<CartItem> cartItemList = cartItemService.findByOrder(order);
+//            List<CartItem> cartItemList = cartItemService.findByOrder(order);
+            List<CartItem> cartItemList = user.getShoppingCart().getCartItemList();
             model.addAttribute("cartItemList", cartItemList);
             model.addAttribute("user", user);
             model.addAttribute("order", order);

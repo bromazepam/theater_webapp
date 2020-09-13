@@ -28,11 +28,12 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderStatus("created");
         order.setPayment(payment);
 
-        List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
+//        List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
+        List<CartItem> cartItemList = user.getShoppingCart().getCartItemList();
 
         for(CartItem cartItem: cartItemList){
             Repertoire repertoire = cartItem.getRepertoire();
-            cartItem.setOrder(order);
+//            cartItem.setOrder(order);
             repertoire.setAvailableSeats(repertoire.getAvailableSeats()-cartItem.getQty());
         }
 

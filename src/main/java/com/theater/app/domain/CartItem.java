@@ -8,11 +8,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
 import java.util.List;
 
-@Document
+//@Document
 public class CartItem {
-    @Id
+//    @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+//    private String id;
     private int qty;
     private int subtotal;
 
@@ -22,26 +22,26 @@ public class CartItem {
 
 //    @OneToMany(mappedBy = "cartItem")
 //    @DBRef
-    @JsonIgnore
-    private List<RepertoireToCartItem> repertoireToCartItemList = new ArrayList<>();
+//    @JsonIgnore
+//    private List<RepertoireToCartItem> repertoireToCartItemList = new ArrayList<>();
 
 //    @ManyToOne
 //    @JoinColumn(name = "shopping_cart_id")
-    @DBRef
-    private ShoppingCart shoppingCart;
+//    @DBRef
+//    private ShoppingCart shoppingCart;
 
 //    @ManyToOne
 //    @JoinColumn(name = "order_id")
-    @DBRef
-    private Order order;
+//    @DBRef
+//    private Order order;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+//    public String getId() {
+//        return id;
+//    }
+//
+//    public void setId(String id) {
+//        this.id = id;
+//    }
 
     public int getQty() {
         return qty;
@@ -67,27 +67,27 @@ public class CartItem {
         this.repertoire = repertoire;
     }
 
-    public List<RepertoireToCartItem> getRepertoireToCartItemList() {
-        return repertoireToCartItemList;
-    }
+//    public List<RepertoireToCartItem> getRepertoireToCartItemList() {
+//        return repertoireToCartItemList;
+//    }
+//
+//    public void setRepertoireToCartItemList(List<RepertoireToCartItem> repertoireToCartItemList) {
+//        this.repertoireToCartItemList = repertoireToCartItemList;
+//    }
 
-    public void setRepertoireToCartItemList(List<RepertoireToCartItem> repertoireToCartItemList) {
-        this.repertoireToCartItemList = repertoireToCartItemList;
-    }
+//    public ShoppingCart getShoppingCart() {
+//        return shoppingCart;
+//    }
+//
+//    public void setShoppingCart(ShoppingCart shoppingCart) {
+//        this.shoppingCart = shoppingCart;
+//    }
 
-    public ShoppingCart getShoppingCart() {
-        return shoppingCart;
-    }
-
-    public void setShoppingCart(ShoppingCart shoppingCart) {
-        this.shoppingCart = shoppingCart;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
+//    public Order getOrder() {
+//        return order;
+//    }
+//
+//    public void setOrder(Order order) {
+//        this.order = order;
+//    }
 }

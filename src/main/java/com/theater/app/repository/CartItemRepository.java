@@ -8,6 +8,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface CartItemRepository extends CrudRepository<CartItem, String> {
-    List<CartItem> findByShoppingCart(ShoppingCart shoppingCart);
-    List<CartItem> findByOrder(Order order);
+//    List<CartItem> findByShoppingCart(ShoppingCart shoppingCart);
+//    List<CartItem> findByOrder(Order order);
 }

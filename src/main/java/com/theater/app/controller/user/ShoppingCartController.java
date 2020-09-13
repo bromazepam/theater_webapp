@@ -40,9 +40,10 @@ public class ShoppingCartController {
         User user = userService.findByUsername(principal.getName());
         ShoppingCart shoppingCart = user.getShoppingCart();
 
-        List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
+//        List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
+        List<CartItem> cartItemList = user.getShoppingCart().getCartItemList();
 
-        shoppingCartService.updateShoppingCart(shoppingCart);
+        shoppingCartService.updateShoppingCart(shoppingCart, user);
 
         model.addAttribute("cartItemList", cartItemList);
         model.addAttribute("shoppingCart", shoppingCart);
@@ -64,6 +65,7 @@ public class ShoppingCartController {
 
         CartItem cartItem = cartItemService.addRepertoireToCartItem(repertoire, user, Integer.parseInt(qty));
         model.addAttribute("addReservationSuccess", true);
+
 
         return "forward:/repertoireDetail/" + repertoire.getId();
     }

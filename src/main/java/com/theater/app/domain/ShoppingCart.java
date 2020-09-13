@@ -7,30 +7,36 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
 import java.util.List;
 
-@Document
+//@Document
 public class ShoppingCart {
 
-    @Id
+//    @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+//    private String id;
     private int grandTotal;
 
 //    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    @JsonIgnore
-//    @DBRef(lazy = true)
-    private List<CartItem> cartItemList = new ArrayList<>();
+    @DBRef(lazy = true)
+    private List<CartItem> cartItemList;
 
 //    @OneToOne(cascade = CascadeType.ALL)
 //    @DBRef
-    private User user;
+//    private User user;
 
-    public String getId() {
-        return id;
+
+    public ShoppingCart(int grandTotal, List<CartItem> cartItemList) {
+        this.grandTotal = grandTotal;
+        this.cartItemList = cartItemList;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+//    public String getId() {
+//        return id;
+//    }
+//
+//    public void setId(String id) {
+//        this.id = id;
+//    }
 
     public int getGrandTotal() {
         return grandTotal;
@@ -48,11 +54,11 @@ public class ShoppingCart {
         this.cartItemList = cartItemList;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 }
