@@ -32,6 +32,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             }
         }
         shoppingCart.setGrandTotal(cartTotal);
+        shoppingCart.setCartItemList(cartItemList);
         shoppingCartRepository.save(shoppingCart);
         return shoppingCart;
     }
