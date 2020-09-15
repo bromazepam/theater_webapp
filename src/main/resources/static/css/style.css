@@ -83,9 +83,13 @@ body {
     color: black;
     letter-spacing: 2px;
 }
+.contact-form input{
+    margin:10px;
+
+}
 input{
     padding: 10px;
-    margin:10px;
+    /*margin:10px;*/
     width: 70%;
     background-color: rgba(230, 227, 227, 0.5);
     color: black;
