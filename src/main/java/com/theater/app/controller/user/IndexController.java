@@ -3,7 +3,6 @@ package com.theater.app.controller.user;
 import com.theater.app.domain.*;
 import com.theater.app.domain.security.PasswordResetToken;
 import com.theater.app.domain.security.Role;
-import com.theater.app.domain.security.UserRole;
 import com.theater.app.service.*;
 import com.theater.app.service.impl.UserSecurityService;
 import com.theater.app.utility.MailConstructor;
@@ -106,7 +105,7 @@ public class IndexController {
         role.setRoleId("1");
         role.setName("ROLE_USER");
         Set<Role> userRoles = new HashSet<>();
-        userRoles.add( role);
+        userRoles.add(role);
         userService.createUser(user, userRoles);
 
         String token = UUID.randomUUID().toString();
@@ -306,23 +305,19 @@ public class IndexController {
         User user = userService.findByUsername(principal.getName());
         Order order = orderService.findById(orderId);
 
-        if (!order.getUser().getId().equals(user.getId())) {
-            return "user/badRequestPage";
-        } else {
-            List<CartItem> cartItemList = cartItemService.findByOrder(order);
-            model.addAttribute("cartItemList", cartItemList);
-            model.addAttribute("user", user);
-            model.addAttribute("order", order);
+        List<CartItem> cartItemList = order.getCartItemList();
+        model.addAttribute("cartItemList", cartItemList);
+        model.addAttribute("user", user);
+        model.addAttribute("order", order);
 
-            model.addAttribute("userPaymentList", user.getUserPaymentList());
-            model.addAttribute("orderList", user.getOrderList());
+        model.addAttribute("userPaymentList", user.getUserPaymentList());
+        model.addAttribute("orderList", user.getOrderList());
 
-            model.addAttribute("classActiveOrders", true);
-            model.addAttribute("displayOrderDetail", true);
+        model.addAttribute("classActiveOrders", true);
+        model.addAttribute("displayOrderDetail", true);
 
-            return "user/orders";
+        return "user/orders";
 
-        }
     }
 
     @RequestMapping("/listOfCreditCards")

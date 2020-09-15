@@ -103,7 +103,9 @@ public class CheckoutController {
         User user = userService.findByUsername(principal.getName());
         Order order = orderService.createOrder(shoppingCart, payment, user);
 
-        mailSender.send(mailConstructor.constructOrderConfirmationEmail(user, order));
+        User user1 = userService.findByUsername(principal.getName());
+
+        mailSender.send(mailConstructor.constructOrderConfirmationEmail(user1, order));
         shoppingCartService.clearShoppingCart(shoppingCart);
 
         return "user/orderSubmittedPage";
