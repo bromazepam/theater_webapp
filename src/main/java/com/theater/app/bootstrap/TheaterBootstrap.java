@@ -2,7 +2,6 @@ package com.theater.app.bootstrap;
 
 import com.theater.app.domain.User;
 import com.theater.app.domain.security.Role;
-import com.theater.app.domain.security.UserRole;
 import com.theater.app.repository.RoleRepository;
 import com.theater.app.service.UserService;
 import com.theater.app.utility.SecurityUtility;
