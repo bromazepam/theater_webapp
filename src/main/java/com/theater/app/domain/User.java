@@ -29,7 +29,7 @@ public class User implements UserDetails {
     private boolean enabled = true;
 
 //    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-//    @DBRef
+    @DBRef
     private ShoppingCart shoppingCart;
 
 

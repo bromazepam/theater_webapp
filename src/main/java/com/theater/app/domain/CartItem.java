@@ -32,8 +32,8 @@ public class CartItem {
 
 //    @ManyToOne
 //    @JoinColumn(name = "order_id")
-    @DBRef
-    private Order order;
+//    @DBRef
+//    private Order order;
 
     public String getId() {
         return id;
@@ -83,11 +83,11 @@ public class CartItem {
         this.shoppingCart = shoppingCart;
     }
 
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
+//    public Order getOrder() {
+//        return order;
+//    }
+//
+//    public void setOrder(Order order) {
+//        this.order = order;
+//    }
 }

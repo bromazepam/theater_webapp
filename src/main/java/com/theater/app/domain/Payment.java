@@ -4,12 +4,12 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+//@Document
 public class Payment {
 
-    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+//    @Id
+////    @GeneratedValue(strategy = GenerationType.AUTO)
+//    private String id;
     private String type;
     private String cardName;
     private String cardNumber;
@@ -20,16 +20,16 @@ public class Payment {
 
 //    @OneToOne
 //    @DBRef
-    private Order order;
+//    private Order order;
 
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+//
+//    public String getId() {
+//        return id;
+//    }
+//
+//    public void setId(String id) {
+//        this.id = id;
+//    }
 
     public String getType() {
         return type;
@@ -87,11 +87,11 @@ public class Payment {
         this.holderName = holderName;
     }
 
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
+//    public Order getOrder() {
+//        return order;
+//    }
+//
+//    public void setOrder(Order order) {
+//        this.order = order;
+//    }
 }

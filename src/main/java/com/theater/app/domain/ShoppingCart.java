@@ -21,7 +21,7 @@ public class ShoppingCart {
     private List<CartItem> cartItemList = new ArrayList<>();
 
 //    @OneToOne(cascade = CascadeType.ALL)
-//    @DBRef
+    @DBRef
     private User user;
 
     public String getId() {

@@ -29,8 +29,8 @@ public class Order {
     private Payment payment;
 
 //    @ManyToOne
-    @DBRef
-    private User user;
+//    @DBRef
+//    private User user;
 
     @Transient
     private int total;
@@ -83,13 +83,13 @@ public class Order {
         this.payment = payment;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     public int getTotal() {
         return total;
