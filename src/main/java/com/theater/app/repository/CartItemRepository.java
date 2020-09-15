@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface CartItemRepository extends CrudRepository<CartItem, String> {
     List<CartItem> findByShoppingCart(ShoppingCart shoppingCart);
-    List<CartItem> findByOrder(Order order);
+//    List<CartItem> findByOrder(Order order);
 }
