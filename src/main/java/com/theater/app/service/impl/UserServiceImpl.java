@@ -21,15 +21,19 @@ public class UserServiceImpl implements UserService {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final PasswordResetTokenRepository passwordResetTokenRepository;
     private final UserPaymentRepository userPaymentRepository;
+    private final ShoppingCartRepository shoppingCartRepository;
 
-    public UserServiceImpl(UserRepository userRepository,
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
                            PasswordResetTokenRepository passwordResetTokenRepository,
-                           UserPaymentRepository userPaymentRepository) {
+                           UserPaymentRepository userPaymentRepository, ShoppingCartRepository shoppingCartRepository) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
         this.passwordResetTokenRepository = passwordResetTokenRepository;
         this.userPaymentRepository = userPaymentRepository;
+        this.shoppingCartRepository = shoppingCartRepository;
     }
 
     @Override
