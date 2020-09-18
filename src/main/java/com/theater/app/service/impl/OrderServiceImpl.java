@@ -2,12 +2,13 @@ package com.theater.app.service.impl;
 
 import com.theater.app.domain.*;
 import com.theater.app.exceptions.NotFoundException;
-import com.theater.app.repository.*;
+import com.theater.app.repository.OrderRepository;
+import com.theater.app.repository.RepertoireRepository;
+import com.theater.app.repository.UserRepository;
 import com.theater.app.service.CartItemService;
 import com.theater.app.service.OrderService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -55,7 +56,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order findById(String id) {
+    public Order findByOrderId(String id) {
         Optional<Order> orderOptional = orderRepository.findById(id);
         if (!orderOptional.isPresent()) {
             throw new NotFoundException("order not found");
@@ -63,4 +64,15 @@ public class OrderServiceImpl implements OrderService {
 
         return orderOptional.get();
     }
+
+//    @Override
+//    public List<Order> findMonthlyProfit() {
+//        Aggregation aggregation = newAggregation(
+//                Aggregation.project()
+//                        .andExpression("$order_date").extractMonth().as("profitMonth"),
+//                group("order_date")
+//                        .sum("$order_total").as("profitTotal"));
+//
+//        return mongoTemplate.aggregate(aggregation, "user_order", Order.class).getMappedResults();
+//    }
 }

@@ -13,10 +13,13 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class ReportServiceImpl implements ReportService {
+
 
     private final RepertoireRepository repertoireRepository;
     private final PlayRepository playRepository;
@@ -63,12 +66,12 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public String monthlyProfitReport() throws FileNotFoundException, JRException {
+
+        
+        List<Order> orderList = orderRepository.getMonthlyProfit();
         String path = "C:\\Users\\David\\Desktop";
-        List<Order> orderList = orderRepository.getAggregates();
-//        if(orderList.isPresent()) {
-//            List<Object[]> objects = orderList.get();
-//            Stream.of(objects.toString()).forEach(System.out::println);
-//        }
+//        List<Order> orderList = orderRepository.getAggregates();
+
 
         //load file and compile it
         File file = ResourceUtils.getFile("src/main/resources/reports/monthlyProfit.jrxml");
