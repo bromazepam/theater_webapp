@@ -1,7 +1,6 @@
 package com.theater.app.service.impl;
 
 import com.theater.app.domain.Order;
-import com.theater.app.domain.OrderReport;
 import com.theater.app.domain.Repertoire;
 import com.theater.app.repository.OrderRepository;
 import com.theater.app.repository.PlayRepository;
@@ -64,23 +63,23 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public String monthlyProfitReport() throws FileNotFoundException, JRException {
-//        String path = "C:\\Users\\David\\Desktop";
-//        List<OrderReport> orderList = orderRepository.findMonthlyProfit();
-////        if(orderList.isPresent()) {
-////            List<Object[]> objects = orderList.get();
-////            Stream.of(objects.toString()).forEach(System.out::println);
-////        }
-//
-//        //load file and compile it
-//        File file = ResourceUtils.getFile("src/main/resources/reports/monthlyProfit.jrxml");
-//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(orderList);
-//        Map<String, Object> parameters = new HashMap<>();
-//        parameters.put("createdBy", "David");
-//
-//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
-//        JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\monthlyProfit.html");
-////        JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\monthlyProfit.pdf");
+        String path = "C:\\Users\\David\\Desktop";
+        List<Order> orderList = orderRepository.getAggregates();
+//        if(orderList.isPresent()) {
+//            List<Object[]> objects = orderList.get();
+//            Stream.of(objects.toString()).forEach(System.out::println);
+//        }
+
+        //load file and compile it
+        File file = ResourceUtils.getFile("src/main/resources/reports/monthlyProfit.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(orderList);
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("createdBy", "David");
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+        JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\monthlyProfit.html");
+//        JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\monthlyProfit.pdf");
         return "admin/reports";
     }
 
