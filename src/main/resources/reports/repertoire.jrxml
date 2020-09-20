@@ -6,7 +6,7 @@
               name="repertoire" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20"
               topMargin="20" bottomMargin="20" uuid="e62eb15f-e2bb-4548-b16b-bcdb3fd19563">
     <field name="play" class="com.theater.app.domain.Play"/>
-    <field name="projectionDate" class="java.sql.Date"/>
+    <field name="projectionDate" class="java.util.Date"/>
     <field name="stage" class="com.theater.app.domain.Stage"/>
     <field name="price" class="java.lang.Integer"/>
     <group name="Group1">
