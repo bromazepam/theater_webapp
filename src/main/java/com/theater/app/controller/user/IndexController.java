@@ -303,7 +303,7 @@ public class IndexController {
     @RequestMapping("/orderDetail")
     public String orderDetail(@RequestParam("id") String orderId, Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
-        Order order = orderService.findById(orderId);
+        Order order = orderService.findByOrderId(orderId);
 
         List<CartItem> cartItemList = order.getCartItemList();
         model.addAttribute("cartItemList", cartItemList);
