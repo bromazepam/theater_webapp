@@ -33,6 +33,7 @@ public class RepertoireController {
         System.out.println(repertoire.getProjectionTime());
         System.out.println(repertoire.getProjectionDate());
         repertoire.setAvailableSeats(repertoireService.availableSeats(repertoire.getStage().getId()));
+        repertoire.setStage(stageService.findById(repertoire.getStage().getId()));
         repertoireService.save(repertoire);
         return "redirect:repertoire";
     }
@@ -55,6 +56,7 @@ public class RepertoireController {
     @PostMapping("/updateRepertoire")
     public String updateStagePost(@ModelAttribute("repertoire") Repertoire repertoire) {
         repertoire.setAvailableSeats(repertoireService.availableSeats(repertoire.getStage().getId()));
+        repertoire.setStage(stageService.findById(repertoire.getStage().getId()));
         repertoireService.save(repertoire);
         return "redirect:repertoire";
     }

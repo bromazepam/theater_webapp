@@ -7,6 +7,7 @@ import com.theater.app.service.*;
 import com.theater.app.service.impl.UserSecurityService;
 import com.theater.app.utility.MailConstructor;
 import com.theater.app.utility.SecurityUtility;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,7 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
-public class IndexController {
+public class IndexController implements ErrorController {
 
     private final PlayService playService;
     private final RepertoireService repertoireService;
@@ -36,13 +37,11 @@ public class IndexController {
     private final UserSecurityService userSecurityService;
     private final UserPaymentService userPaymentService;
     private final OrderService orderService;
-    private final CartItemService cartItemService;
 
     public IndexController(PlayService playService, RepertoireService repertoireService,
                            UserService userService, MailConstructor mailConstructor,
                            JavaMailSender mailSender, UserSecurityService userSecurityService,
-                           UserPaymentService userPaymentService, OrderService orderService,
-                           CartItemService cartItemService) {
+                           UserPaymentService userPaymentService, OrderService orderService) {
         this.playService = playService;
         this.repertoireService = repertoireService;
         this.userService = userService;
@@ -51,7 +50,6 @@ public class IndexController {
         this.userSecurityService = userSecurityService;
         this.userPaymentService = userPaymentService;
         this.orderService = orderService;
-        this.cartItemService = cartItemService;
     }
 
     @RequestMapping("/")
@@ -197,7 +195,7 @@ public class IndexController {
             }
         }
 
-        if (newPassword != null && !newPassword.isEmpty() && !newPassword.equals("")) {
+        if (newPassword != null && !newPassword.isEmpty()) {
             BCryptPasswordEncoder passwordEncoder = SecurityUtility.passwordEncoder();
             String dbPassword = currentUser.getPassword();
             if (passwordEncoder.matches(user.getPassword(), dbPassword)) {
@@ -437,5 +435,14 @@ public class IndexController {
     @RequestMapping("/gallery")
     public String gallery() {
         return "user/gallery";
+    }
+
+    @Override
+    public String getErrorPath() {
+        return "/error";
+    }
+    @RequestMapping("/error")
+    public String error() {
+        return "user/badRequestPage";
     }
 }

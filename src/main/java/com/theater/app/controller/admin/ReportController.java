@@ -34,11 +34,9 @@ public class ReportController {
             case "cancelledPlays":
                 return reportService.cancelledPlaysReport();
             case "monthlyAttendance":
-//            return reportService.monthlyAttendanceReport();
+                return reportService.monthlyAttendanceReport();
             case "monthlyProfit":
                 return reportService.monthlyProfitReport();
-            case "playAttendance":
-//                return reportService.playPerMonth();
             case "playsPerMonth":
                 return reportService.playAttendance();
         }

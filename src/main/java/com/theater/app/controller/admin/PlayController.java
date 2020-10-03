@@ -15,7 +15,7 @@ import java.util.List;
 @Controller
 public class PlayController {
 
-    private PlayService playService;
+    private final PlayService playService;
     private final ImageService imageService;
 
     public PlayController(PlayService playService, ImageService imageService) {

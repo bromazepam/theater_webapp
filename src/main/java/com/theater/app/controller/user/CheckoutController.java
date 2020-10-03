@@ -14,7 +14,7 @@ import java.util.List;
 @Controller
 public class CheckoutController {
 
-    Payment payment = new Payment();
+    private Payment payment = new Payment();
 
     private final UserService userService;
     private final CartItemService cartItemService;

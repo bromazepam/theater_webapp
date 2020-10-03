@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class StageController {
 
-    private StageService stageService;
+    private final StageService stageService;
     private final SeatService seatService;
 
     public StageController(StageService stageService, SeatService seatService) {
