@@ -29,11 +29,11 @@ public class PlayServiceImpl implements PlayService {
     }
 
     @Override
-    public Play findById(String l) {
-        Optional<Play> playOptional = playRepository.findById(l);
+    public Play findById(String id) {
+        Optional<Play> playOptional = playRepository.findById(id);
 
         if (!playOptional.isPresent()) {
-            throw new NotFoundException("play not found, For ID value: " + l.toString());
+            throw new NotFoundException("play not found, For ID value: " + id);
         }
         return playOptional.get();
     }

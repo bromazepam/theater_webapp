@@ -21,19 +21,13 @@ public class UserServiceImpl implements UserService {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
     private final PasswordResetTokenRepository passwordResetTokenRepository;
     private final UserPaymentRepository userPaymentRepository;
-    private final ShoppingCartRepository shoppingCartRepository;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
-                           PasswordResetTokenRepository passwordResetTokenRepository,
-                           UserPaymentRepository userPaymentRepository, ShoppingCartRepository shoppingCartRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordResetTokenRepository passwordResetTokenRepository, UserPaymentRepository userPaymentRepository) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
         this.passwordResetTokenRepository = passwordResetTokenRepository;
         this.userPaymentRepository = userPaymentRepository;
-        this.shoppingCartRepository = shoppingCartRepository;
     }
 
     @Override
@@ -43,15 +37,8 @@ public class UserServiceImpl implements UserService {
         if (localUser != null) {
             LOG.info("user {} already exists. Nothing will be done.", user.getUsername());
         } else {
-//            for (Role ur : userRoles) {
-//                roleRepository.save(ur.getRole());
-//            }
-
             user.getUserRoles().addAll(userRoles);
-
             localUser = userRepository.save(user);
-//            ShoppingCart shoppingCart = new ShoppingCart();
-//            shoppingCartRepository.save(shoppingCart);
         }
 
         return localUser;

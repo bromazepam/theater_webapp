@@ -1,12 +1,13 @@
 package com.theater.app.service.impl;
 
-import com.theater.app.domain.Order;
-import com.theater.app.domain.OrderReport;
+import com.theater.app.domain.reportDAO.OrderReport;
 import com.theater.app.domain.Repertoire;
+import com.theater.app.domain.reportDAO.RepertoireReport;
 import com.theater.app.repository.OrderRepository;
 import com.theater.app.repository.PlayRepository;
 import com.theater.app.repository.RepertoireRepository;
 import com.theater.app.service.OrderService;
+import com.theater.app.service.RepertoireService;
 import com.theater.app.service.ReportService;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -24,20 +25,14 @@ public class ReportServiceImpl implements ReportService {
     private final PlayRepository playRepository;
     private final OrderRepository orderRepository;
     private final OrderService orderService;
+    private final RepertoireService repertoireService;
 
-//    public ReportServiceImpl(RepertoireRepository repertoireRepository, PlayRepository playRepository,
-//                             OrderRepository orderRepository) {
-//        this.repertoireRepository = repertoireRepository;
-//        this.playRepository = playRepository;
-//        this.orderRepository = orderRepository;
-//    }
-
-
-    public ReportServiceImpl(RepertoireRepository repertoireRepository, PlayRepository playRepository, OrderRepository orderRepository, OrderService orderService) {
+    public ReportServiceImpl(RepertoireRepository repertoireRepository, PlayRepository playRepository, OrderRepository orderRepository, OrderService orderService, RepertoireService repertoireService) {
         this.repertoireRepository = repertoireRepository;
         this.playRepository = playRepository;
         this.orderRepository = orderRepository;
         this.orderService = orderService;
+        this.repertoireService = repertoireService;
     }
 
     @Override
@@ -59,7 +54,7 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public String cancelledPlaysReport() throws FileNotFoundException, JRException {
         String path = "C:\\Users\\David\\Desktop";
-        List<Repertoire> repertoireList = (List<Repertoire>) repertoireRepository.findByStatusIsTrue();
+        List<Repertoire> repertoireList = repertoireRepository.findByStatusIsTrue();
         //load file and compile it
         File file = ResourceUtils.getFile("src/main/resources/reports/cancelledPlays.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
@@ -68,23 +63,13 @@ public class ReportServiceImpl implements ReportService {
         parameters.put("createdBy", "David");
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
         JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\cancelledPlays.html");
-//        JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\cancelledPlays.pdf");
         return "admin/reports";
     }
 
     @Override
     public String monthlyProfitReport() throws FileNotFoundException, JRException {
         String path = "C:\\Users\\David\\Desktop";
-//        List<Order> orderList = orderRepository.getAggregates();
-//        if(orderList.isPresent()) {
-//            List<Object[]> objects = orderList.get();
-//            Stream.of(objects.toString()).forEach(System.out::println);
-//        }
-
         List<OrderReport> orderList = orderService.findOrders();
-        for(OrderReport order: orderList){
-            System.out.println(order.getMonth() + "  " + order.getDate());
-        }
         //load file and compile it
         File file = ResourceUtils.getFile("src/main/resources/reports/monthlyProfit.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
@@ -94,7 +79,6 @@ public class ReportServiceImpl implements ReportService {
 
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
         JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\monthlyProfit.html");
-//        JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\monthlyProfit.pdf");
         return "admin/reports";
     }
 
@@ -110,8 +94,23 @@ public class ReportServiceImpl implements ReportService {
         parameters.put("createdBy", "David");
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
         JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\playAttendance.html");
-//        JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\playAttendance.pdf");
         return "admin/reports";
     }
 
+    @Override
+    public String monthlyAttendanceReport() throws FileNotFoundException, JRException {
+        String path = "C:\\Users\\David\\Desktop";
+        List<RepertoireReport> orderList = repertoireService.findMonthlyAttendance();
+
+        //load file and compile it
+        File file = ResourceUtils.getFile("src/main/resources/reports/monthlyAttendance.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(orderList);
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("createdBy", "David");
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+        JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\monthlyAttendance.html");
+        return "admin/reports";
+    }
 }

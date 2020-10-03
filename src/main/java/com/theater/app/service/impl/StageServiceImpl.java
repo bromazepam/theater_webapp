@@ -33,7 +33,7 @@ public class StageServiceImpl implements StageService {
         Optional<Stage> optionalStage = stageRepository.findById(id);
 
         if (!optionalStage.isPresent()) {
-            throw new NotFoundException("Stage not found, For ID value: " + id.toString());
+            throw new NotFoundException("Stage not found, For ID value: " + id);
         }
         return optionalStage.get();
     }

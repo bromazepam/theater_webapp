@@ -1,6 +1,7 @@
 package com.theater.app.service.impl;
 
 import com.theater.app.domain.*;
+import com.theater.app.exceptions.NotFoundException;
 import com.theater.app.repository.CartItemRepository;
 import com.theater.app.repository.RepertoireToCartItemRepository;
 import com.theater.app.service.CartItemService;
@@ -38,7 +39,7 @@ public class CartItemServiceImpl implements CartItemService {
         List<CartItem> cartItemList = findByShoppingCart(user.getShoppingCart());
 
         for (CartItem cartItem : cartItemList) {
-            if (repertoire.getId() == cartItem.getRepertoire().getId()) {
+            if (repertoire.getId().equals(cartItem.getRepertoire().getId())) {
                 cartItem.setQty(cartItem.getQty() + qty);
                 cartItem.setSubtotal(repertoire.getPrice() * qty);
                 cartItemRepository.save(cartItem);
@@ -72,6 +73,9 @@ public class CartItemServiceImpl implements CartItemService {
     @Override
     public CartItem findById(String id) {
         Optional<CartItem> cartItem = cartItemRepository.findById(id);
+        if (!cartItem.isPresent()) {
+            throw new NotFoundException("cart item not found, For ID value: " + id);
+        }
         return cartItem.get();
     }
 
@@ -80,8 +84,4 @@ public class CartItemServiceImpl implements CartItemService {
         return cartItemRepository.save(cartItem);
     }
 
-//    @Override
-//    public List<CartItem> findByOrder(Order order) {
-//        return cartItemRepository.findByOrder(order);
-//    }
 }

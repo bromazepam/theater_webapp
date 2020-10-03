@@ -1,6 +1,7 @@
 package com.theater.app.service.impl;
 
 import com.theater.app.domain.UserPayment;
+import com.theater.app.exceptions.NotFoundException;
 import com.theater.app.repository.UserPaymentRepository;
 import com.theater.app.service.UserPaymentService;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ public class UserPaymentServiceImpl implements UserPaymentService {
     @Override
     public UserPayment findById(String id) {
         Optional<UserPayment> userPayment = userPaymentRepository.findById(id);
+        if (!userPayment.isPresent()) {
+            throw new NotFoundException("User payment not found, For ID value: " + id);
+        }
         return userPayment.get();
     }
 

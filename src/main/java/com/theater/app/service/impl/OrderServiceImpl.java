@@ -1,6 +1,7 @@
 package com.theater.app.service.impl;
 
 import com.theater.app.domain.*;
+import com.theater.app.domain.reportDAO.OrderReport;
 import com.theater.app.exceptions.NotFoundException;
 import com.theater.app.repository.*;
 import com.theater.app.service.CartItemService;
@@ -10,7 +11,6 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -78,12 +78,8 @@ public class OrderServiceImpl implements OrderService {
                         .andExpression("month(orderDate)").as("month"),
                 group(fields().and("year").and("month")).sum("orderTotal").as("totalAmount"));
 
-//        return mongoTemplate.aggregate(aggregation, "user_order", OrderReport.class).getMappedResults();
-
-//        Aggregation aggregation = Aggregation.newAggregation(group())
         AggregationResults<OrderReport> results = mongoTemplate.aggregate(
                 aggregation, "user_order", OrderReport.class);
-//        AggregationResults<OrderReport> results = orderRepository.sumProfit();
         return results.getMappedResults();
     }
 }

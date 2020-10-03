@@ -22,7 +22,8 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public void saveImageFile(String id, MultipartFile file) {
         try {
-            Play play = playRepository.findById(id).get();
+            Play play = playRepository.findById(id).orElse(null);
+
 
             byte[] byteObjects = new byte[file.getBytes().length];
 
@@ -32,7 +33,9 @@ public class ImageServiceImpl implements ImageService {
                 byteObjects[i++] = b;
             }
 
-            play.setPlayImage(byteObjects);
+            if (play != null) {
+                play.setPlayImage(byteObjects);
+            }
 
             playRepository.save(play);
         } catch (IOException e) {

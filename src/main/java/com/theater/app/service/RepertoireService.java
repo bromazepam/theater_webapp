@@ -1,6 +1,7 @@
 package com.theater.app.service;
 
 import com.theater.app.domain.Repertoire;
+import com.theater.app.domain.reportDAO.RepertoireReport;
 
 import java.util.Date;
 import java.util.List;
@@ -19,4 +20,6 @@ public interface RepertoireService {
     List<Repertoire> findByPresentOrFutureDate(Date date);
 
     int availableSeats(String id);
+
+    List<RepertoireReport> findMonthlyAttendance();
 }
