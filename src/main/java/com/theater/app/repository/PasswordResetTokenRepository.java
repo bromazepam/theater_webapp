@@ -15,7 +15,4 @@ public interface PasswordResetTokenRepository extends MongoRepository<PasswordRe
 
     Stream<PasswordResetToken> findAllByExpiryDateLessThan(Date now);
 
-//    @Modifying
-//    @Query("delete from PasswordResetToken t where t.expiryDate <= ?1")
-//    void deleteAllExpiredSince(Date now);
 }
