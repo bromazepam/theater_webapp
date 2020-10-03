@@ -11,8 +11,6 @@
             <ul class="nav nav-tabs">
                 <li th:classappend="${classActiveEdit}? 'active'"><a
                         href="#tab-1" data-toggle="tab"><span>Profil</span></a></li>
-                <!--                <li th:classappend="${classActiveReservations}? 'active'"><a-->
-                <!--                        href="#tab-2" data-toggle="tab"><span>Rezervacije</span></a></li>-->
                 <li th:classappend="${classActiveBilling}? 'active'"><a
                         href="#tab-3" data-toggle="tab"><span>Plaćanje</span></a></li>
             </ul>
@@ -143,8 +141,6 @@
 
                                 <div th:if="${addNewCreditCard}">
                                     <form th:action="@{addNewCreditCard}" method="post">
-                                        <!--                                        <div class="bg-info" th:if="${updateUserPaymentInfo}">Informacije o korisniku ažurirane</div>-->
-
                                         <input hidden="hidden" name="id" th:value="${userPayment.id}"/>
 
                                         <div class="form-group">
