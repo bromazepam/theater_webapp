@@ -5,6 +5,7 @@ import com.theater.app.domain.security.Role;
 import com.theater.app.repository.RoleRepository;
 import com.theater.app.service.UserService;
 import com.theater.app.utility.SecurityUtility;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
@@ -16,16 +17,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class TheaterBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private final UserService userService;
     private final RoleRepository roleRepository;
-
-    public TheaterBootstrap(UserService userService, RoleRepository roleRepository) {
-        this.userService = userService;
-        this.roleRepository = roleRepository;
-    }
 
     @SneakyThrows
     @Override

@@ -4,18 +4,16 @@ import com.theater.app.domain.UserPayment;
 import com.theater.app.exceptions.NotFoundException;
 import com.theater.app.repository.UserPaymentRepository;
 import com.theater.app.service.UserPaymentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class UserPaymentServiceImpl implements UserPaymentService {
 
     private final UserPaymentRepository userPaymentRepository;
-
-    public UserPaymentServiceImpl(UserPaymentRepository userPaymentRepository) {
-        this.userPaymentRepository = userPaymentRepository;
-    }
 
     @Override
     public UserPayment findById(String id) {

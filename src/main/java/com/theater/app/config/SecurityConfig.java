@@ -2,9 +2,9 @@ package com.theater.app.config;
 
 import com.theater.app.service.impl.UserSecurityService;
 import com.theater.app.utility.SecurityUtility;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,18 +14,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	@Autowired
-	private Environment env;
 
-	@Autowired
-	private UserSecurityService userSecurityService;
-
-	@Autowired
-	AuthenticationSuccessHandler successHandler;
+	private final UserSecurityService userSecurityService;
+	private final AuthenticationSuccessHandler successHandler;
 
 	private BCryptPasswordEncoder passwordEncoder() {
 		return SecurityUtility.passwordEncoder();
@@ -52,13 +48,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/"
 	};
 
+	private static final String[] PRIVATE_MATCHERS = {
+			"/reports",
+			"/adminHome",
+			"/add",
+			"/playList",
+			"/addRepertoire",
+			"/repertoire",
+			"/addStage",
+			"/stageList"
+	};
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-			.authorizeRequests().
-		/*	antMatchers("/**").*/
-			antMatchers(PUBLIC_MATCHERS).
-			permitAll().anyRequest().authenticated();
+			.authorizeRequests()
+				.antMatchers(PRIVATE_MATCHERS)
+					.access("hasRole('ROLE_ADMIN')")
+				.antMatchers(PUBLIC_MATCHERS)
+					.permitAll().anyRequest().authenticated();
 
 		http
 			.csrf().disable().cors().disable()

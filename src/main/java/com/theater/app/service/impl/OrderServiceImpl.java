@@ -6,6 +6,7 @@ import com.theater.app.exceptions.NotFoundException;
 import com.theater.app.repository.*;
 import com.theater.app.service.CartItemService;
 import com.theater.app.service.OrderService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
+@RequiredArgsConstructor
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -25,14 +27,6 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final RepertoireRepository repertoireRepository;
     private final UserRepository userRepository;
-
-    public OrderServiceImpl(MongoTemplate mongoTemplate, CartItemService cartItemService, OrderRepository orderRepository, RepertoireRepository repertoireRepository, UserRepository userRepository) {
-        this.mongoTemplate = mongoTemplate;
-        this.cartItemService = cartItemService;
-        this.orderRepository = orderRepository;
-        this.repertoireRepository = repertoireRepository;
-        this.userRepository = userRepository;
-    }
 
     @Override
     public synchronized Order createOrder(ShoppingCart shoppingCart, Payment payment, User user) {

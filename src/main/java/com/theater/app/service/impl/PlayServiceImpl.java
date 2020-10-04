@@ -4,20 +4,18 @@ import com.theater.app.domain.Play;
 import com.theater.app.repository.PlayRepository;
 import com.theater.app.service.PlayService;
 import com.theater.app.exceptions.NotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class PlayServiceImpl implements PlayService {
 
-    private PlayRepository playRepository;
-
-    public PlayServiceImpl(PlayRepository playRepository) {
-        this.playRepository = playRepository;
-    }
+    private final PlayRepository playRepository;
 
     public Play save(Play play){
         return playRepository.save(play);

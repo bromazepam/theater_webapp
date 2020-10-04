@@ -1,6 +1,5 @@
 package com.theater.app.service.impl;
 
-import com.theater.app.domain.ShoppingCart;
 import com.theater.app.domain.User;
 import com.theater.app.domain.UserPayment;
 import com.theater.app.domain.security.PasswordResetToken;
@@ -8,6 +7,7 @@ import com.theater.app.domain.security.Role;
 import com.theater.app.exceptions.NotFoundException;
 import com.theater.app.repository.*;
 import com.theater.app.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+@RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -23,12 +24,6 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordResetTokenRepository passwordResetTokenRepository;
     private final UserPaymentRepository userPaymentRepository;
-
-    public UserServiceImpl(UserRepository userRepository, PasswordResetTokenRepository passwordResetTokenRepository, UserPaymentRepository userPaymentRepository) {
-        this.userRepository = userRepository;
-        this.passwordResetTokenRepository = passwordResetTokenRepository;
-        this.userPaymentRepository = userPaymentRepository;
-    }
 
     @Override
     public User createUser(User user, Set<Role> userRoles) {

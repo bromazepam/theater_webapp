@@ -7,6 +7,7 @@ import com.theater.app.exceptions.NotFoundException;
 import com.theater.app.repository.RepertoireRepository;
 import com.theater.app.repository.SeatRepository;
 import com.theater.app.service.RepertoireService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
@@ -18,18 +19,13 @@ import java.util.Optional;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
+@RequiredArgsConstructor
 @Service
 public class RepertoireServiceImpl implements RepertoireService {
 
     private final MongoTemplate mongoTemplate;
-    private RepertoireRepository repertoireRepository;
-    private SeatRepository seatRepository;
-
-    public RepertoireServiceImpl(MongoTemplate mongoTemplate, RepertoireRepository repertoireRepository, SeatRepository seatRepository) {
-        this.mongoTemplate = mongoTemplate;
-        this.repertoireRepository = repertoireRepository;
-        this.seatRepository = seatRepository;
-    }
+    private final RepertoireRepository repertoireRepository;
+    private final SeatRepository seatRepository;
 
     @Override
     public Repertoire save(Repertoire repertoire) {

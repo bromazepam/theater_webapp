@@ -9,6 +9,7 @@ import com.theater.app.service.CartItemService;
 import com.theater.app.service.RepertoireService;
 import com.theater.app.service.ShoppingCartService;
 import com.theater.app.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.security.Principal;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Controller
 public class ShoppingCartController {
 
@@ -28,16 +30,6 @@ public class ShoppingCartController {
     private final CartItemService cartItemService;
     private final ShoppingCartService shoppingCartService;
     private final ShoppingCartRepository shoppingCartRepository;
-
-    public ShoppingCartController(UserService userService, RepertoireService repertoireService,
-                                  CartItemService cartItemService, ShoppingCartService shoppingCartService,
-                                  ShoppingCartRepository shoppingCartRepository) {
-        this.userService = userService;
-        this.repertoireService = repertoireService;
-        this.cartItemService = cartItemService;
-        this.shoppingCartService = shoppingCartService;
-        this.shoppingCartRepository = shoppingCartRepository;
-    }
 
     @RequestMapping("/shoppingCart")
     public String shoppingCart(Model model, Principal principal) {

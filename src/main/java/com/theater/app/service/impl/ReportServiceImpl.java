@@ -9,6 +9,7 @@ import com.theater.app.repository.RepertoireRepository;
 import com.theater.app.service.OrderService;
 import com.theater.app.service.RepertoireService;
 import com.theater.app.service.ReportService;
+import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.stereotype.Service;
@@ -18,22 +19,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+@RequiredArgsConstructor
 @Service
 public class ReportServiceImpl implements ReportService {
 
     private final RepertoireRepository repertoireRepository;
-    private final PlayRepository playRepository;
-    private final OrderRepository orderRepository;
     private final OrderService orderService;
     private final RepertoireService repertoireService;
-
-    public ReportServiceImpl(RepertoireRepository repertoireRepository, PlayRepository playRepository, OrderRepository orderRepository, OrderService orderService, RepertoireService repertoireService) {
-        this.repertoireRepository = repertoireRepository;
-        this.playRepository = playRepository;
-        this.orderRepository = orderRepository;
-        this.orderService = orderService;
-        this.repertoireService = repertoireService;
-    }
 
     @Override
     public String repertoireReport() throws FileNotFoundException, JRException {

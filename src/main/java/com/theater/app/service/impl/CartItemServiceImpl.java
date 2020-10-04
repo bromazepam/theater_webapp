@@ -5,21 +5,18 @@ import com.theater.app.exceptions.NotFoundException;
 import com.theater.app.repository.CartItemRepository;
 import com.theater.app.repository.RepertoireToCartItemRepository;
 import com.theater.app.service.CartItemService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class CartItemServiceImpl implements CartItemService {
 
     private final CartItemRepository cartItemRepository;
     private final RepertoireToCartItemRepository repertoireToCartItemRepository;
-
-    public CartItemServiceImpl(CartItemRepository cartItemRepository, RepertoireToCartItemRepository repertoireToCartItemRepository) {
-        this.cartItemRepository = cartItemRepository;
-        this.repertoireToCartItemRepository = repertoireToCartItemRepository;
-    }
 
     public List<CartItem> findByShoppingCart(ShoppingCart shoppingCart) {
         return cartItemRepository.findByShoppingCart(shoppingCart);

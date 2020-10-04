@@ -2,7 +2,7 @@ package com.theater.app.utility;
 
 import com.theater.app.domain.Order;
 import com.theater.app.domain.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -12,23 +12,18 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.Locale;
 
+@RequiredArgsConstructor
 @Component
 public class MailConstructor {
-    @Autowired
-    private Environment env;
 
-    @Autowired
-    private TemplateEngine templateEngine;
+    private final Environment env;
+    private final TemplateEngine templateEngine;
 
-    public SimpleMailMessage constructResetTokenEmail(
-            String contextPath, String token, User user, String password
-    ) {
-
+    public SimpleMailMessage constructResetTokenEmail(String contextPath, String token, User user, String password) {
         String url = contextPath + "/newUser?token=" + token;
-        String message = "\nMolim Vas potvrdite Vas email klikom na link , a zatim izmenite Vase informacije. Vasa sifra za pristup nalogu je: \n" + password;
+        String message = "\nMolim Vas potvrdite Vas email klikom na link , a zatim izmenite Vase informacije." +
+                " Vasa sifra za pristup nalogu je: \n" + password;
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(user.getEmail());
         email.setSubject("Pozoriste - Novi Korisnik");

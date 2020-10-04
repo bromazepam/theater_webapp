@@ -3,6 +3,7 @@ package com.theater.app.controller.user;
 import com.theater.app.domain.*;
 import com.theater.app.service.*;
 import com.theater.app.utility.MailConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Controller
 public class CheckoutController {
 
@@ -24,19 +26,6 @@ public class CheckoutController {
     private final MailConstructor mailConstructor;
     private final ShoppingCartService shoppingCartService;
     private final UserPaymentService userPaymentService;
-
-    public CheckoutController(UserService userService, CartItemService cartItemService, PaymentService paymentService,
-                              OrderService orderService, JavaMailSender mailSender, MailConstructor mailConstructor,
-                              ShoppingCartService shoppingCartService, UserPaymentService userPaymentService) {
-        this.userService = userService;
-        this.cartItemService = cartItemService;
-        this.paymentService = paymentService;
-        this.orderService = orderService;
-        this.mailSender = mailSender;
-        this.mailConstructor = mailConstructor;
-        this.shoppingCartService = shoppingCartService;
-        this.userPaymentService = userPaymentService;
-    }
 
     @GetMapping("/checkout/{cartId}")
     public String checkout(@PathVariable String cartId, @RequestParam(value = "missingRequiredField", required = false)

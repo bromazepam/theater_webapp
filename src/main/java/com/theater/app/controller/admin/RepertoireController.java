@@ -4,21 +4,18 @@ import com.theater.app.domain.Repertoire;
 import com.theater.app.service.PlayService;
 import com.theater.app.service.RepertoireService;
 import com.theater.app.service.StageService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+@RequiredArgsConstructor
 @Controller
 public class RepertoireController {
 
     private final RepertoireService repertoireService;
     private final PlayService playService;
     private final StageService stageService;
-
-    public RepertoireController(RepertoireService repertoireService, PlayService playService, StageService stageService) {
-        this.repertoireService = repertoireService;
-        this.playService = playService;
-        this.stageService = stageService;
-    }
 
     @GetMapping("/addRepertoire")
     public String addRepertoire(Model model) {

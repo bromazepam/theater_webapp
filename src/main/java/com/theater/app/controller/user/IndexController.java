@@ -7,6 +7,7 @@ import com.theater.app.service.*;
 import com.theater.app.service.impl.UserSecurityService;
 import com.theater.app.utility.MailConstructor;
 import com.theater.app.utility.SecurityUtility;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -26,6 +27,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+@RequiredArgsConstructor
 @Controller
 public class IndexController implements ErrorController {
 
@@ -37,20 +39,6 @@ public class IndexController implements ErrorController {
     private final UserSecurityService userSecurityService;
     private final UserPaymentService userPaymentService;
     private final OrderService orderService;
-
-    public IndexController(PlayService playService, RepertoireService repertoireService,
-                           UserService userService, MailConstructor mailConstructor,
-                           JavaMailSender mailSender, UserSecurityService userSecurityService,
-                           UserPaymentService userPaymentService, OrderService orderService) {
-        this.playService = playService;
-        this.repertoireService = repertoireService;
-        this.userService = userService;
-        this.mailConstructor = mailConstructor;
-        this.mailSender = mailSender;
-        this.userSecurityService = userSecurityService;
-        this.userPaymentService = userPaymentService;
-        this.orderService = orderService;
-    }
 
     @RequestMapping("/")
     public String index() {

@@ -3,22 +3,19 @@ package com.theater.app.controller.admin;
 import com.theater.app.domain.Stage;
 import com.theater.app.service.SeatService;
 import com.theater.app.service.StageService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
+@RequiredArgsConstructor
 @Controller
 public class StageController {
 
     private final StageService stageService;
     private final SeatService seatService;
-
-    public StageController(StageService stageService, SeatService seatService) {
-        this.stageService = stageService;
-        this.seatService = seatService;
-    }
 
     @GetMapping("/addStage")
     public String addStage(Model model) {

@@ -5,20 +5,17 @@ import com.theater.app.domain.ShoppingCart;
 import com.theater.app.repository.ShoppingCartRepository;
 import com.theater.app.service.CartItemService;
 import com.theater.app.service.ShoppingCartService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     private final ShoppingCartRepository shoppingCartRepository;
     private final CartItemService cartItemService;
-
-    public ShoppingCartServiceImpl(ShoppingCartRepository shoppingCartRepository, CartItemService cartItemService) {
-        this.shoppingCartRepository = shoppingCartRepository;
-        this.cartItemService = cartItemService;
-    }
 
     @Override
     public ShoppingCart updateShoppingCart(ShoppingCart shoppingCart) {
