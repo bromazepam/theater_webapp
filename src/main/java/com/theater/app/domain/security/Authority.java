@@ -1,13 +1,11 @@
 package com.theater.app.domain.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
+@RequiredArgsConstructor
 public class Authority implements GrantedAuthority {
 	private final String authority;
-
-	public Authority(String authority) {
-		this.authority = authority;
-	}
 
 	@Override
 	public String getAuthority() {

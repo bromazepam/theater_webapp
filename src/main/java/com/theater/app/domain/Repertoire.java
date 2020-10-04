@@ -1,5 +1,9 @@
 package com.theater.app.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,35 +14,29 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @Document
 public class Repertoire {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
-
-    //   @ManyToOne(optional = false)
-    //   @JoinColumn(name="id_stage")
-    @DBRef
     private Stage stage;
 
-    //    @ManyToOne(optional = false)
-//    @JoinColumn(name="id_play")
     @DBRef
     private Play play;
 
     private boolean status;
     private Date timestamp;
 
-    //    @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date projectionDate;
 
-    //    @Temporal(TemporalType.TIME)
     @DateTimeFormat(pattern = "hh:mm:ss")
     private String projectionTime;
 
-    //    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     @Field(name = "projection_datetime")
     @DateTimeFormat(pattern = "dd.MM.yyyy hh:mm")
     private Date projection_datetime;
@@ -46,100 +44,17 @@ public class Repertoire {
     private int price;
     private int availableSeats;
 
-    //    @OneToMany(mappedBy = "repertoire")
-//    @JsonIgnore
-//    @DBRef
-    private List<RepertoireToCartItem> repertoireToCartItemList = new ArrayList<>();
 
-    public int getAvailableSeats() {
-        return availableSeats;
+    protected void onCreate() {
+        timestamp = new Date();
     }
 
-    public void setAvailableSeats(int availableSeats) {
-        this.availableSeats = availableSeats;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Stage getStage() {
-        return stage;
-    }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-    public Play getPlay() {
-        return play;
-    }
-
-    public void setPlay(Play play) {
-        this.play = play;
+    protected void onUpdate() {
+        timestamp = new Date();
     }
 
     public boolean isStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    //    @Column(name="timestamp", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    @Field(name = "timestamp")
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    //    @PrePersist
-    protected void onCreate() {
-        timestamp = new Date();
-    }
-
-    //    @PreUpdate
-    protected void onUpdate() {
-        timestamp = new Date();
-    }
-
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public Date getProjectionDate() {
-        return projectionDate;
-    }
-
-    public void setProjectionDate(Date projectionDate) {
-        this.projectionDate = projectionDate;
-    }
-
-    public String getProjectionTime() {
-        return projectionTime;
-    }
-
-    public void setProjectionTime(String projectionTime) {
-        this.projectionTime = projectionTime;
-    }
-
-    public Date getProjection_datetime() {
-        return projection_datetime;
-    }
-
-    public void setProjection_datetime(Date projection_datetime) {
-        this.projection_datetime = projection_datetime;
-    }
 }
