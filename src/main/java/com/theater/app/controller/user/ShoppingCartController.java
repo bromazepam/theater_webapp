@@ -81,7 +81,7 @@ public class ShoppingCartController {
         return "forward:/shoppingCart";
     }
 
-    @Transactional
+
     @RequestMapping("shoppingCart/removeItem/{id}")
     public String removeItem(@PathVariable String id) {
         cartItemService.removeCartItem(cartItemService.findById(id));
