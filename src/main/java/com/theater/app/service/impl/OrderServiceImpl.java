@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
 import java.util.List;
@@ -28,6 +29,7 @@ public class OrderServiceImpl implements OrderService {
     private final RepertoireRepository repertoireRepository;
     private final UserRepository userRepository;
 
+    @Transactional
     @Override
     public synchronized Order createOrder(ShoppingCart shoppingCart, Payment payment, User user) {
         Order order = new Order();

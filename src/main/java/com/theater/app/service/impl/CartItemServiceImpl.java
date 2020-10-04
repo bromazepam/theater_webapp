@@ -7,6 +7,7 @@ import com.theater.app.repository.RepertoireToCartItemRepository;
 import com.theater.app.service.CartItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +32,7 @@ public class CartItemServiceImpl implements CartItemService {
         return cartItem;
     }
 
+    @Transactional
     @Override
     public CartItem addRepertoireToCartItem(Repertoire repertoire, User user, int qty) {
         List<CartItem> cartItemList = findByShoppingCart(user.getShoppingCart());
@@ -60,6 +62,7 @@ public class CartItemServiceImpl implements CartItemService {
         return cartItem;
     }
 
+    @Transactional
     @Override
     public void removeCartItem(CartItem cartItem) {
         repertoireToCartItemRepository.deleteByCartItem(cartItem);

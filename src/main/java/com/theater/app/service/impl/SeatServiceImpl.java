@@ -35,6 +35,7 @@ public class SeatServiceImpl implements SeatService {
         return seatRepository.saveAll(list);
     }
 
+    @Transactional
     @Override
     public void remove(String stageId){
         Stage stage = stageService.findById(stageId);
@@ -45,6 +46,7 @@ public class SeatServiceImpl implements SeatService {
         seatRepository.deleteAll(result);
     }
 
+    @Transactional
     @Override
     public void update(String stageId, int newSeatNum) {
         Stage stage = stageService.findById(stageId);

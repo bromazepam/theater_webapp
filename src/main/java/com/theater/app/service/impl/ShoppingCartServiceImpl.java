@@ -7,6 +7,7 @@ import com.theater.app.service.CartItemService;
 import com.theater.app.service.ShoppingCartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final ShoppingCartRepository shoppingCartRepository;
     private final CartItemService cartItemService;
 
+    @Transactional
     @Override
     public ShoppingCart updateShoppingCart(ShoppingCart shoppingCart) {
         int cartTotal = 0;
@@ -34,6 +36,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return shoppingCart;
     }
 
+    @Transactional
     @Override
     public void clearShoppingCart(ShoppingCart shoppingCart) {
         List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
