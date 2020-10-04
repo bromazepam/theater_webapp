@@ -5,6 +5,7 @@ import com.theater.app.domain.Stage;
 import com.theater.app.repository.SeatRepository;
 import com.theater.app.service.SeatService;
 import com.theater.app.service.StageService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,15 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class SeatServiceImpl implements SeatService {
-    private SeatRepository seatRepository;
-    private StageService stageService;
 
-    public SeatServiceImpl(SeatRepository seatRepository, StageService stageService) {
-        this.seatRepository = seatRepository;
-        this.stageService = stageService;
-    }
+    private final SeatRepository seatRepository;
+    private final StageService stageService;
 
     @Transactional
     @Override
@@ -32,6 +30,8 @@ public class SeatServiceImpl implements SeatService {
             seat.setStage(stage);
             list.add(seat);
         }
+        stage.setSeats(list);
+        stageService.save(stage);
         return seatRepository.saveAll(list);
     }
 
@@ -62,7 +62,9 @@ public class SeatServiceImpl implements SeatService {
                 seat.setStage(stage);
                 list.add(seat);
             }
+            stage.setSeats(list);
             seatRepository.saveAll(list);
+            stageService.save(stage);
         }
         if(n>newSeatNum){
             List<Seat> collect = seats.stream()
@@ -70,6 +72,8 @@ public class SeatServiceImpl implements SeatService {
                     .filter(seat -> seat.getStage().equals(stage))
                     .collect(Collectors.toList());
             seatRepository.deleteAll(collect);
+            stage.setSeats(collect);
+            stageService.save(stage);
         }
     }
 }
