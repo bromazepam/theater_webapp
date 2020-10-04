@@ -60,8 +60,8 @@ public class RepertoireServiceImpl implements RepertoireService {
 
     @Override
     public int availableSeats(String id) {
-        List<Seat> lst = seatRepository.findByStageIdAndReservedFalse(id);
-        return lst.size();
+        List<Seat> list = seatRepository.findByStageIdAndReservedFalse(id);
+        return list.size();
     }
 
     @Override
