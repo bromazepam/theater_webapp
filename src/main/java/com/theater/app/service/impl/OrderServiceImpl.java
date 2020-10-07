@@ -66,6 +66,7 @@ public class OrderServiceImpl implements OrderService {
         return orderOptional.get();
     }
 
+    @Transactional
     @Override
     public List<OrderReport> findOrders() {
         Aggregation aggregation = newAggregation(

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -70,6 +71,7 @@ public class RepertoireServiceImpl implements RepertoireService {
         return repertoireRepository.findByProjectionDateGreaterThanEqual(new java.sql.Date(date.getTime()));
     }
 
+    @Transactional
     @Override
     public List<RepertoireReport> findMonthlyAttendance() {
 
