@@ -25,9 +25,6 @@ public class CartItem {
 
     private Repertoire repertoire;
 
-    @JsonIgnore
-    private List<RepertoireToCartItem> repertoireToCartItemList = new ArrayList<>();
-
     @DBRef
     private ShoppingCart shoppingCart;
 
