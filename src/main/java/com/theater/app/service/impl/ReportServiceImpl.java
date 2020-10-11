@@ -92,12 +92,12 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public String monthlyAttendanceReport() throws FileNotFoundException, JRException {
         String path = "C:\\Users\\David\\Desktop";
-        List<RepertoireReport> orderList = repertoireService.findMonthlyAttendance();
+        List<RepertoireReport> repertoireReportList = repertoireService.findMonthlyAttendance();
 
         //load file and compile it
         File file = ResourceUtils.getFile("src/main/resources/reports/monthlyAttendance.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(orderList);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(repertoireReportList);
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("createdBy", "David");
 
