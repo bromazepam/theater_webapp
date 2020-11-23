@@ -10,4 +10,5 @@ public interface ReportService {
     String cancelledPlaysReport() throws FileNotFoundException, JRException;
     String monthlyProfitReport() throws FileNotFoundException, JRException;
     String playAttendance() throws FileNotFoundException, JRException;
+    String monthlyAttendanceReport() throws FileNotFoundException, JRException;
 }

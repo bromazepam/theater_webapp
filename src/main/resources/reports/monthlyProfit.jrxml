@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.13.0.final using JasperReports Library version 6.13.0-46ada4d1be8f3c5985fd0b6146f3ed44caed6f05  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
               name="monthlyProfit" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20"
               topMargin="20" bottomMargin="20" uuid="22335a87-e39c-4604-924e-9b3f546b7eb2">
-<!--    <parameter name="sum" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>-->
-    <field name="profitMonth" class="java.sql.Date"/>
-<!--    <field name="orderTotal" class="java.lang.Integer"/>-->
-<!--    <field name="id" class="java.lang.Long"/>-->
-    <field name="profitTotal" class="java.lang.Integer"/>
+    <field name="date"/>
+    <field name="totalAmount" class="java.lang.Integer"/>
     <group name="Group1">
-        <groupExpression><![CDATA[$F{profitMonth}]]></groupExpression>
+        <groupExpression><![CDATA[$F{date}]]></groupExpression>
         <groupHeader>
             <band height="33">
                 <textField>
@@ -21,7 +17,7 @@
                         <font size="24" isBold="true"/>
                     </textElement>
                     <textFieldExpression>
-                        <![CDATA[new SimpleDateFormat("MMM/YYYY").format($F{profitMonth})]]></textFieldExpression>
+                        <![CDATA[($F{date})]]></textFieldExpression>
                 </textField>
                 <line>
                     <reportElement x="0" y="32" width="555" height="1" forecolor="#666666"
@@ -108,7 +104,7 @@
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font size="14" isBold="true"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$F{profitTotal}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{totalAmount}]]></textFieldExpression>
             </textField>
         </band>
     </detail>

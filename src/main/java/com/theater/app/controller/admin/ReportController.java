@@ -1,6 +1,7 @@
 package com.theater.app.controller.admin;
 
 import com.theater.app.service.ReportService;
+import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,14 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import java.io.FileNotFoundException;
 
+@RequiredArgsConstructor
 @Controller
 public class ReportController {
 
     private final ReportService reportService;
-
-    public ReportController(ReportService reportService) {
-        this.reportService = reportService;
-    }
 
     @RequestMapping("/reports")
     public String reports() {
@@ -34,11 +32,9 @@ public class ReportController {
             case "cancelledPlays":
                 return reportService.cancelledPlaysReport();
             case "monthlyAttendance":
-//            return reportService.monthlyAttendanceReport();
+                return reportService.monthlyAttendanceReport();
             case "monthlyProfit":
                 return reportService.monthlyProfitReport();
-            case "playAttendance":
-//                return reportService.playPerMonth();
             case "playsPerMonth":
                 return reportService.playAttendance();
         }

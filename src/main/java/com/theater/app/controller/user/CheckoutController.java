@@ -3,6 +3,7 @@ package com.theater.app.controller.user;
 import com.theater.app.domain.*;
 import com.theater.app.service.*;
 import com.theater.app.utility.MailConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,10 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Controller
 public class CheckoutController {
 
-    Payment payment = new Payment();
+    private Payment payment = new Payment();
 
     private final UserService userService;
     private final CartItemService cartItemService;
@@ -24,19 +26,6 @@ public class CheckoutController {
     private final MailConstructor mailConstructor;
     private final ShoppingCartService shoppingCartService;
     private final UserPaymentService userPaymentService;
-
-    public CheckoutController(UserService userService, CartItemService cartItemService, PaymentService paymentService,
-                              OrderService orderService, JavaMailSender mailSender, MailConstructor mailConstructor,
-                              ShoppingCartService shoppingCartService, UserPaymentService userPaymentService) {
-        this.userService = userService;
-        this.cartItemService = cartItemService;
-        this.paymentService = paymentService;
-        this.orderService = orderService;
-        this.mailSender = mailSender;
-        this.mailConstructor = mailConstructor;
-        this.shoppingCartService = shoppingCartService;
-        this.userPaymentService = userPaymentService;
-    }
 
     @GetMapping("/checkout/{cartId}")
     public String checkout(@PathVariable String cartId, @RequestParam(value = "missingRequiredField", required = false)
@@ -103,7 +92,9 @@ public class CheckoutController {
         User user = userService.findByUsername(principal.getName());
         Order order = orderService.createOrder(shoppingCart, payment, user);
 
-        mailSender.send(mailConstructor.constructOrderConfirmationEmail(user, order));
+        User user1 = userService.findByUsername(principal.getName());
+
+        mailSender.send(mailConstructor.constructOrderConfirmationEmail(user1, order));
         shoppingCartService.clearShoppingCart(shoppingCart);
 
         return "user/orderSubmittedPage";

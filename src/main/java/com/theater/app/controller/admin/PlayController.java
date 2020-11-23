@@ -3,6 +3,7 @@ package com.theater.app.controller.admin;
 import com.theater.app.domain.Play;
 import com.theater.app.service.ImageService;
 import com.theater.app.service.PlayService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,16 +13,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Slf4j
+@RequiredArgsConstructor
 @Controller
 public class PlayController {
 
-    private PlayService playService;
+    private final PlayService playService;
     private final ImageService imageService;
-
-    public PlayController(PlayService playService, ImageService imageService) {
-        this.playService = playService;
-        this.imageService = imageService;
-    }
 
     @GetMapping("/add")
     public String addPlay(Model model) {

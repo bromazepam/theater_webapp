@@ -4,18 +4,24 @@ import com.theater.app.domain.CartItem;
 import com.theater.app.domain.Repertoire;
 import com.theater.app.domain.ShoppingCart;
 import com.theater.app.domain.User;
+import com.theater.app.repository.ShoppingCartRepository;
 import com.theater.app.service.CartItemService;
 import com.theater.app.service.RepertoireService;
 import com.theater.app.service.ShoppingCartService;
 import com.theater.app.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Controller
 public class ShoppingCartController {
 
@@ -23,26 +29,26 @@ public class ShoppingCartController {
     private final RepertoireService repertoireService;
     private final CartItemService cartItemService;
     private final ShoppingCartService shoppingCartService;
-
-    public ShoppingCartController(UserService userService, RepertoireService repertoireService,
-                                  CartItemService cartItemService, ShoppingCartService shoppingCartService) {
-        this.userService = userService;
-        this.repertoireService = repertoireService;
-        this.cartItemService = cartItemService;
-        this.shoppingCartService = shoppingCartService;
-    }
+    private final ShoppingCartRepository shoppingCartRepository;
 
     @RequestMapping("/shoppingCart")
     public String shoppingCart(Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         ShoppingCart shoppingCart = user.getShoppingCart();
+        if(shoppingCart == null){
+            ShoppingCart shoppingCart1 = new ShoppingCart();
+            shoppingCart1.setUser(user);
+            shoppingCartRepository.save(shoppingCart1);
+            user.setShoppingCart(shoppingCart1);
+            userService.save(user);
+        }
+        ShoppingCart shoppingCart2 = user.getShoppingCart();
+        List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart2);
 
-        List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
-
-        shoppingCartService.updateShoppingCart(shoppingCart);
+        shoppingCartService.updateShoppingCart(shoppingCart2);
 
         model.addAttribute("cartItemList", cartItemList);
-        model.addAttribute("shoppingCart", shoppingCart);
+        model.addAttribute("shoppingCart", shoppingCart2);
 
         return "user/shoppingCart";
     }
@@ -59,7 +65,7 @@ public class ShoppingCartController {
             return "forward:/repertoireDetail/" + repertoire.getId();
         }
 
-        CartItem cartItem = cartItemService.addRepertoireToCartItem(repertoire, user, Integer.parseInt(qty));
+        cartItemService.addRepertoireToCartItem(repertoire, user, Integer.parseInt(qty));
         model.addAttribute("addReservationSuccess", true);
 
         return "forward:/repertoireDetail/" + repertoire.getId();
@@ -75,7 +81,7 @@ public class ShoppingCartController {
         return "forward:/shoppingCart";
     }
 
-    @Transactional
+
     @RequestMapping("shoppingCart/removeItem/{id}")
     public String removeItem(@PathVariable String id) {
         cartItemService.removeCartItem(cartItemService.findById(id));

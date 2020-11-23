@@ -3,11 +3,12 @@ package com.theater.app.controller.user;
 import com.theater.app.domain.*;
 import com.theater.app.domain.security.PasswordResetToken;
 import com.theater.app.domain.security.Role;
-import com.theater.app.domain.security.UserRole;
 import com.theater.app.service.*;
 import com.theater.app.service.impl.UserSecurityService;
 import com.theater.app.utility.MailConstructor;
 import com.theater.app.utility.SecurityUtility;
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,8 +27,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+@RequiredArgsConstructor
 @Controller
-public class IndexController {
+public class IndexController implements ErrorController {
 
     private final PlayService playService;
     private final RepertoireService repertoireService;
@@ -37,23 +39,6 @@ public class IndexController {
     private final UserSecurityService userSecurityService;
     private final UserPaymentService userPaymentService;
     private final OrderService orderService;
-    private final CartItemService cartItemService;
-
-    public IndexController(PlayService playService, RepertoireService repertoireService,
-                           UserService userService, MailConstructor mailConstructor,
-                           JavaMailSender mailSender, UserSecurityService userSecurityService,
-                           UserPaymentService userPaymentService, OrderService orderService,
-                           CartItemService cartItemService) {
-        this.playService = playService;
-        this.repertoireService = repertoireService;
-        this.userService = userService;
-        this.mailConstructor = mailConstructor;
-        this.mailSender = mailSender;
-        this.userSecurityService = userSecurityService;
-        this.userPaymentService = userPaymentService;
-        this.orderService = orderService;
-        this.cartItemService = cartItemService;
-    }
 
     @RequestMapping("/")
     public String index() {
@@ -105,8 +90,8 @@ public class IndexController {
         Role role = new Role();
         role.setRoleId("1");
         role.setName("ROLE_USER");
-        Set<UserRole> userRoles = new HashSet<>();
-        userRoles.add(new UserRole(user, role));
+        Set<Role> userRoles = new HashSet<>();
+        userRoles.add(role);
         userService.createUser(user, userRoles);
 
         String token = UUID.randomUUID().toString();
@@ -114,7 +99,7 @@ public class IndexController {
 
         String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
 
-        SimpleMailMessage email = mailConstructor.constructResetTokenEmail(appUrl, request.getLocale(), token, user, password);
+        SimpleMailMessage email = mailConstructor.constructResetTokenEmail(appUrl, token, user, password);
 
         mailSender.send(email);
 
@@ -170,7 +155,7 @@ public class IndexController {
         userService.createPasswordResetTokenForUser(user, token);
 
         String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
-        SimpleMailMessage newEmail = mailConstructor.constructResetTokenEmail(appUrl, request.getLocale(), token, user, password);
+        SimpleMailMessage newEmail = mailConstructor.constructResetTokenEmail(appUrl, token, user, password);
         mailSender.send(newEmail);
         model.addAttribute("forgetPasswordEmailSent", true);
         return "user/forgotPassword";
@@ -198,7 +183,7 @@ public class IndexController {
             }
         }
 
-        if (newPassword != null && !newPassword.isEmpty() && !newPassword.equals("")) {
+        if (newPassword != null && !newPassword.isEmpty()) {
             BCryptPasswordEncoder passwordEncoder = SecurityUtility.passwordEncoder();
             String dbPassword = currentUser.getPassword();
             if (passwordEncoder.matches(user.getPassword(), dbPassword)) {
@@ -306,23 +291,19 @@ public class IndexController {
         User user = userService.findByUsername(principal.getName());
         Order order = orderService.findById(orderId);
 
-        if (!order.getUser().getId().equals(user.getId())) {
-            return "user/badRequestPage";
-        } else {
-            List<CartItem> cartItemList = cartItemService.findByOrder(order);
-            model.addAttribute("cartItemList", cartItemList);
-            model.addAttribute("user", user);
-            model.addAttribute("order", order);
+        List<CartItem> cartItemList = order.getCartItemList();
+        model.addAttribute("cartItemList", cartItemList);
+        model.addAttribute("user", user);
+        model.addAttribute("order", order);
 
-            model.addAttribute("userPaymentList", user.getUserPaymentList());
-            model.addAttribute("orderList", user.getOrderList());
+        model.addAttribute("userPaymentList", user.getUserPaymentList());
+        model.addAttribute("orderList", user.getOrderList());
 
-            model.addAttribute("classActiveOrders", true);
-            model.addAttribute("displayOrderDetail", true);
+        model.addAttribute("classActiveOrders", true);
+        model.addAttribute("displayOrderDetail", true);
 
-            return "user/orders";
+        return "user/orders";
 
-        }
     }
 
     @RequestMapping("/listOfCreditCards")
@@ -442,5 +423,14 @@ public class IndexController {
     @RequestMapping("/gallery")
     public String gallery() {
         return "user/gallery";
+    }
+
+    @Override
+    public String getErrorPath() {
+        return "/error";
+    }
+    @RequestMapping("/error")
+    public String error() {
+        return "user/badRequestPage";
     }
 }

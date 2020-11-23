@@ -17,12 +17,10 @@
             </thead>
             <tbody>
             <tr data-th-each="stage : ${stageList}">
-                <td th:text="${stage.id}"></td>
                 <td th:text="${stage.name}"></td>
                 <td th:text="${stage.capacity}"></td>
                 <td>
                     <input hidden="hidden" name="id" th:values="${stage.id}"/>
-<!--                    <button th:id="'oneStage-'+${stage.id}" class="btn btn-danger btn-xs delete-stage" type="submit"-->
                     <button class="btn btn-danger btn-xs" >
                         <a th:href="@{'/removeStage/' + ${stage.id} + '/' }" style="color: white">
                         <span class="fa fa-times">Izbriši</span></a>

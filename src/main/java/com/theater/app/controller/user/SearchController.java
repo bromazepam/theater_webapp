@@ -4,6 +4,7 @@ import com.theater.app.domain.Play;
 import com.theater.app.domain.Repertoire;
 import com.theater.app.service.PlayService;
 import com.theater.app.service.RepertoireService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,16 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Date;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Controller
 public class SearchController {
 
     private final PlayService playService;
     private final RepertoireService repertoireService;
-
-    public SearchController(PlayService playService, RepertoireService repertoireService) {
-        this.playService = playService;
-        this.repertoireService = repertoireService;
-    }
 
     @RequestMapping("/searchByCategory")
     public String searchByCategory(@RequestParam("category") String category, Model model){

@@ -1,27 +1,32 @@
 package com.theater.app.service.impl;
 
 import com.theater.app.domain.Repertoire;
+import com.theater.app.domain.reportDAO.RepertoireReport;
 import com.theater.app.domain.Seat;
 import com.theater.app.exceptions.NotFoundException;
 import com.theater.app.repository.RepertoireRepository;
 import com.theater.app.repository.SeatRepository;
 import com.theater.app.service.RepertoireService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
+
+@RequiredArgsConstructor
 @Service
 public class RepertoireServiceImpl implements RepertoireService {
 
-    private RepertoireRepository repertoireRepository;
-    private SeatRepository seatRepository;
-
-    public RepertoireServiceImpl(RepertoireRepository repertoireRepository, SeatRepository seatRepository) {
-        this.repertoireRepository = repertoireRepository;
-        this.seatRepository = seatRepository;
-    }
+    private final MongoTemplate mongoTemplate;
+    private final RepertoireRepository repertoireRepository;
+    private final SeatRepository seatRepository;
 
     @Override
     public Repertoire save(Repertoire repertoire) {
@@ -38,7 +43,7 @@ public class RepertoireServiceImpl implements RepertoireService {
         Optional<Repertoire> optionalRepertoire = repertoireRepository.findById(id);
 
         if (!optionalRepertoire.isPresent()) {
-            throw new NotFoundException("Stage not found, For ID value: " + id.toString());
+            throw new NotFoundException("Stage not found, For ID value: " + id);
         }
         return optionalRepertoire.get();
     }
@@ -56,13 +61,32 @@ public class RepertoireServiceImpl implements RepertoireService {
 
     @Override
     public int availableSeats(String id) {
-        List<Seat> lst = seatRepository.findByStageIdAndReservedFalse(id);
-        return lst.size();
+        List<Seat> list = seatRepository.findByStageIdAndReservedFalse(id);
+        return list.size();
     }
 
     @Override
     public List<Repertoire> findByPresentOrFutureDate(Date date) {
 
         return repertoireRepository.findByProjectionDateGreaterThanEqual(new java.sql.Date(date.getTime()));
+    }
+
+    @Transactional
+    @Override
+    public List<RepertoireReport> findMonthlyAttendance() {
+
+        Aggregation agg = newAggregation(
+                project("stage.capacity", "availableSeats")
+                .andExpression("month(projectionDate)").as("month")
+                .andExpression("year(projectionDate)").as("year")
+                .andExpression("stage.capacity - availableSeats").as("att"),
+                group(fields("month").and("year")).count().as("total")
+                .sum("att").as("attendance")
+
+        );
+
+        AggregationResults<RepertoireReport> results = mongoTemplate.aggregate(
+                agg,"repertoire", RepertoireReport.class);
+        return results.getMappedResults();
     }
 }

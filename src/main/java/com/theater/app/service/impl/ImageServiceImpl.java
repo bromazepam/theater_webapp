@@ -3,6 +3,7 @@ package com.theater.app.service.impl;
 import com.theater.app.domain.Play;
 import com.theater.app.repository.PlayRepository;
 import com.theater.app.service.ImageService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,19 +11,17 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @Slf4j
+@RequiredArgsConstructor
 @Service
 public class ImageServiceImpl implements ImageService {
 
     private final PlayRepository playRepository;
 
-    public ImageServiceImpl(PlayRepository playRepository) {
-        this.playRepository = playRepository;
-    }
-
     @Override
     public void saveImageFile(String id, MultipartFile file) {
         try {
-            Play play = playRepository.findById(id).get();
+            Play play = playRepository.findById(id).orElse(null);
+
 
             byte[] byteObjects = new byte[file.getBytes().length];
 
@@ -32,7 +31,9 @@ public class ImageServiceImpl implements ImageService {
                 byteObjects[i++] = b;
             }
 
-            play.setPlayImage(byteObjects);
+            if (play != null) {
+                play.setPlayImage(byteObjects);
+            }
 
             playRepository.save(play);
         } catch (IOException e) {
