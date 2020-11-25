@@ -24,7 +24,7 @@ public class PlayController {
     public String addPlay(Model model) {
         Play play = new Play();
         model.addAttribute("play", play);
-        System.out.println(play.getId());
+
         return "admin/play/addPlay";
     }
 
@@ -42,7 +42,7 @@ public class PlayController {
         String photoencodeBase64 = play.getPlayImage();
         model.addAttribute("PHOTOYOUNEED", photoencodeBase64);
         model.addAttribute("play", play);
-        System.out.println(photoencodeBase64);
+
         return "admin/play/playInfo";
 
     }
