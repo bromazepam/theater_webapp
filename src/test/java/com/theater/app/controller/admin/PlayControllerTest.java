@@ -7,6 +7,7 @@ import com.theater.app.service.impl.PlayServiceImpl;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.reset;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -65,6 +67,7 @@ class PlayControllerTest {
                 .andExpect(view().name("admin/play/addPlay"));
     }
 
+    @Disabled
     @Test
     void addPlayPost() throws Exception {
 
@@ -118,12 +121,19 @@ class PlayControllerTest {
                 .andExpect(view().name("admin/play/updatePlay"));
     }
 
+    @Disabled
     @Test
     void updatePlayPost() throws Exception {
 
     }
 
     @Test
-    void remove() {
+    void remove() throws Exception {
+        Long id = 1L;
+        Play play = new Play();
+        doNothing().when(playService).removeById(anyString());
+        this.mockMvc.perform(post("/remove"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:admin/play/playList"));
     }
 }
