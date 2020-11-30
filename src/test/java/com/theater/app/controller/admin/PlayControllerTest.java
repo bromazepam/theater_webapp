@@ -24,6 +24,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
@@ -88,9 +90,10 @@ class PlayControllerTest {
     @Test
     void playInfo() throws Exception {
         Play play = new Play();
-        model.addAttribute("play", play);
-        model.addAttribute("PHOTOYOUNEED", "string");
         given(playService.findById(any())).willReturn(play);
+        String PHOTOYOUNEED = play.getPlayImage();
+        model.addAttribute("play", play);
+        model.addAttribute("PHOTOYOUNEED", PHOTOYOUNEED);
 
         mockMvc.perform(get("/playInfo/" + play.getId()+"/"))
                 .andExpect(status().isOk())
@@ -129,11 +132,13 @@ class PlayControllerTest {
 
     @Test
     void remove() throws Exception {
-        Long id = 1L;
-        Play play = new Play();
         doNothing().when(playService).removeById(anyString());
+//        given(playService.findAll()).willReturn(Lists.newArrayList(new Play(), new Play()));
+        List<Play> playList = playService.findAll();
+        model.addAttribute("playList", playList);
         this.mockMvc.perform(post("/remove"))
                 .andExpect(status().is3xxRedirection())
+                .andExpect(model().attributeExists("playList"))
                 .andExpect(view().name("redirect:admin/play/playList"));
     }
 }
