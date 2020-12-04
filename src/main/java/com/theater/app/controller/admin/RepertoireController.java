@@ -27,8 +27,6 @@ public class RepertoireController {
 
     @PostMapping("/addRepertoire")
     public String addStagePost(@ModelAttribute("repertoire") Repertoire repertoire) {
-        System.out.println(repertoire.getProjectionTime());
-        System.out.println(repertoire.getProjectionDate());
         repertoire.setAvailableSeats(repertoireService.availableSeats(repertoire.getStage().getId()));
         repertoire.setStage(stageService.findById(repertoire.getStage().getId()));
         repertoireService.save(repertoire);
