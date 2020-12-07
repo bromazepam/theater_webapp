@@ -26,7 +26,7 @@ public class RepertoireController {
     }
 
     @PostMapping("/addRepertoire")
-    public String addStagePost(@ModelAttribute("repertoire") Repertoire repertoire) {
+    public String addRepertoirePost(@ModelAttribute("repertoire") Repertoire repertoire) {
         repertoire.setAvailableSeats(repertoireService.availableSeats(repertoire.getStage().getId()));
         repertoire.setStage(stageService.findById(repertoire.getStage().getId()));
         repertoireService.save(repertoire);
@@ -49,7 +49,7 @@ public class RepertoireController {
 
 
     @PostMapping("/updateRepertoire")
-    public String updateStagePost(@ModelAttribute("repertoire") Repertoire repertoire) {
+    public String updateRepertoirePost(@ModelAttribute("repertoire") Repertoire repertoire) {
         repertoire.setAvailableSeats(repertoireService.availableSeats(repertoire.getStage().getId()));
         repertoire.setStage(stageService.findById(repertoire.getStage().getId()));
         repertoireService.save(repertoire);

@@ -63,12 +63,6 @@ class RepertoireControllerTest {
     }
 
     @Test
-    void addStagePost() throws Exception {
-
-
-    }
-
-    @Test
     void repertoireList() throws Exception {
         model.addAttribute("repertoireList", repertoireService.findAll());
         mockMvc.perform(get("/repertoire"))
@@ -91,9 +85,6 @@ class RepertoireControllerTest {
                 .andExpect(view().name("admin/repertoire/updateRepertoire"));
     }
 
-    @Test
-    void updateStagePost() {
-    }
 
     @Test
     void remove() throws Exception {
