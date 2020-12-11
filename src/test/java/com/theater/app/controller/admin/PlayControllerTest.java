@@ -16,9 +16,11 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -65,17 +67,18 @@ class PlayControllerTest {
     @Disabled
     @Test
     void addPlayPost() throws Exception {
-
-        MockMultipartFile firstFile = new MockMultipartFile("playImage", "some bytes".getBytes());
+        String fileName = "test.txt";
+        MultipartFile firstFile = new MockMultipartFile("user-file",fileName,
+                "text/plain", "test data".getBytes());
         mockMvc.perform(multipart("/add")
-                .file(firstFile)
+                .file((MockMultipartFile) firstFile)
                 .param("title", "Once upon a time")
                 .param("author", "Jimmy")
                 .param("director", "Buffet")
                 .param("category", "drama")
                 .param("boolean", "true")
                 .param("description", "some plot"))
-                .andExpect(status().isOk())
+                .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:playList"));
 
     }
