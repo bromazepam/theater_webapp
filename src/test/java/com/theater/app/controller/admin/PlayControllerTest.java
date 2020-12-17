@@ -68,10 +68,10 @@ class PlayControllerTest {
     @Test
     void addPlayPost() throws Exception {
         String fileName = "test.txt";
-        MultipartFile firstFile = new MockMultipartFile("user-file",fileName,
+        MultipartFile imagefile = new MockMultipartFile("imagefile",fileName,
                 "text/plain", "test data".getBytes());
         mockMvc.perform(multipart("/add")
-                .file((MockMultipartFile) firstFile)
+                .file((MockMultipartFile) imagefile)
                 .param("title", "Once upon a time")
                 .param("author", "Jimmy")
                 .param("director", "Buffet")
