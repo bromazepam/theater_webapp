@@ -19,7 +19,6 @@ import static org.mockito.BDDMockito.then;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
-
 class ImageServiceImplTest {
 
     @InjectMocks
@@ -31,14 +30,14 @@ class ImageServiceImplTest {
     void saveImageFile() {
         Play play = new Play();
         String fileName = "test.txt";
-        MultipartFile multipartFile = new MockMultipartFile("user-file",fileName,
+        MultipartFile multipartFile = new MockMultipartFile("user-file", fileName,
                 "text/plain", "test data".getBytes());
         given(playRepository.findById(any())).willReturn(java.util.Optional.of(play));
         byte[] bytes = new byte[anyByte()];
 
         //when
         play.setPlayImage(bytes);
-        imageService.saveImageFile(play.getId(),multipartFile);
+        imageService.saveImageFile(play.getId(), multipartFile);
 
         //then
         then(playRepository).should().save(play);

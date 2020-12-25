@@ -35,7 +35,7 @@ class StageControllerTest {
     @Mock
     Model model;
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
@@ -44,7 +44,7 @@ class StageControllerTest {
 
     @AfterEach
     void tearDown() {
-        reset(stageService,seatService);
+        reset(stageService, seatService);
     }
 
     @Test
@@ -60,9 +60,9 @@ class StageControllerTest {
     @Test
     void addStagePost() throws Exception {
         mockMvc.perform(post("/addStage")
-                .param("id","1")
-                .param("name","sala")
-                .param("capacity","200"))
+                .param("id", "1")
+                .param("name", "sala")
+                .param("capacity", "200"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:stageList"));
     }
@@ -82,7 +82,7 @@ class StageControllerTest {
         model.addAttribute("stage", stage);
         given(stageService.findById(any())).willReturn(stage);
 
-        mockMvc.perform(get("/updateStage/" + stage.getId()+"/"))
+        mockMvc.perform(get("/updateStage/" + stage.getId() + "/"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("stage"))
                 .andExpect(view().name("admin/stage/updateStage"));
@@ -91,8 +91,8 @@ class StageControllerTest {
     @Test
     void updateStagePost() throws Exception {
         mockMvc.perform(post("/addStage")
-                .param("name","sala")
-                .param("capacity","200"))
+                .param("name", "sala")
+                .param("capacity", "200"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:stageList"));
     }
@@ -102,7 +102,7 @@ class StageControllerTest {
         doNothing().when(stageService).remove(anyString());
         List<Stage> stageList = stageService.findAll();
         model.addAttribute("stageList", stageList);
-        this.mockMvc.perform(get("/removeStage/{id}/","1"))
+        this.mockMvc.perform(get("/removeStage/{id}/", "1"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("stageList"))
                 .andExpect(view().name("admin/stage/stageList"));

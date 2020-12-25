@@ -7,12 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HomeControllerTest {
 
-    private HomeController controller;
-
     @DisplayName("test proper view name is returned ofr admin homepage")
     @Test
     void adminHome() {
-        controller = new HomeController();
+        HomeController controller = new HomeController();
         assertEquals("admin/adminHome", controller.adminHome());
     }
 }
