@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -44,7 +43,7 @@ class RepertoireControllerTest {
     @Mock
     Model model;
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
@@ -60,13 +59,14 @@ class RepertoireControllerTest {
     void addRepertoire() throws Exception {
         model.addAttribute("repertoire", new Repertoire());
         model.addAttribute("plays", playService.findAll());
-        model.addAttribute("stageList",stageService.findAll());
+        model.addAttribute("stageList", stageService.findAll());
         mockMvc.perform(get("/addRepertoire"))
                 .andExpect(status().isOk())
-                .andExpect(model().attributeExists("repertoire","plays","stageList"))
+                .andExpect(model().attributeExists("repertoire", "plays", "stageList"))
                 .andExpect(view().name("admin/repertoire/addRepertoire"));
     }
 
+    //todo
     @Disabled("ima neki problem")
     @Test
     void addRepertoirePost() throws Exception {
@@ -98,9 +98,9 @@ class RepertoireControllerTest {
         model.addAttribute("stageList", stageService.findAll());
         given(repertoireService.findById(any())).willReturn(repertoire);
 
-        mockMvc.perform(get("/updateRepertoire/{id}/","1"))
+        mockMvc.perform(get("/updateRepertoire/{id}/", "1"))
                 .andExpect(status().isOk())
-                .andExpect(model().attributeExists("repertoire","plays","stageList"))
+                .andExpect(model().attributeExists("repertoire", "plays", "stageList"))
                 .andExpect(view().name("admin/repertoire/updateRepertoire"));
     }
 
@@ -110,7 +110,7 @@ class RepertoireControllerTest {
         doNothing().when(repertoireService).deleteById(anyString());
         List<Repertoire> repertoireList = repertoireService.findAll();
         model.addAttribute("repertoireList", repertoireList);
-        this.mockMvc.perform(get("/removeRepertoire/{id}/","1"))
+        this.mockMvc.perform(get("/removeRepertoire/{id}/", "1"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("repertoireList"))
                 .andExpect(view().name("admin/repertoire/repertoire"));

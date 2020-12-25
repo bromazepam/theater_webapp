@@ -16,11 +16,9 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -42,7 +40,7 @@ class PlayControllerTest {
     @Mock
     Model model;
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
@@ -64,14 +62,15 @@ class PlayControllerTest {
                 .andExpect(view().name("admin/play/addPlay"));
     }
 
+    //todo
     @Disabled
     @Test
     void addPlayPost() throws Exception {
         String fileName = "test.txt";
-        MultipartFile imagefile = new MockMultipartFile("imagefile",fileName,
+        MockMultipartFile imagefile = new MockMultipartFile("imagefile", fileName,
                 "text/plain", "test data".getBytes());
         mockMvc.perform(multipart("/add")
-                .file((MockMultipartFile) imagefile)
+                .file(imagefile)
                 .param("title", "Once upon a time")
                 .param("author", "Jimmy")
                 .param("director", "Buffet")
@@ -91,7 +90,7 @@ class PlayControllerTest {
         model.addAttribute("play", play);
         model.addAttribute("PHOTOYOUNEED", PHOTOYOUNEED);
 
-        mockMvc.perform(get("/playInfo/" + play.getId()+"/"))
+        mockMvc.perform(get("/playInfo/" + play.getId() + "/"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("play", "PHOTOYOUNEED"))
                 .andExpect(view().name("admin/play/playInfo"));
@@ -114,15 +113,16 @@ class PlayControllerTest {
         model.addAttribute("play", play);
         given(playService.findById(any())).willReturn(play);
 
-        mockMvc.perform(get("/updatePlay/" + play.getId()+"/"))
+        mockMvc.perform(get("/updatePlay/" + play.getId() + "/"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("play"))
                 .andExpect(view().name("admin/play/updatePlay"));
     }
 
+    //todo
     @Disabled
     @Test
-    void updatePlayPost() throws Exception {
+    void updatePlayPost() {
 
     }
 
