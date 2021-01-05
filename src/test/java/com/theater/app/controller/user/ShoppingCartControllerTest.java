@@ -1,6 +1,8 @@
 package com.theater.app.controller.user;
 
 import com.theater.app.domain.CartItem;
+import com.theater.app.domain.Repertoire;
+import com.theater.app.domain.User;
 import com.theater.app.repository.ShoppingCartRepository;
 import com.theater.app.service.CartItemService;
 import com.theater.app.service.RepertoireService;
@@ -15,7 +17,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.ui.Model;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -24,7 +25,8 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.reset;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -44,8 +46,6 @@ class ShoppingCartControllerTest {
     @Mock
     ShoppingCartRepository shoppingCartRepository;
 
-    @Mock
-    Model model;
     private MockMvc mockMvc;
 
     @BeforeEach
@@ -62,26 +62,26 @@ class ShoppingCartControllerTest {
     void shoppingCart() {
     }
 
+    //todo
     @Test
-    void addItem() {
+    void addItem() throws Exception {
+        User user = new User();
+        Repertoire repertoire = new Repertoire();
+        int qty = 100;
+        CartItem cartItem = new CartItem();
+
+        given(cartItemService.addRepertoireToCartItem(repertoire, user, qty)).willReturn(new CartItem());
+
+        mockMvc.perform(post("/addItem"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("forward:/repertoireDetail/"));
+
+        then(cartItemService).should().addRepertoireToCartItem(any(), any(), any());
     }
 
     @Test
     void updateShoppingCart() throws Exception {
-        CartItem cartItem = new CartItem();
-        cartItem.setQty(100);
-        cartItem.setId("1");
-////        doNothing().when(cartItemService).updateCartItem(any());
-        model.addAttribute("id", "1");
-        model.addAttribute("qty", 100);
-        given(cartItemService.updateCartItem(cartItem)).willReturn(cartItem);
 
-        this.mockMvc.perform(post("/updateCartItem"))
-                .andExpect(status().isOk())
-                .andExpect(model().attributeExists("id", "qty"))
-                .andExpect(view().name("forward:/shoppingCart"));
-
-        then(cartItemService).should().updateCartItem(any());
 
     }
 
