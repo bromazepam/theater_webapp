@@ -14,6 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import java.util.concurrent.TimeUnit;
+
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
@@ -79,7 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 			.logoutSuccessUrl("/?logout").deleteCookies("remember-me").permitAll()
 			.and()
-			.rememberMe();
+			.rememberMe().tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21));
 	}
 
 	@Autowired
