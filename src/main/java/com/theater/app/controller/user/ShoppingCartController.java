@@ -11,7 +11,6 @@ import com.theater.app.service.ShoppingCartService;
 import com.theater.app.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,7 +34,7 @@ public class ShoppingCartController {
     public String shoppingCart(Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         ShoppingCart shoppingCart = user.getShoppingCart();
-        if(shoppingCart == null){
+        if (shoppingCart == null) {
             ShoppingCart shoppingCart1 = new ShoppingCart();
             shoppingCart1.setUser(user);
             shoppingCartRepository.save(shoppingCart1);
@@ -80,7 +79,6 @@ public class ShoppingCartController {
 
         return "forward:/shoppingCart";
     }
-
 
     @RequestMapping("/shoppingCart/removeItem/{id}")
     public String removeItem(@PathVariable String id) {

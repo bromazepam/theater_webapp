@@ -429,6 +429,7 @@ public class IndexController implements ErrorController {
     public String getErrorPath() {
         return "/error";
     }
+
     @RequestMapping("/error")
     public String error() {
         return "user/badRequestPage";
