@@ -1,7 +1,9 @@
 package com.theater.app.service.impl;
 
 import com.theater.app.domain.User;
+import com.theater.app.domain.UserPayment;
 import com.theater.app.domain.security.Role;
+import com.theater.app.exceptions.NotFoundException;
 import com.theater.app.repository.PasswordResetTokenRepository;
 import com.theater.app.repository.UserPaymentRepository;
 import com.theater.app.repository.UserRepository;
@@ -15,6 +17,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
@@ -156,12 +160,29 @@ class UserServiceImplTest {
     }
 
     @Test
-    void findById() {
-
+    void findByIdThrowsException() {
+        //given
+        User user = new User();
+        //when
+        //then
+        NotFoundException exception = assertThrows(NotFoundException.class, () -> userService.findById(user.getId()));
+        assertEquals("user not found", exception.getMessage());
     }
 
     @Test
     void updateUserPayment() {
+        //given
+        UserPayment userPayment = new UserPayment();
+        User user = new User();
+        userPayment.setUser(user);
+        userPayment.setDefaultPayment(true);
+        user.getUserPaymentList().add(userPayment);
+
+        //when
+        userService.updateUserPayment(userPayment, user);
+
+        //then
+        verify(userRepository).save(user);
     }
 
     @Test
