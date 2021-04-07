@@ -18,7 +18,7 @@ class UserTest {
         User user = new User("1", "username", "password", "firstName", "lastName",
                 "email", "phone", true, shoppingCart, arrayList, arrayList, set);
 
-        assertAll("test play",
+        assertAll("user test",
                 () -> assertEquals(user.getId(), "1"),
                 () -> assertEquals(user.getUsername(), "username"),
                 () -> assertEquals(user.getPassword(), "password"),

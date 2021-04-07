@@ -14,7 +14,7 @@ class CartItemTest {
         ShoppingCart shoppingCart = mock(ShoppingCart.class);
         CartItem cartItem = new CartItem("1", 10, 100, repertoire, shoppingCart);
 
-        assertAll("cartitem test",
+        assertAll("cartItem test",
                 () -> assertEquals(cartItem.getId(), "1", "cartitem id failed"),
                 () -> assertEquals(cartItem.getQty(), 10, "cartitem quantity failed"),
                 () -> assertEquals(cartItem.getSubtotal(), 100, "subtotal failed"),

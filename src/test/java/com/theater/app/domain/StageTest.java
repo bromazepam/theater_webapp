@@ -16,7 +16,7 @@ class StageTest {
         ArrayList arrayList = mock(ArrayList.class);
         Stage stage = new Stage("1", "stage", 100, arrayList);
 
-        assertAll("test props set",
+        assertAll("stage test",
                 () -> assertEquals(stage.getId(), "1", "stage id failed"),
                 () -> assertEquals(stage.getName(), "stage", "stage name failed"),
                 () -> assertEquals(stage.getCapacity(), 100, "stage capacity failed"),

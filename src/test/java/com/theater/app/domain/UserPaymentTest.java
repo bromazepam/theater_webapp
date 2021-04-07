@@ -13,7 +13,7 @@ class UserPaymentTest {
         UserPayment userPayment = new UserPayment("1", "type", "name", "number", 10,
                 2022, 222, "holderName", true, user);
 
-        assertAll("test play",
+        assertAll("userPayment test",
                 () -> assertEquals(userPayment.getId(), "1", "userPayment id failed"),
                 () -> assertEquals(userPayment.getType(), "type", "userPayment type failed"),
                 () -> assertEquals(userPayment.getCardName(), "name", "userPayment cardName failed"),
