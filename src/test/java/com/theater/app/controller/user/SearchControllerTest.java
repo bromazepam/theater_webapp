@@ -5,14 +5,20 @@ import com.theater.app.domain.Repertoire;
 import com.theater.app.service.PlayService;
 import com.theater.app.service.RepertoireService;
 import org.assertj.core.util.Lists;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
@@ -28,6 +34,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+@ContextConfiguration(classes = {SearchController.class})
 @ExtendWith(MockitoExtension.class)
 class SearchControllerTest {
 
@@ -71,7 +78,7 @@ class SearchControllerTest {
         then(playService).should().findByCategory(anyString());
     }
 
-    //todo
+    @Disabled
     @Test
     void searchByDate() throws Exception {
 //        final String date = "12.12.2012.";
@@ -89,5 +96,16 @@ class SearchControllerTest {
                 .andExpect(view().name("repertoireList"));
 
         then(repertoireService).should().findByDate(any(Date.class));
+    }
+
+    @DisplayName("diffblue")
+    @Test
+    public void testSearchByDate() throws Exception {
+        MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/searchByDate");
+        MockHttpServletRequestBuilder requestBuilder = getResult.param("date", String.valueOf(new Date(1L)));
+        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(this.searchController)
+                .build()
+                .perform(requestBuilder);
+        actualPerformResult.andExpect(MockMvcResultMatchers.status().is(400));
     }
 }
