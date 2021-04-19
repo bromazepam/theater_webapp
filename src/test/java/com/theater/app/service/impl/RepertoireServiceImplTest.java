@@ -4,7 +4,6 @@ import com.theater.app.domain.Repertoire;
 import com.theater.app.domain.Seat;
 import com.theater.app.repository.RepertoireRepository;
 import com.theater.app.repository.SeatRepository;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,6 +11,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -72,7 +73,6 @@ class RepertoireServiceImplTest {
         assertThat(returnedRepertoire).isNotNull();
     }
 
-    @Disabled
     @Test
     void findByDate() {
         //given
@@ -108,7 +108,6 @@ class RepertoireServiceImplTest {
         assertThat(seats).isNotNull();
     }
 
-    @Disabled
     @Test
     void findByPresentOrFutureDate() {
         //given
@@ -123,4 +122,5 @@ class RepertoireServiceImplTest {
         then(repertoireRepository).should().findByProjectionDateGreaterThanEqual(any(Date.class));
         assertThat(returnedRepertoire).isNotNull();
     }
+
 }
