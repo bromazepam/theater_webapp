@@ -4,7 +4,7 @@ import com.theater.app.domain.User;
 import com.theater.app.domain.security.Role;
 import com.theater.app.repository.RoleRepository;
 import com.theater.app.service.UserService;
-import com.theater.app.utility.SecurityUtility;
+import com.theater.app.security.SecurityUtility;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

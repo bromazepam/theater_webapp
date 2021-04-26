@@ -1,7 +1,7 @@
-package com.theater.app.config;
+package com.theater.app.security;
 
 import com.theater.app.service.impl.UserSecurityService;
-import com.theater.app.utility.SecurityUtility;
+import com.theater.app.security.SecurityUtility;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

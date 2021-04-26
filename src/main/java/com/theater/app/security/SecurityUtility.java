@@ -1,4 +1,4 @@
-package com.theater.app.utility;
+package com.theater.app.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

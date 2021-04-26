@@ -6,7 +6,7 @@ import com.theater.app.domain.security.Role;
 import com.theater.app.service.*;
 import com.theater.app.service.impl.UserSecurityService;
 import com.theater.app.utility.MailConstructor;
-import com.theater.app.utility.SecurityUtility;
+import com.theater.app.security.SecurityUtility;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.mail.SimpleMailMessage;

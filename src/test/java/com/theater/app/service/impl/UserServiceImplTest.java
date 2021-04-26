@@ -7,7 +7,7 @@ import com.theater.app.exceptions.NotFoundException;
 import com.theater.app.repository.PasswordResetTokenRepository;
 import com.theater.app.repository.UserPaymentRepository;
 import com.theater.app.repository.UserRepository;
-import com.theater.app.utility.SecurityUtility;
+import com.theater.app.security.SecurityUtility;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
