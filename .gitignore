@@ -40,3 +40,7 @@ out
 test-output
 atlassian-ide-plugin.xml
 .gradletasknamecache
+.git.bfg-report/2021-04-26/11-54-12/cache-stats.txt
+.git.bfg-report/2021-04-26/11-54-12/deleted-files.txt
+.git.bfg-report/2021-04-26/11-54-12/object-id-map.old-new.txt
+bfg-1.14.0.jar
