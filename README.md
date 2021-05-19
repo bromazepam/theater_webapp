@@ -32,9 +32,9 @@ Login credentials for user are: username - `user`, password - `user`, and for ad
 
 * 	`bootstrap` - to hold initial data;
 * 	`config` - app configurations;
-* 	`controllers` - to listen to the client;
+* 	`controller` - to listen to the client;
 * 	`domain` - to hold our entities;
-* 	`exception` - to hold custom exception handling;
+* 	`exceptions` - to hold custom exception handling;
 * 	`repository` - to communicate with the database;
 * 	`exception` - to hold custom exception handling;
 *   `service` - to hold business logic and implementation
