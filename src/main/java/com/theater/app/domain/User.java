@@ -2,10 +2,7 @@ package com.theater.app.domain;
 
 import com.theater.app.domain.security.Authority;
 import com.theater.app.domain.security.Role;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -17,6 +14,7 @@ import java.util.*;
 
 @Setter
 @Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Document
