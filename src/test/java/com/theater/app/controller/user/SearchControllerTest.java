@@ -6,6 +6,7 @@ import com.theater.app.service.PlayService;
 import com.theater.app.service.RepertoireService;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -70,7 +71,7 @@ class SearchControllerTest {
 
         //when
         mockMvc.perform(get("/searchByCategory")
-                .param("category", category))
+                        .param("category", category))
                 .andExpect(status().isOk())
                 .andExpect(view().name("user/plays"));
 
@@ -78,31 +79,11 @@ class SearchControllerTest {
         then(playService).should().findByCategory(anyString());
     }
 
-//    @Disabled
-//    @Test
-//    void searchByDate() throws Exception {
-////        final String date = "12.12.2012.";
-//        String end = "2015-12-31T23:59:59.999Z";
-//        Date date = mock(Date.class);
-//        Repertoire repertoire = new Repertoire();
-//        repertoire.setId("1");
-//        repertoire.setProjectionDate(date);
-////        List<Repertoire> repertoireList = new ArrayList<>();
-//        given(repertoireService.findByDate(date)).willReturn(Lists.newArrayList(repertoire));
-//
-//        mockMvc.perform(get("/searchByDate")
-//                .param("date", String.valueOf(date)))
-//                .andExpect(status().isOk())
-//                .andExpect(view().name("repertoireList"));
-//
-//        then(repertoireService).should().findByDate(any(Date.class));
-//    }
-
     @DisplayName("diffblue")
     @Test
-    public void testSearchByDate() throws Exception {
+    void testSearchByDate2() throws Exception {
         MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/searchByDate");
-        MockHttpServletRequestBuilder requestBuilder = getResult.param("date", String.valueOf(new Date(1L)));
+        MockHttpServletRequestBuilder requestBuilder = getResult.param("date", String.valueOf((Object) null));
         ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(this.searchController)
                 .build()
                 .perform(requestBuilder);
