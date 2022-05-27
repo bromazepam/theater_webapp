@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/bromazepam/theater_webapp.svg?style=svg)](https://circleci.com/gh/bromazepam/theater_webapp)
+
 # Theater web application
 This is a basic theater booking system made with [Spring Boot](http://projects.spring.io/spring-boot/).
  
