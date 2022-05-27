@@ -16,9 +16,6 @@ import static org.mockito.Mockito.mock;
 @ExtendWith(MockitoExtension.class)
 class PaymentServiceImplTest {
 
-    @InjectMocks
-    PaymentService paymentService;
-
     @Test
     void setByUserPayment() {
         //given
@@ -33,9 +30,7 @@ class PaymentServiceImplTest {
         payment.setExpiryYear(userPayment.getExpiryYear());
         payment.setCvc(userPayment.getCvc());
 
-
         //then
         assertNotNull(payment);
-
     }
 }
