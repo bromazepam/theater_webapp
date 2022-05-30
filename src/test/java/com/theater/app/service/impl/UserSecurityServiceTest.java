@@ -13,24 +13,26 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
-
 @ExtendWith(MockitoExtension.class)
 class UserSecurityServiceTest {
 
     @InjectMocks
     UserSecurityService userSecurityService;
+
     @Mock
     UserRepository userRepository;
 
     @Test
     void loadUserByUsername() {
+        //given
         given(userRepository.findByUsername(anyString())).willReturn(new User());
 
+        //when
         User user = userRepository.findByUsername(anyString());
 
+        //then
         then(userRepository).should().findByUsername(anyString());
         assertThat(user).isNotNull();
-
     }
 
     @Test
@@ -38,6 +40,5 @@ class UserSecurityServiceTest {
         User user = userRepository.findByUsername("2");
 
         assertThat(user).isNull();
-
     }
 }

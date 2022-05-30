@@ -14,6 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 
 @ContextConfiguration(classes = {SeatServiceImpl.class})
@@ -29,9 +30,9 @@ public class SeatServiceImplTest {
     @MockBean
     private StageService stageService;
 
-
     @Test
     public void testSave() {
+        //given
         List<Seat> list = new ArrayList<>();
         Stage stage = new Stage();
         stage.setCapacity(3);
@@ -41,41 +42,52 @@ public class SeatServiceImplTest {
         list.add(seat);
         stage.setSeats(list);
 
+        //when
         stageService.save(stage);
         seatRepository.saveAll(list);
 
-        verify(seatRepository).saveAll(list);
+        //then
+        then(seatRepository).should().saveAll(list);
     }
 
     @Test
     public void testRemove() {
+        //given
         Stage stage = new Stage();
         stage.setCapacity(3);
         stage.setId("42");
         stage.setName("Name");
-        stage.setSeats(new ArrayList<Seat>());
-        when(this.seatRepository.findAll()).thenReturn(new ArrayList<Seat>());
+        stage.setSeats(new ArrayList<>());
+
+        //when
+        when(this.seatRepository.findAll()).thenReturn(new ArrayList<>());
         this.seatServiceImpl.remove("42");
-        verify(this.seatRepository).findAll();
-        verify(this.seatRepository).deleteAll((Iterable<? extends Seat>) any());
+
+        //then
+        then(this.seatRepository).should().findAll();
+        then(this.seatRepository).should().deleteAll(any());
     }
 
     @Test
     public void testUpdate() {
+        //given
         Stage stage = new Stage();
         stage.setCapacity(3);
         stage.setId("42");
         stage.setName("Name");
-        stage.setSeats(new ArrayList<Seat>());
+        stage.setSeats(new ArrayList<>());
 
+        //when
         when(this.stageService.findById(anyString())).thenReturn(stage);
-        when(this.seatRepository.saveAll((Iterable<Seat>) any())).thenReturn(new ArrayList<Seat>());
-        when(this.seatRepository.findAll()).thenReturn(new ArrayList<Seat>());
+        when(this.seatRepository.saveAll(any())).thenReturn(new ArrayList<>());
+        when(this.seatRepository.findAll()).thenReturn(new ArrayList<>());
         this.seatServiceImpl.update("42", 10);
-        verify(this.seatRepository).findAll();
-        verify(this.seatRepository).saveAll((Iterable<Seat>) any());
-        verify(this.stageService).save((Stage) any());
-        verify(this.stageService).findById(anyString());
+
+        //then
+        then(this.seatRepository).should().findAll();
+        then(this.seatRepository).should().saveAll(any());
+        then(this.stageService).should().save(any());
+        then(this.stageService).should().findById(anyString());
     }
 }
 

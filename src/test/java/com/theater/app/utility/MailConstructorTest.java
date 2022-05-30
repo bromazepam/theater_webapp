@@ -12,6 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.thymeleaf.TemplateEngine;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 
 @ContextConfiguration(classes = {MailConstructor.class, TemplateEngine.class})
@@ -43,8 +44,8 @@ public class MailConstructorTest {
                 + " nalogu je: \n" + "iloveyou", actualConstructResetTokenEmailResult.getText());
         assertEquals("Pozoriste - Novi Korisnik", actualConstructResetTokenEmailResult.getSubject());
         assertEquals("foo", actualConstructResetTokenEmailResult.getFrom());
-        verify(this.environment).getProperty(anyString());
-        verify(user).getEmail();
+        then(this.environment).should().getProperty(anyString());
+        then(user).should().getEmail();
     }
 }
 

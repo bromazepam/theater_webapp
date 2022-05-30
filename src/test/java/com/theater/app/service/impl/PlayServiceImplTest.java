@@ -30,9 +30,14 @@ class PlayServiceImplTest {
 
     @Test
     void save() {
+        //given
         Play play = mock(Play.class);
+
+        //when
         playService.save(play);
-        verify(playRepository).save(play);
+
+        //then
+        then(playRepository).should().save(play);
     }
 
     @Test
@@ -65,8 +70,13 @@ class PlayServiceImplTest {
 
     @Test
     void removeById() {
+        //given
+
+        //when
         playService.removeById(any());
-        verify(playRepository).deleteById(any());
+
+        //then
+        then(playRepository).should().deleteById(any());
     }
 
     @Test

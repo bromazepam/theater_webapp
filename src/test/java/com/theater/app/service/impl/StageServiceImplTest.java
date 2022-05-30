@@ -23,14 +23,20 @@ class StageServiceImplTest {
 
     @Mock
     StageRepository stageRepository;
+
     @InjectMocks
     StageServiceImpl service;
 
     @Test
     void save() {
+        //given
         Stage stage = new Stage();
+
+        //when
         service.save(stage);
-        verify(stageRepository).save(stage);
+
+        //then
+        then(stageRepository).should().save(stage);
     }
 
     @Test
@@ -59,12 +65,16 @@ class StageServiceImplTest {
         //then
         then(stageRepository).should().findById(any());
         assertThat(returnedStage).isNotNull();
-
     }
 
     @Test
     void remove() {
+        //given
+
+        //when
         service.remove(any());
+
+        //then
         verify(stageRepository).deleteById(any());
     }
 }

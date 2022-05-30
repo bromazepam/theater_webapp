@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -97,7 +98,7 @@ class UserServiceImplTest {
         userService.save(user);
 
         //then
-        verify(userRepository).save(user);
+        then(userRepository).should().save(user);
     }
 
     @Test
@@ -114,7 +115,7 @@ class UserServiceImplTest {
         userService.findByUsername(user.getUsername());
 
         //then
-        verify(userRepository).findByUsername(user.getUsername());
+        then(userRepository).should().findByUsername(user.getUsername());
     }
 
     @Test
@@ -131,7 +132,7 @@ class UserServiceImplTest {
         userService.findByEmail(user.getEmail());
 
         //then
-        verify(userRepository).findByEmail(user.getEmail());
+        then(userRepository).should().findByEmail(user.getEmail());
     }
 
     @Test
@@ -156,14 +157,16 @@ class UserServiceImplTest {
         userService.getPasswordResetToken(token);
 
         //then
-        verify(passwordResetTokenRepository).findByToken(token);
+        then(passwordResetTokenRepository).should().findByToken(token);
     }
 
     @Test
     void findByIdThrowsException() {
         //given
         User user = new User();
+
         //when
+
         //then
         NotFoundException exception = assertThrows(NotFoundException.class, () -> userService.findById(user.getId()));
         assertEquals("user not found", exception.getMessage());
@@ -182,10 +185,6 @@ class UserServiceImplTest {
         userService.updateUserPayment(userPayment, user);
 
         //then
-        verify(userRepository).save(user);
-    }
-
-    @Test
-    void setUserDefaultPayment() {
+        then(userRepository).should().save(user);
     }
 }

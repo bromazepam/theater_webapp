@@ -41,7 +41,5 @@ class ImageServiceImplTest {
 
         //then
         then(playRepository).should().save(play);
-
-
     }
 }

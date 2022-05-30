@@ -11,8 +11,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.test.context.ContextConfiguration;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,7 +22,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
@@ -40,9 +37,14 @@ class RepertoireServiceImplTest {
 
     @Test
     void save() {
+        //given
         Repertoire repertoire = new Repertoire();
+
+        //when
         repertoireService.save(repertoire);
-        verify(repertoireRepository).save(repertoire);
+
+        //then
+        then(repertoireRepository).should().save(repertoire);
     }
 
     @Test
@@ -90,8 +92,13 @@ class RepertoireServiceImplTest {
 
     @Test
     void deleteById() {
+        //given
+
+        //when
         repertoireService.deleteById(any());
-        verify(repertoireRepository).deleteById(any());
+
+        //then
+        then(repertoireRepository).should().deleteById(any());
     }
 
     @Test
@@ -122,5 +129,4 @@ class RepertoireServiceImplTest {
         then(repertoireRepository).should().findByProjectionDateGreaterThanEqual(any(Date.class));
         assertThat(returnedRepertoire).isNotNull();
     }
-
 }

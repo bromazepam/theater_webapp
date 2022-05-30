@@ -20,7 +20,9 @@ import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.mockito.Mockito.*;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 
 /**
  * created using diffblue plugin
@@ -43,12 +45,12 @@ public class ShoppingCartServiceImplTest {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setUser(new User());
         shoppingCart.setId("42");
-        shoppingCart.setCartItemList(new ArrayList<CartItem>());
+        shoppingCart.setCartItemList(new ArrayList<>());
         shoppingCart.setGrandTotal(1);
 
         User user = new User();
         user.setLastName("Doe");
-        user.setUserPaymentList(new ArrayList<UserPayment>());
+        user.setUserPaymentList(new ArrayList<>());
         user.setEmail("jane.doe@example.org");
         user.setPassword("iloveyou");
         user.setUsername("janedoe");
@@ -60,16 +62,16 @@ public class ShoppingCartServiceImplTest {
         user.setFirstName("Jane");
         user.setShoppingCart(shoppingCart);
 
-        when(this.shoppingCartRepository.save((ShoppingCart) any())).thenReturn(shoppingCart);
+        when(this.shoppingCartRepository.save(any())).thenReturn(shoppingCart);
         ArrayList<CartItem> cartItemList = new ArrayList<CartItem>();
-        when(this.cartItemService.findByShoppingCart((ShoppingCart) any())).thenReturn(cartItemList);
+        when(this.cartItemService.findByShoppingCart(any())).thenReturn(cartItemList);
         ShoppingCart shoppingCart3 = new ShoppingCart();
         ShoppingCart actualUpdateShoppingCartResult = this.shoppingCartServiceImpl.updateShoppingCart(shoppingCart3);
         assertSame(shoppingCart3, actualUpdateShoppingCartResult);
         assertSame(cartItemList, actualUpdateShoppingCartResult.getCartItemList());
         assertEquals(0, actualUpdateShoppingCartResult.getGrandTotal());
-        verify(this.cartItemService).findByShoppingCart((ShoppingCart) any());
-        verify(this.shoppingCartRepository).save((ShoppingCart) any());
+        then(this.cartItemService).should().findByShoppingCart(any());
+        then(this.shoppingCartRepository).should().save(any());
     }
 
     @Test
@@ -77,20 +79,20 @@ public class ShoppingCartServiceImplTest {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setUser(new User());
         shoppingCart.setId("42");
-        shoppingCart.setCartItemList(new ArrayList<CartItem>());
+        shoppingCart.setCartItemList(new ArrayList<>());
         shoppingCart.setGrandTotal(1);
 
         User user = new User();
         user.setLastName("Doe");
-        user.setUserPaymentList(new ArrayList<UserPayment>());
+        user.setUserPaymentList(new ArrayList<>());
         user.setEmail("jane.doe@example.org");
         user.setPassword("iloveyou");
         user.setUsername("janedoe");
         user.setId("42");
-        user.setOrderList(new ArrayList<Order>());
+        user.setOrderList(new ArrayList<>());
         user.setPhone("4105551212");
         user.setEnabled(true);
-        user.setUserRoles(new HashSet<Role>());
+        user.setUserRoles(new HashSet<>());
         user.setFirstName("Jane");
         user.setShoppingCart(shoppingCart);
 
@@ -134,14 +136,14 @@ public class ShoppingCartServiceImplTest {
 
         ArrayList<CartItem> cartItemList = new ArrayList<CartItem>();
         cartItemList.add(cartItem);
-        when(this.cartItemService.findByShoppingCart((ShoppingCart) any())).thenReturn(cartItemList);
+        when(this.cartItemService.findByShoppingCart(any())).thenReturn(cartItemList);
         ShoppingCart shoppingCart5 = new ShoppingCart();
         ShoppingCart actualUpdateShoppingCartResult = this.shoppingCartServiceImpl.updateShoppingCart(shoppingCart5);
         assertSame(shoppingCart5, actualUpdateShoppingCartResult);
         assertSame(cartItemList, actualUpdateShoppingCartResult.getCartItemList());
         assertEquals(0, actualUpdateShoppingCartResult.getGrandTotal());
-        verify(this.cartItemService).findByShoppingCart((ShoppingCart) any());
-        verify(this.shoppingCartRepository).save((ShoppingCart) any());
+        then(this.cartItemService).should().findByShoppingCart(any());
+        then(this.shoppingCartRepository).should().save(any());
     }
 
     @Test
@@ -149,29 +151,29 @@ public class ShoppingCartServiceImplTest {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setUser(new User());
         shoppingCart.setId("42");
-        shoppingCart.setCartItemList(new ArrayList<CartItem>());
+        shoppingCart.setCartItemList(new ArrayList<>());
         shoppingCart.setGrandTotal(1);
 
         User user = new User();
         user.setLastName("Doe");
-        user.setUserPaymentList(new ArrayList<UserPayment>());
+        user.setUserPaymentList(new ArrayList<>());
         user.setEmail("jane.doe@example.org");
         user.setPassword("iloveyou");
         user.setUsername("janedoe");
         user.setId("42");
-        user.setOrderList(new ArrayList<Order>());
+        user.setOrderList(new ArrayList<>());
         user.setPhone("4105551212");
         user.setEnabled(true);
-        user.setUserRoles(new HashSet<Role>());
+        user.setUserRoles(new HashSet<>());
         user.setFirstName("Jane");
         user.setShoppingCart(shoppingCart);
 
-        when(this.shoppingCartRepository.save((ShoppingCart) any())).thenReturn(shoppingCart);
-        when(this.cartItemService.findByShoppingCart((ShoppingCart) any())).thenReturn(new ArrayList<CartItem>());
+        when(this.shoppingCartRepository.save(any())).thenReturn(shoppingCart);
+        when(this.cartItemService.findByShoppingCart(any())).thenReturn(new ArrayList<>());
         ShoppingCart shoppingCart3 = new ShoppingCart();
         this.shoppingCartServiceImpl.clearShoppingCart(shoppingCart3);
-        verify(this.cartItemService).findByShoppingCart((ShoppingCart) any());
-        verify(this.shoppingCartRepository).save((ShoppingCart) any());
+        then(this.cartItemService).should().findByShoppingCart(any());
+        then(this.shoppingCartRepository).should().save(any());
         assertEquals(0, shoppingCart3.getGrandTotal());
     }
 }

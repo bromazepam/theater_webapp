@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 
 @ContextConfiguration(classes = {CartItemServiceImpl.class})
@@ -33,12 +34,17 @@ public class CartItemServiceImplTest {
 
     @Test
     public void testFindByShoppingCart() {
+        //given
         ArrayList<CartItem> cartItemList = new ArrayList<CartItem>();
-        when(this.cartItemRepository.findByShoppingCart((ShoppingCart) any())).thenReturn(cartItemList);
+
+        //when
+        when(this.cartItemRepository.findByShoppingCart(any())).thenReturn(cartItemList);
         List<CartItem> actualFindByShoppingCartResult = this.cartItemServiceImpl.findByShoppingCart(new ShoppingCart());
+
+        //then
         assertSame(cartItemList, actualFindByShoppingCartResult);
         assertTrue(actualFindByShoppingCartResult.isEmpty());
-        verify(this.cartItemRepository).findByShoppingCart((ShoppingCart) any());
+        then(this.cartItemRepository).should().findByShoppingCart(any());
     }
 
     @Test
@@ -60,16 +66,21 @@ public class CartItemServiceImplTest {
         //then
         assertSame(cartItem, actualUpdateCartItemResult);
         assertEquals(0, actualUpdateCartItemResult.getSubtotal());
-        verify(this.cartItemRepository).save(any());
+        then(this.cartItemRepository).should().save(any());
     }
 
     @Test
     public void testRemoveCartItem() {
-        doNothing().when(this.repertoireToCartItemRepository).deleteByCartItem((CartItem) any());
-        doNothing().when(this.cartItemRepository).delete((CartItem) any());
+        //given
+
+        //when
+        doNothing().when(this.repertoireToCartItemRepository).deleteByCartItem(any());
+        doNothing().when(this.cartItemRepository).delete(any());
         this.cartItemServiceImpl.removeCartItem(new CartItem());
-        verify(this.cartItemRepository).delete((CartItem) any());
-        verify(this.repertoireToCartItemRepository).deleteByCartItem((CartItem) any());
+
+        //then
+        then(this.cartItemRepository).should().delete(any());
+        then(this.repertoireToCartItemRepository).should().deleteByCartItem(any());
     }
 
     @Test
@@ -90,7 +101,7 @@ public class CartItemServiceImplTest {
 
         //then
         assertSame(cartItem, this.cartItemServiceImpl.findById("42"));
-        verify(this.cartItemRepository).findById(anyString());
+        then(this.cartItemRepository).should().findById(anyString());
     }
 
     @Test
@@ -110,7 +121,7 @@ public class CartItemServiceImplTest {
 
         //then
         assertSame(cartItem, this.cartItemServiceImpl.save(new CartItem()));
-        verify(this.cartItemRepository).save(any());
+        then(this.cartItemRepository).should().save(any());
     }
 
 }

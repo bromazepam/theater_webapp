@@ -15,7 +15,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class UserPaymentServiceTest {
@@ -28,17 +27,25 @@ class UserPaymentServiceTest {
 
     @Test
     void findById() {
+        //given
         given(userPaymentRepository.findById(anyString())).willReturn(java.util.Optional.of(new UserPayment()));
 
+        //when
         Optional<UserPayment> userPayment = userPaymentRepository.findById(anyString());
 
+        //then
         then(userPaymentRepository).should().findById(anyString());
         assertThat(userPayment).isNotNull();
     }
 
     @Test
     void removeById() {
+        //given
+
+        //when
         userPaymentService.removeById(anyString());
-        verify(userPaymentRepository).deleteById(any());
+
+        //then
+        then(userPaymentRepository).should().deleteById(any());
     }
 }
