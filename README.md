@@ -2,6 +2,7 @@
 
 # Theater web application
 This is a basic theater booking system made with [Spring Boot](http://projects.spring.io/spring-boot/).
+Application runs on CircleCi.
  
  A user can SignUp, Login, manage his profile, book a seat for a play, view shopping cart,
   checkout, view history, get email confirmation...
