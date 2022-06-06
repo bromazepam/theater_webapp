@@ -60,9 +60,9 @@ class StageControllerTest {
     @Test
     void addStagePost() throws Exception {
         mockMvc.perform(post("/addStage")
-                .param("id", "1")
-                .param("name", "sala")
-                .param("capacity", "200"))
+                        .param("id", "1")
+                        .param("name", "sala")
+                        .param("capacity", "200"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:stageList"));
     }
@@ -91,8 +91,8 @@ class StageControllerTest {
     @Test
     void updateStagePost() throws Exception {
         mockMvc.perform(post("/addStage")
-                .param("name", "sala")
-                .param("capacity", "200"))
+                        .param("name", "sala")
+                        .param("capacity", "200"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:stageList"));
     }

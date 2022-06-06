@@ -84,9 +84,9 @@ public class CheckoutController {
         List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
         model.addAttribute("cartItemList", cartItemList);
 
-        if(payment.getType().isEmpty() || payment.getHolderName().isEmpty() || payment.getCardNumber().isEmpty() ||
-                payment.getExpiryMonth() == 0 || payment.getExpiryYear() == 0 || payment.getCvc() == 0){
-            return "redirect:/checkout/"+ shoppingCart.getId() + "&missingRequiredField=true";
+        if (payment.getType().isEmpty() || payment.getHolderName().isEmpty() || payment.getCardNumber().isEmpty() ||
+                payment.getExpiryMonth() == 0 || payment.getExpiryYear() == 0 || payment.getCvc() == 0) {
+            return "redirect:/checkout/" + shoppingCart.getId() + "&missingRequiredField=true";
         }
 
         User user = userService.findByUsername(principal.getName());

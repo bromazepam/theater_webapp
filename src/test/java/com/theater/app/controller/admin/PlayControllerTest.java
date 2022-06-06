@@ -78,13 +78,13 @@ class PlayControllerTest {
         MockMultipartFile imagefile = new MockMultipartFile("imagefile", fileName,
                 "text/plain", "test data".getBytes());
         mockMvc.perform(multipart("/add")
-                .file(imagefile)
-                .param("title", "Once upon a time")
-                .param("author", "Jimmy")
-                .param("director", "Buffet")
-                .param("category", "drama")
-                .param("boolean", "true")
-                .param("description", "some plot"))
+                        .file(imagefile)
+                        .param("title", "Once upon a time")
+                        .param("author", "Jimmy")
+                        .param("director", "Buffet")
+                        .param("category", "drama")
+                        .param("boolean", "true")
+                        .param("description", "some plot"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:playList"));
 

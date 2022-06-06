@@ -1,26 +1,10 @@
 package com.theater.app.controller.user;
 
-import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.when;
-
 import com.sun.security.auth.UserPrincipal;
-import com.theater.app.domain.CartItem;
-import com.theater.app.domain.Order;
-import com.theater.app.domain.ShoppingCart;
-import com.theater.app.domain.User;
-import com.theater.app.domain.UserPayment;
+import com.theater.app.domain.*;
 import com.theater.app.domain.security.Role;
-import com.theater.app.service.CartItemService;
-import com.theater.app.service.OrderService;
-import com.theater.app.service.PaymentService;
-import com.theater.app.service.ShoppingCartService;
-import com.theater.app.service.UserPaymentService;
-import com.theater.app.service.UserService;
+import com.theater.app.service.*;
 import com.theater.app.utility.MailConstructor;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +16,12 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.when;
 
 @ContextConfiguration(classes = {CheckoutController.class})
 @ExtendWith(SpringExtension.class)

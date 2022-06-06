@@ -3,8 +3,8 @@ package com.theater.app.bootstrap;
 import com.theater.app.domain.User;
 import com.theater.app.domain.security.Role;
 import com.theater.app.repository.RoleRepository;
-import com.theater.app.service.UserService;
 import com.theater.app.security.SecurityUtility;
+import com.theater.app.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,7 @@ public class TheaterBootstrap implements ApplicationListener<ContextRefreshedEve
         user1.setPassword(SecurityUtility.passwordEncoder().encode("admin"));
         user1.setEmail("admin@gmail.com");
         Set<Role> userRoles = new HashSet<>();
-        Role role1= new Role();
+        Role role1 = new Role();
         role1.setRoleId("0");
         role1.setName("ROLE_ADMIN");
         roleRepository.save(role1);
@@ -48,7 +48,7 @@ public class TheaterBootstrap implements ApplicationListener<ContextRefreshedEve
         user2.setPassword(SecurityUtility.passwordEncoder().encode("user"));
         user2.setEmail("user@gmail.com");
         Set<Role> userRoles2 = new HashSet<>();
-        Role role2= new Role();
+        Role role2 = new Role();
         role2.setRoleId("1");
         role2.setName("ROLE_USER");
         roleRepository.save(role2);

@@ -5,10 +5,10 @@ import org.springframework.security.core.GrantedAuthority;
 
 @RequiredArgsConstructor
 public class Authority implements GrantedAuthority {
-	private final String authority;
+    private final String authority;
 
-	@Override
-	public String getAuthority() {
-		return authority;
-	}
+    @Override
+    public String getAuthority() {
+        return authority;
+    }
 }

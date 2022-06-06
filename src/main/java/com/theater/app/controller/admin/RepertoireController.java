@@ -59,7 +59,7 @@ public class RepertoireController {
     @GetMapping("/removeRepertoire/{id}/")
     public String remove(@PathVariable("id") String id, Model model) {
         repertoireService.deleteById(id);
-        model.addAttribute("repertoireList",repertoireService.findAll());
+        model.addAttribute("repertoireList", repertoireService.findAll());
         return "admin/repertoire/repertoire";
     }
 }

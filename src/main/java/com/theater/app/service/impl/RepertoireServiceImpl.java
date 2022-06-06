@@ -1,17 +1,17 @@
 package com.theater.app.service.impl;
 
 import com.theater.app.domain.Repertoire;
-import com.theater.app.domain.reportDAO.RepertoireReport;
 import com.theater.app.domain.Seat;
+import com.theater.app.domain.reportDAO.RepertoireReport;
 import com.theater.app.exceptions.NotFoundException;
 import com.theater.app.repository.RepertoireRepository;
 import com.theater.app.repository.SeatRepository;
 import com.theater.app.service.RepertoireService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -77,16 +77,16 @@ public class RepertoireServiceImpl implements RepertoireService {
 
         Aggregation agg = newAggregation(
                 project("stage.capacity", "availableSeats")
-                .andExpression("month(projectionDate)").as("month")
-                .andExpression("year(projectionDate)").as("year")
-                .andExpression("stage.capacity - availableSeats").as("att"),
+                        .andExpression("month(projectionDate)").as("month")
+                        .andExpression("year(projectionDate)").as("year")
+                        .andExpression("stage.capacity - availableSeats").as("att"),
                 group(fields("month").and("year")).count().as("total")
-                .sum("att").as("attendance")
+                        .sum("att").as("attendance")
 
         );
 
         AggregationResults<RepertoireReport> results = mongoTemplate.aggregate(
-                agg,"repertoire", RepertoireReport.class);
+                agg, "repertoire", RepertoireReport.class);
         return results.getMappedResults();
     }
 }

@@ -5,7 +5,6 @@ import com.theater.app.domain.Repertoire;
 import com.theater.app.service.PlayService;
 import com.theater.app.service.RepertoireService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,15 +21,15 @@ public class SearchController {
     private final RepertoireService repertoireService;
 
     @RequestMapping("/searchByCategory")
-    public String searchByCategory(@RequestParam("category") String category, Model model){
+    public String searchByCategory(@RequestParam("category") String category, Model model) {
         String classActiveCategory = "active" + category;
-        classActiveCategory = classActiveCategory.replaceAll("\\s+","");
-        classActiveCategory = classActiveCategory.replaceAll("$","");
+        classActiveCategory = classActiveCategory.replaceAll("\\s+", "");
+        classActiveCategory = classActiveCategory.replaceAll("$", "");
         model.addAttribute(classActiveCategory, true);
 
         List<Play> playList = playService.findByCategory(category);
 
-        if(playList.isEmpty()){
+        if (playList.isEmpty()) {
             model.addAttribute("emptyList", true);
             return "user/plays";
         }
@@ -39,15 +38,15 @@ public class SearchController {
     }
 
     @RequestMapping("/searchByDate")
-    public String searchByDate(@RequestParam("date") Date date, Model model){
+    public String searchByDate(@RequestParam("date") Date date, Model model) {
 
         List<Repertoire> repertoireList = repertoireService.findByDate(date);
 
-        if(repertoireList.isEmpty()){
+        if (repertoireList.isEmpty()) {
             model.addAttribute("emptyList", true);
             return "repertoireList";
         }
-        model.addAttribute("repertoireList",repertoireList);
+        model.addAttribute("repertoireList", repertoireList);
         return "repertoireList";
     }
 }

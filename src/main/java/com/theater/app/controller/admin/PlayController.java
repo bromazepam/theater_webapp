@@ -31,14 +31,14 @@ public class PlayController {
     @PostMapping("/add")
     public String addPlayPost(@ModelAttribute("play") Play play, @RequestParam("imagefile") MultipartFile file) {
         playService.save(play);
-        imageService.saveImageFile(playService.findById(play.getId()).getId(),file);
+        imageService.saveImageFile(playService.findById(play.getId()).getId(), file);
 
         return "redirect:playList";
     }
 
     @RequestMapping("/playInfo/{id}/")
     public String playInfo(@PathVariable String id, Model model) {
-        Play play =  playService.findById(id);
+        Play play = playService.findById(id);
         String photoencodeBase64 = play.getPlayImage();
         model.addAttribute("PHOTOYOUNEED", photoencodeBase64);
         model.addAttribute("play", play);
@@ -65,7 +65,7 @@ public class PlayController {
     @PostMapping("/updatePlay/{id}/")
     public String updatePlayPost(@ModelAttribute("play") Play play, @RequestParam("imagefile") MultipartFile file) {
         playService.save(play);
-        imageService.saveImageFile(play.getId(),file);
+        imageService.saveImageFile(play.getId(), file);
 
         return "redirect:playInfo/{id}/" + play.getId();
     }

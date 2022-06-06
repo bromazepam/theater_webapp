@@ -16,38 +16,39 @@ import java.util.Date;
 @Document
 public class PasswordResetToken {
 
-	private static final int EXPIRATION = 60 * 24;
+    private static final int EXPIRATION = 60 * 24;
 
-	@Id
-	private String id;
-	private String token;
-	private User user;
-	private Date expiryDate;
+    @Id
+    private String id;
+    private String token;
+    private User user;
+    private Date expiryDate;
 
-	public PasswordResetToken(){}
+    public PasswordResetToken() {
+    }
 
-	public PasswordResetToken(final String token, final User user) {
-		super ();
-		this.token = token;
-		this.user = user;
-		this.expiryDate = calculateExpiryDate();
-	}
+    public PasswordResetToken(final String token, final User user) {
+        super();
+        this.token = token;
+        this.user = user;
+        this.expiryDate = calculateExpiryDate();
+    }
 
-	private Date calculateExpiryDate() {
-		final Calendar cal = Calendar.getInstance();
-		cal.setTimeInMillis(new Date().getTime());
-		cal.add(Calendar.MINUTE, PasswordResetToken.EXPIRATION);
-		return new Date(cal.getTime().getTime());
-	}
+    private Date calculateExpiryDate() {
+        final Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(new Date().getTime());
+        cal.add(Calendar.MINUTE, PasswordResetToken.EXPIRATION);
+        return new Date(cal.getTime().getTime());
+    }
 
-	public void updateToken(final String token) {
-		this.token = token;
-		this.expiryDate = calculateExpiryDate();
-	}
+    public void updateToken(final String token) {
+        this.token = token;
+        this.expiryDate = calculateExpiryDate();
+    }
 
-	public static int getExpiration() {
-		return EXPIRATION;
-	}
+    public static int getExpiration() {
+        return EXPIRATION;
+    }
 
 
 }

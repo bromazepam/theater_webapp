@@ -1,9 +1,11 @@
 package com.theater.app.service;
 
-import com.theater.app.domain.*;
+import com.theater.app.domain.CartItem;
+import com.theater.app.domain.Repertoire;
+import com.theater.app.domain.ShoppingCart;
+import com.theater.app.domain.User;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CartItemService {
     List<CartItem> findByShoppingCart(ShoppingCart shoppingCart);
