@@ -60,18 +60,18 @@ Login credentials for user are: username - `user`, password - `user`, and for ad
 
 ## Configuration table
  
-   | Components  | Technology  | 
-   | :---        |    :----:   |   
-   | Frontend  | Thymeleaf, Bootstrap | 
-   | Backend   | Spring Boot 2.4+, Java 8 |
-   | Security |  Spring Security, SSL|
-   | Database | MongoDB, Spring Data MongoDB|
-   | Server Build | Maven |
-   | API testing| POSTMAN |
-   | Tools | Intellj Idea, Robo3T, JasperReports|
-   | Testing | JUnit5, Mockito|
-   | Plugins | Lombok |
-   | Version control | Git, Github Desktop |
+| Components      | Technology                          |
+|-----------------|-------------------------------------|
+| Frontend        | Thymeleaf, Bootstrap                |
+| Backend         | Spring Boot 2.4+, Java 8            |
+| Security        | Spring Security, SSL                |
+| Database        | MongoDB, Spring Data MongoDB        |
+| Server Build    | Maven                               |
+| API testing     | POSTMAN                             |
+| Tools           | Intellj Idea, Robo3T, JasperReports |
+| Testing         | JUnit5, Mockito                     |
+| Plugins         | Lombok                              |
+| Version control | Git, Github Desktop                 |
    
 ## Database collections diagram
 
